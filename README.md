@@ -63,6 +63,12 @@ _been tested_ ([MACRO][] only runs on Windows).
 Note: _If you are not familiar with R (and R developments), you 
 should probably avoid that method, as some complications may arise_.
 
+The development version of `macroutils` is publicly available 
+on [GitHub][] ([the page you are actually reading][macroutils_gh]). 
+This page allows you to explore the package source code, to install 
+the package development version (see below) and to report some 
+[issues][macroutils_issues] (bugs)
+
 1.  On Windows computers, install [Rtools][] Install the 
     version that corresponds to your the version of R that is 
     installed on your computer. On other machines, read the 
@@ -76,7 +82,7 @@ should probably avoid that method, as some complications may arise_.
     Follow the additional [instructions here][devtools_readme].
 4.  Install the development version of `macroutils`. Open a new R 
     cession and type 
-    `devtools::install_github("julienmoeys/macroutils")`
+    `devtools::install_github("julienmoeys/macroutils/pkg/macroutils")`
 
 
 
@@ -92,7 +98,19 @@ To go further, you can access the help page by typing:
     help( package = "macroutils" )
 
 See in particular the vignette (tutorial) in "User guides, package 
-vignettes and other documentation" (to get started).
+vignettes and other documentation" (to get started). Notice that 
+if you have installed the development version from github
+
+
+
+Issues and bug reports
+----------------------
+
+Issues and bugs can be reported [here][macroutils_issues]. Please 
+do not report issues related to the model [MACRO][] (i.e. not 
+related to `macroutils`) on that page. Please do not either report 
+more general questions that are related to [R][] and R usage. Please 
+provide a reproducible example of your problem.
 
 
 
@@ -109,4 +127,5 @@ vignettes and other documentation" (to get started).
 [devtools_readme]:  http://cran.r-project.org/web/packages/devtools/README.html "README page of devtools"
 [devtools]:         http://cran.r-project.org/web/packages/devtools "R package devtools"
 [HadleyWickham]:    http://had.co.nz/ "Hadley Wickham homepage"
+[macroutils_issues]:https://github.com/julienmoeys/macroutils/issues "Issues on the package macroutils"
 
