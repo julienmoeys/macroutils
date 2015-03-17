@@ -273,7 +273,7 @@ D - Install the development version of \texttt{macroutils} (GitHub
 version)
 
 <<echo=TRUE,eval=FALSE>>= 
-devtools::install_github("julienmoeys/macroutils")
+devtools::install_github("julienmoeys/macroutils/pkg/macroutils")
 @ 
 
 The GitHub repository of the package \texttt{macroutils} can be 
