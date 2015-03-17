@@ -1,13 +1,22 @@
 macroutils
 ==========
 
+Page content: 
+[Installation](#installation) &middot; 
+[Official CKB release](#official) &middot; 
+[Development version](#development) &middot; 
+[Load and use the package](#usage) &middot; 
+[Issues and bug reports](#issues) 
+
+
+
 _R utility functions for the MACRO and SOILNDB models. Read and write_ 
 _binary files, create plots, and more._
 
 Author: **Julien MOEYS** ([SLU][]/[CKB][]).
 Package description: See [DESCRIPTION](/pkg/macroutils/DESCRIPTION).
 
-Installation
+Installation    <a id="installation"></a>
 ============
 
 For all versions you need to install beforehand the sofware [R][] 
@@ -34,7 +43,7 @@ instructions).
 
 
 
-Official [CKB][] release
+Official [CKB][] release    <a id="official"></a>
 ------------------------
 
 Note: _Windows only_ (the source package is not provided on this 
@@ -54,7 +63,7 @@ File(s)', and select the package binary File (`macroutils_x.y.z.zip`).
 
 
 
-Development version
+Development version    <a id="development"></a>
 -------------------
 
 Note: _May work on other platforms than Windows, but this has not_ 
@@ -86,7 +95,7 @@ the package development version (see below) and to report some
 
 
 
-Load and use the package
+Load and use the package    <a id="usage"></a>
 ------------------------
 
 Open R graphical user interface and type:
@@ -101,9 +110,13 @@ See in particular the vignette (tutorial) in "User guides, package
 vignettes and other documentation" (to get started). Notice that 
 if you have installed the development version from github
 
+The package help pages can be browsed online 
+[from this page][macroutils_help]. Please notice that this may not 
+always be the very latest version of the package.
 
 
-Issues and bug reports
+
+Issues and bug reports    <a id="issues"></a>
 ----------------------
 
 Issues and bugs can be reported [here][macroutils_issues]. Please 
@@ -120,6 +133,8 @@ provide a reproducible example of your problem.
 [MACRO]:            http://www.slu.se/en/collaborative-centres-and-projects/centre-for-chemical-pesticides-ckb1/areas-of-operation-within-ckb/models/macro-52/ "MACRO - pesticide fate in soils (SLU/CKB)"
 [GitHub]:           https://github.com/ "GitHub"
 [macroutils_gh]:    https://github.com/julienmoeys/macroutils "R package macroutils (on GitHub)"
+[macroutils_issues]:https://github.com/julienmoeys/macroutils/issues "Issues on the package macroutils"
+[macroutils_help]:  http://docs.julienmoeys.info/macroutils/ "Documentation for package 'macroutils'"
 [R]:                http://www.r-project.org/ "R is a free software environment for statistical computing and graphics"
 [CRAN]:             http://cran.r-project.org/ "The Comprehensive R Archive Network"
 [CRAN_mirrors]:     http://cran.r-project.org/mirrors.html "CRAN Mirrors"
@@ -127,5 +142,4 @@ provide a reproducible example of your problem.
 [devtools_readme]:  http://cran.r-project.org/web/packages/devtools/README.html "README page of devtools"
 [devtools]:         http://cran.r-project.org/web/packages/devtools "R package devtools"
 [HadleyWickham]:    http://had.co.nz/ "Hadley Wickham homepage"
-[macroutils_issues]:https://github.com/julienmoeys/macroutils/issues "Issues on the package macroutils"
 
