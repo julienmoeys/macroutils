@@ -1,0 +1,4 @@
+/pkg/macroutils.Rcheck
+/pkg/*.gz
+/pkg/*.pdf
+/pkg/*.zip

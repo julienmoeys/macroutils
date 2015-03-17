@@ -1,0 +1,791 @@
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+% | Document header                                             |
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+
+\documentclass[a4paper]{article}
+
+\title{\texttt{macroutils}, an R package for reading, writing, 
+    converting and viewing MACRO and SOIL binary files} 
+
+\author{Julien Moeys\\
+    with contributions from Kristian Persson\\\\
+    \textit{Swedish University of Agricultural Sciences (SLU)}\\
+    \textit{Center for Chemical Pesticides (CKB)}\\\\
+    email: \texttt{Julien DOT Moeys AT slu DOT se}} 
+% In case of changes, also change the 'PDF setup' and 
+% 'cited as follow'
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+% | Nodifications of the Sweave style                           |
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+
+% Load Sweave and color, in order to modify 
+% sweave's environments:
+
+\RequirePackage{Sweave,url,hyperref} % ,sweave,color,placeins,rotating,subfig
+% \SweaveOpts{width=14,height=14,keep.source=TRUE} 
+\SweaveOpts{keep.source=TRUE} 
+% Also modified in the document
+
+% \VignetteIndexEntry{macroutils tutorial}
+% \VignetteKeyword{binary files} 
+% \VignetteKeyword{MACRO model} 
+% \VignetteKeyword{SOIL model} 
+
+
+% Modify the definition of the 'Sinput' environment:
+\RecustomVerbatimEnvironment{Sinput}{Verbatim}{%
+    frame       = leftline,         % vert line on the left
+    framerule   = 0.50mm            % width of the vert line
+}   %
+
+% Modify the definition of the 'Scode' environment:
+\RecustomVerbatimEnvironment{Scode}{Verbatim}{%
+    frame       = leftline,         % vert line on the left
+    framerule   = 0.50mm            % width of the vert line
+}   %
+
+% Modify the spacing between R code and R outputs:
+\fvset{listparameters={\setlength{\topsep}{0pt}}} 
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}} 
+
+\renewcommand\floatpagefraction{1.0}
+\renewcommand\topfraction{1.0}
+\renewcommand\bottomfraction{1.0}
+\renewcommand\textfraction{0.0}   
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{12}
+
+
+
+%%% PDF setup -- fill in the title
+% \usepackage[dvipdfm, bookmarks, colorlinks, breaklinks, %
+%     pdftitle={...},%
+%     pdfauthor={Julien MOEYS}]{hyperref}  
+% \hypersetup{linkcolor=MidnightBlue, citecolor=MidnightBlue, 
+%     filecolor=MidnightBlue,urlcolor=MidnightBlue} 
+% From: http://malecki.wustl.edu/sweaveTemplate.Rnw
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+% | Beginning of the document                                   |
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+
+% Don't forget to add this to path:
+% C:\Program Files\_SCIENCE\R_PROJECT\share\texmf
+
+\usepackage{Sweave}
+\begin{document}
+\bibliographystyle{plain}
+
+
+%INVISIBLY sets a few options for Sweave :: KEEP THIS
+<<echo=FALSE,results=hide>>= 
+# Set a few Sweave options:
+options( 
+    width       = 65,  # width of R output
+    prompt      = " ", # Sign preceding R input in R-GUI
+    continue    = " "  # same, but after 2nd line
+)   # 
+@ 
+
+% \SweaveOpts{width=14,height=14,keep.source=TRUE}
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+% | Front page TITLE 
+\maketitle
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+% | Edit here                  |
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+% | Table of Content:
+\tableofcontents 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\section{Introduction} 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{What is \texttt{macroutils}?} 
+
+\texttt{macroutils} is an R\cite{RDCT2011} package (library) 
+providing utility functions to work with 
+\href{http://en.wikipedia.org/wiki/Binary_files}{binary files} 
+that are inputted or outputted by the solute transport models 
+\href{http://www.slu.se/sv/centrumbildningar-och-projekt/vattennav/vara-modeller/soilndb/}{
+SOILNDB}\cite{SOILNDB2002} and \href{http://www.slu.se/en/collaborative-centres-and-projects/centre-for-chemical-pesticides-ckb1/areas-of-operation-within-ckb/models/macro-52/}{
+MACRO}\cite{MACRO2012}.\\
+
+
+Main features implemented in this package:
+
+\begin{itemize}
+    \item Read binary files (i.e. import them into R). Batch import is 
+        possible;
+    \item Write binary files (i.e. export R tables as binary files 
+        that can be read by \texttt{SOILNDB} or \texttt{MACRO}).
+    \item Convert binary files into text files (CSV or similar 
+        formats). Batch converstion is possible;
+    \item Plot some of the variables from one or several binary 
+        files as a time series graph;
+    \item View the content of one binary file in a user friendly 
+        tabular format.
+    \item Reading, converting, plotting and viewing binary files 
+        can be achieved with a \textit{rudimentary} graphical user 
+        interface (generally text based), driving the user through 
+        a series of options;
+\end{itemize}
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Install and load \texttt{macroutils}} 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsubsection{Requirements} 
+
+To install and use \texttt{macroutils}, you need:
+
+
+
+\begin{itemize}
+    \item An MS Windows computer. The package will most probably also 
+        work on Unix (Linux) or Mac computers, but we can not provide 
+        support for this, as it requires to build the package 
+        from sources (sources are available upon request);
+    \item A recent version of R, already installed on your computer 
+        (see below). Check which version of R is required on the 
+        package homepage. R is free and open-source. 
+    \item The latest version of \texttt{macroutils} (see below);
+\end{itemize}
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsubsection{Install R} 
+
+R\footnote{R: 'R is a language and environment for statistical 
+computing and graphics'} installer for Windows can be obtained on R website 
+\url{http://www.r-project.org/}.\\
+
+From R homepage, go to the \texttt{CRAN}.\footnote{CRAN: 
+'Comprehensive R Archive Network', a network of server hosting 
+R installation files and R packages} homepage 
+\url{http://cran.r-project.org/} or choose the nearest CRAN mirror 
+\url{http://cran.r-project.org/mirrors.html}.\\
+
+From there, choose 'Download R for Windows', and then choose 'base' 
+or 'install R for the first time'.\\
+
+Download the latest R installer, and install it (follow the 
+instructions)\footnote{We don't provide support for R installation!}.\\
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsubsection{Install the package} 
+
+Windows 'binary' (i.e. installer) for the latest version of the 
+package \texttt{macroutils} can be downloaded on the homepage 
+of the model MACRO on 
+\href{http://www.slu.se/en/collaborative-centres-and-projects/centre-for-chemical-pesticides-ckb1/areas-of-operation-within-ckb/models/macro-52/}{
+CKB website} (or \url{http://www.slu.se/ckb}, choose English 
+(top-right), 'Area of operations', 'Models', 'Macro 5.2').\\ 
+
+The package binary files are usually named 
+\texttt{macroutils\_x.y.z.zip}, where \texttt{x}, \texttt{y} and 
+\texttt{z} form the version number (major milestone, minor milestone, 
+minor revision).\\
+
+Notice that you don't need to uncompress this \texttt{.zip} file! 
+(it is an installer).\\
+
+Open R Graphical User Interface, and in the \texttt{packages} menu 
+(top menu bar), choose 'Install pacakge(s) from local zip file(s)', 
+and select the package binary file (\texttt{macroutils\_x.y.z.zip}).\\
+
+% \includegraphics[width=585px,height=573px,scale=0.25]{installFromLocalZip.png}
+\includegraphics[width=0.75\textwidth]{installFromLocalZip.png}
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsubsection{Load the package} 
+
+
+After you have started R, just type:
+
+<<echo=TRUE,eval=TRUE>>= 
+library( "macroutils" ) 
+@ 
+
+
+to load the package. \textbf{Notice that this has to be done 
+everytime you start a new R session}.
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsubsection{Install the package development version from GitHub}
+
+Note: If you are not familiar with R developments, you should probably 
+avoid that method, as some complications may arise.\\
+
+A - On Windows computers, install \texttt{Rtools} (see here: 
+\url{cran.r-project.org/bin/windows/Rtools/}). Install the version 
+that corresponds to your the version of R that is installed on your 
+computer.\\
+
+On other machines, read the instructions here: 
+\url{http://cran.r-project.org/web/packages/devtools/README.html} 
+(Windows users may also have a look at this page).
+
+B - Install the package \href{http://cran.r-project.org/web/packages/devtools/index.html}{devtools}.\\
+
+\texttt{devtools} is a package develloped by Hadley Wickham to 
+install development version of R packages that are hosted on GitHub.
+
+<<echo=TRUE,eval=FALSE>>= 
+install.packages("devtools")
+@ 
+
+C - Optionally, \textit{upgrade} the package \texttt{devtools}.
+
+See step 3 in that document: 
+\url{http://cran.r-project.org/web/packages/devtools/README.html} 
+
+D - Install the development version of \texttt{macroutils} (GitHub 
+version)
+
+<<echo=TRUE,eval=FALSE>>= 
+devtools::install_github("julienmoeys/macroutils")
+@ 
+
+The GitHub repository of the package \texttt{macroutils} can be 
+found here: \url{https://github.com/julienmoeys/macroutils}.\\
+
+Notice that it is not guarantee that the development version will 
+compile on all platforms and versions of R.
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\section{Working with \texttt{macroutils}} 
+
+
+\textbf{NOTES:}
+
+\begin{itemize}
+    \item The \textbf{hashtag symbol(s) \texttt{\#}} (or 
+        \texttt{\#\#} no matter how many) in R code examples mean(s) 
+        that the code located on the right hand-side of the hashtag 
+        symbol(s), on the same line, \textbf{are comments}. They 
+        are ignored by R.
+    \item All the examples below are R code. It means you need to 
+        open R graphical user interface to run these commands;
+    \item The 'R console' is the area in R GUI where you can type 
+        R commands;
+\end{itemize} 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Kickstart (graphical user interface)} 
+
+
+Once the package has been installed, to view the content of some 
+binary files, and type: 
+
+<<echo=TRUE,eval=FALSE>>= 
+library( "macroutils" ) 
+macroViewBin() 
+@ 
+
+and follow the instructions that appear on R console.\\
+
+To convert some binary files into text files, type:
+
+<<echo=TRUE,eval=FALSE>>= 
+library( "macroutils" ) 
+macroConvertBin() 
+@ 
+
+and follow the instructions that appear on R console.\\
+
+To plot some variables from some binary files, type:
+
+<<echo=TRUE,eval=FALSE>>= 
+library( "macroutils" ) 
+macroPlotBin() 
+@ 
+
+and follow the instructions that appear on R console.\\
+
+Notice that \texttt{library("macroutils")} is only needed 
+once, and thus will not be repeated later in this tutorial!
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Prepare the example files used in this tutorial} 
+
+Some example bin files are provided with the package. You can 
+view them with the following code:
+
+<<echo=TRUE,eval=TRUE>>= 
+list.files( 
+    path = system.file( "bintest", package = "macroutils" ), 
+    full.names = FALSE, pattern = ".bin", ignore.case = TRUE )  
+@ 
+
+
+For this tutorial, we will only use two of these files. We will 
+first copy them in the working directory, in order to avoid 
+to alter them accidentally:
+
+<<echo=TRUE,eval=TRUE>>= 
+## File name, without the library path
+filenm <- c( "METFILE.BIN", "RAINFALL.BIN" ) 
+## 
+## Find the library path
+path <- system.file( "bintest", package = "macroutils" ) 
+## 
+## Copy these files in the working directory 
+file.copy( 
+    from        = file.path( path, filenm ), 
+    to          = file.path( getwd(), filenm ), 
+    overwrite   = FALSE  ) 
+@ 
+
+
+So you now have two binary files in your working directory:
+
+<<echo=TRUE,eval=TRUE>>= 
+file.exists( filenm ) 
+@ 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Note on R working directory and file paths} 
+
+R working directory is the place where R looks for input files or 
+writes output files, when no path is specified.\\
+
+You can use \texttt{setwd} to change the working directory. Read 
+its help page (\texttt{?setwd}).\\
+
+Do not forget that, contrary to windows default behaviour, R does 
+not accept file path with single backslash (\textbackslash), as this 
+is a special character for R. Use double backslash instead 
+(\textbackslash\textbackslash), or single slash (/), or 
+double slashes (//). This is also valid for file paths.
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Convert binary files into text files (\texttt{macroConvertBin})} 
+
+
+
+% +~~~~~~~~~~~~+
+\subsubsection{Graphical user interface} 
+
+Simply type:
+
+<<echo=TRUE,eval=FALSE>>= 
+macroConvertBin() 
+@ 
+
+
+... and follow the instructions that appear on the screen, first 
+as a pop-up window to choose the file(s) you want to convert, and 
+then as a of text menu asking you some details about the convertion 
+(symbols used as field separator and as decimal mark).\\
+
+Unless you set the argument \texttt{fileOut}, the output file name(s) 
+and extension(s) will be chosen automatically, and the file(s) will 
+be written in the working directory.\\
+
+If the file(s) already exists, you will be asked if you want to 
+overwrite them or not.\\
+
+It is possible to convert several files at a time with this function.
+
+
+
+% +~~~~~~~~~~~~+
+\subsubsection{R commands (non-interactive mode)} 
+
+If you want to convert \texttt{METFILE.BIN} using R commands, type:
+
+<<echo=TRUE,eval=FALSE>>= 
+macroConvertBin( file = "METFILE.BIN", gui = FALSE ) 
+@ 
+
+
+You can customise the file format, for example:
+
+<<echo=TRUE,eval=FALSE>>= 
+macroConvertBin( 
+    file    = "METFILE.BIN", 
+    gui     = FALSE,            # No Graphical Interface 
+    sep     = ";",              # Field separator 
+    dec     = ".",              # Decimal mark 
+    fileOut = "METFILE2.CSV"    # Output file 
+)   
+@ 
+
+
+Notice that when used non-interactively, \texttt{macroConvertBin} 
+overwrites existing output files without warning!
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Import binary files into R (\texttt{macroReadBin})} 
+
+
+
+% +~~~~~~~~~~~~+
+\subsubsection{Graphical user interface} 
+
+If you want to import one or several binary files into R (as 
+\texttt{data.frame}), simply type:
+
+<<echo=TRUE,eval=FALSE>>= 
+tbl <- macroReadBin() 
+@ 
+
+
+And the binary file will be read and saved into the R object 
+\texttt{tbl} (you can choose any name you like, if it is not 
+an existing R function or reserved character).\\
+
+If you have chosen one file, \texttt{tbl} will be a single 
+\texttt{data.frame}. If you have chosen several file, \texttt{tbl} 
+will be a \texttt{list} of \texttt{data.frame}s. Each table in 
+that list can then be retrieved individually, for example:
+
+<<echo=TRUE,eval=FALSE>>= 
+tmp[[ 1 ]] 
+@ 
+
+will fetch the first table in the list. Notice this won't work if 
+you have chosen only one file.\\
+
+Check \texttt{?data.frame} and \texttt{?"[.data.frame"} to understand 
+what \texttt{data.frame}s are and how they can be subset (out of 
+the scope of this tutorial).
+
+
+
+% +~~~~~~~~~~~~+
+\subsubsection{R commands (non-interactive mode)} 
+
+In non-interactive mode, you can type:
+
+<<echo=TRUE,eval=TRUE>>= 
+tbl <- macroReadBin( file = "RAINFALL.BIN" ) 
+@ 
+
+
+and then, for example, inspect this table:
+
+<<echo=TRUE,eval=TRUE>>= 
+## Class:
+class( tbl ) 
+## 
+## First rows: 
+head( tbl )
+## 
+## Last rows: 
+tail( tbl ) 
+## 
+## Dimentions:
+dim( tbl ) 
+## 
+## Column names:
+colnames( tbl ) 
+@ 
+
+
+Additional parameters can be changed via \texttt{?muPar} to modify 
+the way binary files are processed and how column names are 'sanitised'. 
+The default behaviour is now to replace sucessive spaces by single 
+underscore, to remove non-alpha-numeric symbols and to remove the 
+simulation ID if it is present. For example:
+
+<<echo=TRUE,eval=TRUE>>= 
+#   Set 'removeSpace' argument
+muPar( removeSpace = FALSE ) 
+#   
+#   Read the binary file
+tbl <- macroReadBin( file = "METFILE.BIN" ) 
+#   
+#   Look at column names (notice the spaces):
+colnames( tbl ) 
+#   
+#   Reset default arguments
+muPar( reset = TRUE ) 
+@ 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Plot variables from binary files (\texttt{macroPlotBin})} 
+
+
+
+% +~~~~~~~~~~~~+
+\subsubsection{Graphical user interface} 
+
+Simply type:
+
+<<echo=TRUE,eval=FALSE>>= 
+macroPlotBin() 
+@ 
+
+
+... and follow the instructions that appear on the screen, first 
+as a pop-up window to choose the file(s) you want to plot, and 
+then as a of text menu asking you some details about the plot you 
+want to produce:\\
+
+\begin{itemize} 
+    \item Which variables you want to plot. This is asked for each 
+        binary file you have chosen. You can choose several of them;
+    \item If you want all the variables in one single plot, or in 
+        distinc sub-plots. 
+    \item If you want to zoom-in (or zoom-out), to view a narrower 
+        time window in the time-series.
+    \item These questions are asked over and over, until you 
+        terminate the function (or press the \texttt{ESC} key).
+\end{itemize} 
+
+
+
+% +~~~~~~~~~~~~+
+\subsubsection{R commands (non-interactive mode)} 
+
+If you want to use \texttt{macroPlotBin} in a non-interactive way, 
+it is necessary to import some binary file(s) first:
+
+<<echo=TRUE,eval=TRUE>>= 
+tbl <- macroReadBin( file = "METFILE.BIN" ) 
+## 
+## Look at it:
+colnames( tbl ) 
+dim( tbl ) 
+@ 
+
+
+Now the data can be plotted. We will choose only the first two 
+variables here (+ the Date column):
+
+<<echo=TRUE,eval=TRUE,fig=TRUE>>= 
+macroPlotBin( x = tbl[, 1:3 ], gui = FALSE ) 
+@ 
+
+
+Another way to look at the same dataset:
+
+<<echo=TRUE,eval=TRUE,fig=TRUE>>= 
+macroPlotBin( x = tbl[, 1:3 ], gui = FALSE, subPlot = FALSE ) 
+@ 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Binary files visualiser, as tabular data (\texttt{macroViewBin})} 
+
+
+
+% +~~~~~~~~~~~~+
+\subsubsection{Graphical user interface} 
+
+\texttt{macroutils} also includes a rudimentary binary file 
+viewer. It is a wrapper around R function \texttt{View}, wich 
+includes a file chooser.
+
+<<echo=TRUE,eval=FALSE>>= 
+macroViewBin() 
+@ 
+
+
+You may also type:
+
+<<echo=TRUE,eval=FALSE>>= 
+macroViewBin( "RAINFALL.BIN" ) 
+@ 
+
+
+Next figure show what the viewer looks like.\\
+
+\includegraphics[width=0.5\textwidth]{macroViewBin.png} 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Export R tables as binary files (\texttt{macroWriteBin})} 
+
+\textit{TO BE WRITTEN}. Check \texttt{?macroWriteBin}, it presents 
+some examples.\\
+
+Notice that this function has not been tested extensively yet (i.e. 
+we have not tried to run MACRO with files written with this function!).
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Time aggregation of data imported from a binary file (\texttt{macroAggregateBin})} 
+
+\textit{TO BE WRITTEN}. Check \texttt{?macroAggregateBin}, it 
+presents some examples.
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Reading the functions' help pages} 
+
+The functions' in this package are documented quite extensively. 
+You can access the help pages menu of this package by typing the 
+command:
+
+<<echo=TRUE,eval=FALSE>>= 
+help( package = "macroutils" ) 
+@ 
+
+
+NB: This will open a help page in a web-browser.\\
+
+To view the help page of a specific function, for example 
+\texttt{macroReadBin}, type: 
+
+<<echo=TRUE,eval=FALSE>>= 
+help( "macroReadBin" ) 
+# OR
+?macroReadBin
+@ 
+
+
+Just change the function's name to view the help page of another 
+function.\\
+
+Experienced R users may also have a look at the actual code executed 
+by each function by typing their names, without the parenthesis. 
+For (a short) example:
+
+<<echo=TRUE,eval=FALSE>>= 
+getMuPar 
+@ 
+
+
+The \texttt{macroutils:::getMuPar} method is mostly useful 
+for functions that are hidden from the end-user (often names 
+starting with a \texttt{.} are hidden).
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\section{Miscellaneous} 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Credits and License} 
+
+\texttt{macroutils} (and this documentation) is licensed under 
+an \href{http://www.gnu.org/licenses/agpl.html}{Affero GNU General 
+Public License Version 3}.\\
+
+\textbf{This package and this document is provided at no cost, with 
+NO responsibilities, guarantees from the author or his employer} 
+(\href{http://www.slu.se}{SLU} and \href{http://www.slu.se/CKB}{CKB}).\\
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Bugs and improvements} 
+
+Please report us any bug you may find in this package. When reporting 
+bugs, please:\\
+
+\begin{itemize}
+    \item Make sure the bug is occuring in \texttt{soilmacoutils}, 
+        and is not due to errors in your \texttt{R} code or due to 
+        a wrong usage of the package (typically a wrong object 
+        class passed to a \texttt{soilmacoutils} function).
+    \item Read the function's documentation before reporting any 
+        problem;
+    \item Make sure the file you are trying to read is located in 
+        the working directory (see \texttt{getwd()}), unless the 
+        file path is provided with the file name. 
+    \item Send us the binary file that cause the problem, or any 
+        binary file on which the problem occur (or a sub-part of it).
+    \item Send us a concise \textbf{reproducible code example} that 
+        display the problem you are facing. That should use the above 
+        mentioned binary file you send to us. A reproducible code 
+        example is a code sniplet that can be executed on any 
+        computer with the same R and the same \texttt{soilmacoutils} 
+        version.
+    \item As in the sub-section below ("Session info"), provide us 
+        you \texttt{sessionInfo()} and \texttt{soilmacoutils} 
+        version. 
+    \item If needed, find help from a local R expert at your workplace 
+        to provide such reproducible example.
+\end{itemize}
+
+A reproducible example is mandatory for an bug-fix demand, as we 
+need to be able to exactly reproduce the problem ourselves to be 
+able to fix the problem.\\
+
+If you notice any error or approximation in this manual, comments 
+are also very welcome.\\
+
+Suggestions of improvements are very welcome, but keep in mid they 
+may only be implemented if they prove useful to many users and if 
+we have time and ressources to implement them.
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\subsection{Session info} 
+
+Information on R Session and packages versions (that were used to 
+build this vignette): 
+
+<<echo=TRUE,eval=TRUE>>= 
+sessionInfo() 
+## packageVersion( pkg = "macroutils" ) 
+@ 
+
+
+
+% Delete the example files :: HIDDEN
+<<echo=FALSE,eval=TRUE,results=hide>>= 
+file.remove( filenm ) 
+@ 
+
+
+
+% +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+\bibliography{macroutils_vignette} % no .bib extension here 
+
+\end{document}
+

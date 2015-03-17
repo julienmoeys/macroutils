@@ -1,0 +1,14 @@
+Package: macroutils
+Version: 1.8.1
+Date: 2015-03-17
+Title: R utility functions for the MACRO and SOILNDB models. Read and write binary files, create plots, and more.
+Author: Julien Moeys [aut, cre], Kristian Persson [aut] 
+Authors@R: c( person( "Julien", "Moeys", role = c("aut", "cre"), email = "JulienDOTMoeys@sluDOTse" ), person( "Kristian", "Persson", role = "aut" ) )
+Maintainer: Julien Moeys <JulienDOTMoeys@sluDOTse> 
+Depends: R (>= 3.1.1)
+Suggests: tcltk, RODBC, tools
+LazyLoad: yes
+ByteCompile: yes
+Description: Read, write, convert, display and plot the content of binary files from the models MACRO and SOILNDB. Miscellaneous utility functions related MACRO, such as bug-fixes.
+License: AGPL-3
+URL: http://www.slu.se/soil/ http://www.slu.se/ckb/
