@@ -78,52 +78,76 @@ This page allows you to explore the package source code, to install
 the package development version (see below) and to report some 
 [issues][macroutils_issues] (bugs)
 
-1.  On Windows computers, install [Rtools][] Install the 
+*   On Windows computers, install [Rtools][] Install the 
     version that corresponds to your the version of R that is 
     installed on your computer. On other machines, read the 
     [instructions here][devtools_readme] (Windows users may also 
     have a look at this page).
-2.  Install the package [devtools][]. `devtools` is a package 
+    
+*   Install the package [devtools][]. `devtools` is a package 
     developed by [Hadley Wickham][HadleyWickham] to install 
     development version of R packages that are hosted on [GitHub][] 
     (among other useful things).
-3.  Open a new R cession and type `install.packages("devtools")`.
+    
+*   Open a new R cession and type `install.packages("devtools")`.
     Follow the additional [instructions here][devtools_readme].
-4.  Install the development version of `macroutils`. Open a new R 
-    cession and type 
-    `devtools::install_github("julienmoeys/macroutils/pkg/macroutils")`
+    
+*   Install the development version of `macroutils`. Open a new R 
+    cession and type:
+    
+    devtools::install_github("julienmoeys/macroutils/pkg/macroutils")
 
 
 
 Load and use the package    <a id="usage"></a>
 ------------------------
 
+### Loading the package
+
 Open R graphical user interface and type:
 
     library( "macroutils" )
+
+
+
+### Package documentation (help pages)
 
 To go further, you can access the help page by typing:
 
     help( package = "macroutils" )
 
-See in particular the vignette (tutorial) in "User guides, package 
-vignettes and other documentation" (to get started). Notice that 
-if you have installed the development version from github
+There, see in particular the vignette (tutorial) in "User guides, 
+package vignettes and other documentation" (to get started). You 
+can also access that tutorial with the command
+
+    vignette( "macroutils_vignette" )
+
+Notice that if you have installed the development version from 
+[GitHub][] the vignette may not have been generated with the 
+package. But the vignette can be extracted from the package 
+Windows binaries that can be downloaded on [MACRO][] homepage 
+(`macroutils_x.y.z.zip` > `macroutils` > `doc` > 
+`macroutils_vignette.pdf`).
+
+
+
+### Online documentation
 
 The package help pages can be browsed online 
-[from this page][macroutils_help]. Please notice that this may not 
-always be the very latest version of the package.
+[from this page][macroutils_help]. Notice that this may not 
+always be the very latest version of the package .
 
 
 
 Issues and bug reports    <a id="issues"></a>
 ----------------------
 
-Issues and bugs can be reported [here][macroutils_issues]. Please 
-do not report issues related to the model [MACRO][] (i.e. not 
-related to `macroutils`) on that page. Please do not either report 
-more general questions that are related to [R][] and R usage. Please 
-provide a reproducible example of your problem.
+Issues and bugs can be reported [here][macroutils_issues]. Do not 
+report issues related to the model [MACRO][] (i.e. not related to 
+`macroutils`) on that page. Do not either report more general 
+questions that are related to [R][] and R usage. Provide a 
+reproducible (_self standing_) example of your problem, as it 
+generally greatly helps to narrow down the problem.
 
 
 
