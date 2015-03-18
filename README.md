@@ -95,9 +95,9 @@ the package development version (see below) and to report some
 *   Install the development version of `macroutils`. Open a new R 
     cession and type:
 
-
+<code>
     devtools::install_github("julienmoeys/macroutils/pkg/macroutils")
-
+</code>
 
 
 Load and use the package    <a id="usage"></a>
