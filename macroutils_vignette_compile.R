@@ -33,8 +33,6 @@ file.copy(
 
 # file.remove( "macroutils_vignette.pdf" ) 
 
-
-
 for( ext in c( "\\.tex$", "\\.bib.bak$", "\\.R$", "\\.aux$", 
     "\\.bbl$", "\\.blg$", "\\.log$", "\\.out$", "\\.toc$", "\\.pdf$" ) ){ 
     

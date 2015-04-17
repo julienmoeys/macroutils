@@ -331,7 +331,7 @@ To plot some variables from some binary files, type:
 
 <<echo=TRUE,eval=FALSE>>= 
 library( "macroutils" ) 
-macroPlotBin() 
+macroPlot() 
 @ 
 
 and follow the instructions that appear on R console.\\
@@ -548,7 +548,7 @@ muPar( reset = TRUE )
 
 
 % +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-\subsection{Plot variables from binary files (\texttt{macroPlotBin})} 
+\subsection{Plot variables from binary files (\texttt{macroPlot})} 
 
 
 
@@ -558,7 +558,7 @@ muPar( reset = TRUE )
 Simply type:
 
 <<echo=TRUE,eval=FALSE>>= 
-macroPlotBin() 
+macroPlot() 
 @ 
 
 
@@ -583,7 +583,7 @@ want to produce:\\
 % +~~~~~~~~~~~~+
 \subsubsection{R commands (non-interactive mode)} 
 
-If you want to use \texttt{macroPlotBin} in a non-interactive way, 
+If you want to use \texttt{macroPlot} in a non-interactive way, 
 it is necessary to import some binary file(s) first:
 
 <<echo=TRUE,eval=TRUE>>= 
@@ -599,14 +599,14 @@ Now the data can be plotted. We will choose only the first two
 variables here (+ the Date column):
 
 <<echo=TRUE,eval=TRUE,fig=TRUE>>= 
-macroPlotBin( x = tbl[, 1:3 ], gui = FALSE ) 
+macroPlot( x = tbl[, 1:3 ], gui = FALSE ) 
 @ 
 
 
 Another way to look at the same dataset:
 
 <<echo=TRUE,eval=TRUE,fig=TRUE>>= 
-macroPlotBin( x = tbl[, 1:3 ], gui = FALSE, subPlot = FALSE ) 
+macroPlot( x = tbl[, 1:3 ], gui = FALSE, subPlot = FALSE ) 
 @ 
 
 
