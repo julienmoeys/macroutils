@@ -26,7 +26,7 @@ In short    <a id="inshort"></a>
 ========
 
 *   Author: **[Julien MOEYS][julienmoeys]** ([SLU][]/[CKB][])
-*   [Tutorial][macroutils_tuto]
+*   [Tutorial][macroutils_tuto] and [On-line documentation][macroutils_help] 
 *   Package description: See [DESCRIPTION](https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/DESCRIPTION).
 *   View and report issues: https://github.com/julienmoeys/macroutils/issues 
     Note: _not_ for reporting issues related to MACRO (core 
