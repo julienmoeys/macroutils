@@ -25,9 +25,12 @@ provides functions to handle them.
 In short    <a id="inshort"></a>
 ========
 
-*   Author: **[Julien MOEYS][julienmoeys]** ([SLU][]/[CKB][]).
+*   Author: **[Julien MOEYS][julienmoeys]** ([SLU][]/[CKB][])
+*   [Tutorial][macroutils_tuto]
 *   Package description: See [DESCRIPTION](https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/DESCRIPTION).
 *   View and report issues: https://github.com/julienmoeys/macroutils/issues 
+    Note: _not_ for reporting issues related to MACRO (core 
+    model)
 *   Homepage of the MACRO model: [here][MACRO]
 
 
@@ -111,16 +114,15 @@ the package development version (see below) and to report some
 *   Install the development version of `macroutils`. Open a new R 
     cession and type:
 
-<code>
+
     devtools::install_github("julienmoeys/macroutils/pkg/macroutils")
-</code>
 
 
 
 Text based graphical user interface    <a id="text_gui"></a>
 ===================================
 
-See also: The [package vignette](https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/inst/doc/macroutils_vignette.pdf). 
+See also: The [package tutorial][macroutils_tuto]. 
 
 `macroutils` provides simple but effective [text based graphical 
 user interfaces][text_gui] for the most useful functions 
@@ -177,9 +179,21 @@ and follow the instructions. This is equivalent to:
 Documentation    <a id="doc"></a>
 =============
 
-See also: The [package vignette](https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/inst/doc/macroutils_vignette.pdf). 
+See also: The [package tutorial][macroutils_tuto]. 
 
-### Loading the package
+
+
+On-line documentation
+---------------------
+
+The package help pages can be browsed on-line 
+[from this page][macroutils_help]. Notice that this may not 
+always be the very latest version of the package.
+
+
+
+Loading the package
+-------------------
 
 Open R graphical user interface and type:
 
@@ -187,7 +201,8 @@ Open R graphical user interface and type:
 
 
 
-### Package documentation (help pages)
+Package documentation (help pages)
+----------------------------------
 
 To go further, you can access the help page by typing:
 
@@ -208,16 +223,8 @@ Windows binaries that can be downloaded on [MACRO][] homepage
 
 
 
-### Online documentation
-
-The package help pages can be browsed online 
-[from this page][macroutils_help]. Notice that this may not 
-always be the very latest version of the package .
-
-
-
 Issues and bug reports    <a id="issues"></a>
-----------------------
+======================
 
 Issues and bugs can be reported [here][macroutils_issues]. Do not 
 report issues related to the model [MACRO][] (i.e. not related to 
@@ -247,4 +254,5 @@ generally greatly helps to narrow down the problem.
 [julienmoeys]:      http://www.julienmoeys.info "Julien Moeys homepage"
 [binary_files]:     https://en.wikipedia.org/wiki/Binary_file "Binary files (Wikipedia)"
 [SOILNDB]:          http://www.slu.se/en/collaborative-centres-and-projects/slu-water-hub/models/soilndb/ "SoilN DB homepage" 
+[macroutils_tuto]:  https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/inst/doc/macroutils_vignette.pdf "macroutils tutorial" 
 
