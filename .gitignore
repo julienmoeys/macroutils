@@ -1,4 +1,5 @@
 /pkg/macroutils.Rcheck
+/pkg/binaryArchives
 /pkg/*.gz
 /pkg/*.pdf
 /pkg/*.zip

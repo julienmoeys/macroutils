@@ -49,7 +49,9 @@
 #'
 #'@keywords internal
 #'
-macroReadIndump <- function(
+#'@importFrom utils read.fwf
+#'
+macroReadIndump <- function( 
  f, 
  layerLoc = 7, 
  exportTrash = FALSE
@@ -98,8 +100,8 @@ macroReadIndump <- function(
         # FUN = function(X){ scan( text = X, what = "character", quiet = TRUE ) } ) ) 
     tmp  <- tempfile() 
     writeLines( text = paste( indump[ colLoc ] ), con = tmp ) 
-    library( "utils" )
-    colz <- read.fwf( file = tmp, widths = rep(9,8), stringsAsFactors = FALSE ) 
+    # library( "utils" )
+    colz <- utils::read.fwf( file = tmp, widths = rep(9,8), stringsAsFactors = FALSE ) 
     unlink( tmp ); rm( tmp ) 
     colz <- unlist( lapply( 
         X   = 1:nrow(colz),

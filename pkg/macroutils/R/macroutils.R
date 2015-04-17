@@ -374,6 +374,8 @@
 
 # ==================== .chooseBinFiles ====================
 
+#'@importFrom tcltk tk_choose.files
+
 ## # Pop-up a menu to choose bin file from the file system.
 ## # 
 ## # Pop-up a menu to choose bin file from the file system.
@@ -424,10 +426,10 @@
     
     ## Pop-up a menu to choose the bin file to be 
     ## imported
-    if( exists("choose.files") ){ 
-        fun <- get( "choose.files" ) 
+    if( exists(x = "choose.files", where = "package:utils" ) ){ 
+        # fun <- get( "choose.files" ) 
         
-        file <- fun(
+        file <- utils::choose.files(
             default = lastBinWd, # , "*.bin"
             caption = caption, 
             multi   = multi, 
@@ -435,11 +437,11 @@
         )   
         
     }else{ 
-        library( "tcltk" ) 
+        # library( "tcltk" ) 
         
-        fun <- get( "tk_choose.files" ) 
+        # fun <- get( "tk_choose.files" ) 
         
-        file <-fun(
+        file <-tcltk::tk_choose.files(
             default = lastBinWd, # , "*.bin"
             caption = caption, 
             multi   = multi, 

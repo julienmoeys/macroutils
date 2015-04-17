@@ -2,6 +2,8 @@
 
 # .chooseAccessFiles ============================================
 
+#'@importFrom tcltk tk_choose.files
+
 ## # Pop-up a menu to choose MS Access file from the file system.
 ## # 
 ## # Pop-up a menu to choose MS Access file from the file system.
@@ -52,10 +54,10 @@
     
     ## Pop-up a menu to choose the bin file to be 
     ## imported
-    if( exists("choose.files") ){ 
-        fun <- get( "choose.files" ) 
+    if( exists(x = "choose.files", where = "package:utils" ) ){ 
+        # fun <- get( "choose.files" ) 
         
-        file <- fun(
+        file <- utils::choose.files(
             default = lastBinWd, # , "*.bin"
             caption = caption, 
             multi   = multi, 
@@ -63,11 +65,11 @@
         )   
         
     }else{ 
-        library( "tcltk" ) 
+        # library( "tcltk" ) 
         
-        fun <- get( "tk_choose.files" ) 
+        # fun <- get( "tk_choose.files" ) 
         
-        file <-fun(
+        file <- tcltk::tk_choose.files(
             default = lastBinWd, # , "*.bin"
             caption = caption, 
             multi   = multi, 
@@ -138,7 +140,7 @@ macroBugFixCleanDb <- function(
     if( !testRODBC ){ 
         stop( "'RODBC' package not available. Please install RODBC first: install.package('RODBC')" )
     }else{ 
-        require( "RODBC" ) 
+        # require( "RODBC" ) 
     }   
     
     
@@ -183,11 +185,11 @@ macroBugFixCleanDb <- function(
         FUN = function(f){ 
             # f <- file[1]
             
-            channel <- odbcConnectAccess( access.file = f ) 
+            channel <- RODBC::odbcConnectAccess( access.file = f ) 
             
-            on.exit( try( odbcClose( channel = channel ) ) )
+            on.exit( try( RODBC::odbcClose( channel = channel ) ) )
             
-            tablesList <- sqlTables( channel = channel )
+            tablesList <- RODBC::sqlTables( channel = channel )
             
             .tables <- c( "Output()", "Run_ID" ) 
             testTables <- .tables %in% 
@@ -201,9 +203,9 @@ macroBugFixCleanDb <- function(
                 ) ) 
             };  rm( .tables, testTables ) 
             
-            output <- sqlFetch( channel = channel, sqtable = "Output()" )
+            output <- RODBC::sqlFetch( channel = channel, sqtable = "Output()" )
             
-            runIdTbl <- sqlFetch( channel = channel, sqtable = "Run_ID" )
+            runIdTbl <- RODBC::sqlFetch( channel = channel, sqtable = "Run_ID" )
             
             # runIds <- runIdTbl[, "R_ID" ]
             
@@ -220,7 +222,7 @@ macroBugFixCleanDb <- function(
                 ) ) 
                 
                 for( id in missId ){ 
-                    sqlQuery( 
+                    RODBC::sqlQuery( 
                         channel = channel, 
                         query   = sprintf( "DELETE * FROM `Output()` WHERE `R_ID` = %s", id ), 
                     )   
@@ -230,7 +232,7 @@ macroBugFixCleanDb <- function(
             }   
             
             #   Re-fetch Output()
-            output <- sqlFetch( channel = channel, sqtable = "Output()" ) 
+            output <- RODBC::sqlFetch( channel = channel, sqtable = "Output()" ) 
             
             #   Find RUNID with dupliacted export parameters
             uOutput   <- output[, c( "R_ID", "Var" ) ] 
@@ -269,7 +271,7 @@ macroBugFixCleanDb <- function(
                             "Output()ID" ] 
                         
                         if( length( outputId ) > 1 ){ 
-                            sqlQuery( 
+                            RODBC::sqlQuery( 
                                 channel = channel, 
                                 query   = sprintf( "DELETE * FROM `Output()` WHERE `Output()ID` = %s", min( outputId ) ), 
                             )   
@@ -284,7 +286,7 @@ macroBugFixCleanDb <- function(
                 message( "Duplicated values deleted" )
             }   
             
-            odbcClose( channel = channel ) 
+            RODBC::odbcClose( channel = channel ) 
             
             on.exit() 
         }   

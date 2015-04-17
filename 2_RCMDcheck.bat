@@ -1,5 +1,5 @@
 set pkgname=macroutils
-set version=1.8.1
+set version=1.8.2
 
 cd /D "%rPackagesDir%\macro-sp\%pkgname%\pkg" 
 

@@ -50,6 +50,9 @@
 #'
 #'@export
 #' 
+#'@importFrom tools package_dependencies
+#'@importFrom utils installed.packages
+#'
 macroutilsInfo <- function( 
     file     = NULL, 
     verbose  = TRUE, 
@@ -110,7 +113,7 @@ macroutilsInfo <- function(
     cat2( "Loaded packages:\n" ) 
     
     loadedPackages    <- .packages() 
-    installedPackages <- installed.packages() 
+    installedPackages <- utils::installed.packages() 
     
     loadedPackages    <- installedPackages[ sort( loadedPackages ), 
         "Version" ] 
@@ -145,12 +148,12 @@ macroutilsInfo <- function(
     
     if( depends ){ 
         #   Find dependencies
-        require( "tools" ) 
+        # require( "tools" ) 
         
         dep <- unlist( lapply( 
             X   = packages, 
             FUN = function(X){ 
-                out <- package_dependencies( 
+                out <- tools::package_dependencies( 
                     packages  = packages, 
                     db        = installedPackages, 
                     recursive = TRUE ) 

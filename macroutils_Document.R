@@ -17,10 +17,11 @@ source( file.path( pkgDir, "..", "packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = file.path( pkgDir ), 
-    pkgVersion  = "1.8.1", 
-    pkgDepends  = NULL, 
-    pkgSuggests = c( "tcltk", "RODBC", "tools" ), 
-    RVersion    = NULL   
+    pkgVersion  = "1.8.2", 
+    pkgDepends  = "utils", # Must be in "Depends" as choose.files not available on Unix
+    pkgImports  = c( "tcltk", "tools" ), 
+    pkgSuggests = c( "RODBC" ), 
+    RVersion    = NULL 
 )   
 
 
