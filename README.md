@@ -2,19 +2,35 @@ macroutils
 ==========
 
 Page content: 
+[In short](#inshort) &middot; 
 [Installation](#installation) &middot; 
 [Official CKB release](#official) &middot; 
 [Development version](#development) &middot; 
-[Load and use the package](#usage) &middot; 
+[Text based graphical user interface](#text_gui) &middot; 
+[Documentation](#doc) &middot; 
 [Issues and bug reports](#issues) 
 
 
 
-_R utility functions for the MACRO and SOILNDB models. Read and write_ 
-_binary files, create plots, and more._
+_R utility functions for the [MACRO][] and [SOILNDB][] models._ 
+_Read and write binary files, create plots, and more._
 
-Author: **Julien MOEYS** ([SLU][]/[CKB][]).
-Package description: See [DESCRIPTION](/pkg/macroutils/DESCRIPTION).
+[MACRO][] and [SOILNDB][] use [binary files][binary_files] for 
+both input (climate variables) and output (simulation results). 
+The format of these files is not standard and `macroutils` 
+provides functions to handle them. 
+
+
+
+In short    <a id="inshort"></a>
+========
+
+*   Author: **[Julien MOEYS][julienmoeys]** ([SLU][]/[CKB][]).
+*   Package description: See [DESCRIPTION](https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/DESCRIPTION).
+*   View and report issues: https://github.com/julienmoeys/macroutils/issues 
+*   Homepage of the MACRO model: [here][MACRO]
+
+
 
 Installation    <a id="installation"></a>
 ============
@@ -100,8 +116,68 @@ the package development version (see below) and to report some
 </code>
 
 
-Load and use the package    <a id="usage"></a>
-------------------------
+
+Text based graphical user interface    <a id="text_gui"></a>
+===================================
+
+See also: The [package vignette](https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/inst/doc/macroutils_vignette.pdf). 
+
+`macroutils` provides simple but effective [text based graphical 
+user interfaces][text_gui] for the most useful functions 
+provided by the package. Once the package has been 
+[installed](#installation), you just need to type one 
+simple command (per function) and then follow the instructions 
+given to you.
+
+
+
+Plotting the content of one (or several) bin file(s)
+----------------------------------------------------
+
+Launch R and type:
+
+    macroutils::macroPlot()
+
+and follow the instructions. This is equivalent to:
+
+    library( "macroutils" )
+    macroPlot()
+
+
+
+Converting one (or several) bin file(s)
+----------------------------------------------------
+
+Launch R and type:
+
+    macroutils::macroConvertBin()
+
+and follow the instructions. This is equivalent to:
+
+    library( "macroutils" )
+    macroConvertBin()
+
+
+
+View one bin file
+-----------------
+
+Launch R and type:
+
+    macroutils::macroViewBin()
+
+and follow the instructions. This is equivalent to:
+
+    library( "macroutils" )
+    macroViewBin()
+
+
+
+
+Documentation    <a id="doc"></a>
+=============
+
+See also: The [package vignette](https://github.com/julienmoeys/macroutils/blob/master/pkg/macroutils/inst/doc/macroutils_vignette.pdf). 
 
 ### Loading the package
 
@@ -167,4 +243,8 @@ generally greatly helps to narrow down the problem.
 [devtools_readme]:  http://cran.r-project.org/web/packages/devtools/README.html "README page of devtools"
 [devtools]:         http://cran.r-project.org/web/packages/devtools "R package devtools"
 [HadleyWickham]:    http://had.co.nz/ "Hadley Wickham homepage"
+[text_gui]:         http://en.wikipedia.org/wiki/Text-based_user_interface "Text-based user interface (Wikipedia)"
+[julienmoeys]:      http://www.julienmoeys.info "Julien Moeys homepage"
+[binary_files]:     https://en.wikipedia.org/wiki/Binary_file "Binary files (Wikipedia)"
+[SOILNDB]:          http://www.slu.se/en/collaborative-centres-and-projects/slu-water-hub/models/soilndb/ "SoilN DB homepage" 
 
