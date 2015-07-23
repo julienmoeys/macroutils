@@ -23,7 +23,7 @@ muParList  <- new.env()
 .muParList[[ "alphaNum" ]]            <- c( letters, LETTERS, 0:9, " ", "_" ) 
 .muParList[[ "header" ]]              <- TRUE 
 .muParList[[ "lastBinWd" ]]           <- character(0) 
-
+.muParList[[ "timeSeriesValid" ]]     <- NULL 
 
 
 
@@ -114,6 +114,18 @@ muParList  <- new.env()
 #'  Single character string. Last folder in which some binary files
 #'  were fetched.
 #'  
+#'@param timeSeriesValid 
+#'  A valid R function. The first parameter of the function 
+#'  must accept a Date or POSIXct time series (as read from 
+#'  or exported to a BIN-file). The purpose of the 
+#'  function is to check that the time series is "valid". 
+#'  The default function 
+#'  \code{\link[macroutils]{isValidTimeSeries}} (set when 
+#'  the package is attached) will for example check that 
+#'  date-times in the time series are unique, sorted and 
+#'  regular(ly increasing). Set to \code{NULL} or 
+#'  \code{function(x){TRUE}} to cancel any check.
+#' 
 #'  
 #'@return 
 #'  Returns a partial or complete list of (actual) parameter values, as a
@@ -136,7 +148,8 @@ muPar <- function(
     tz,
     alphaNum, 
     header, 
-    lastBinWd 
+    lastBinWd, 
+    timeSeriesValid
 ){  
     parList <- names( formals(muPar) ) 
     parList <- parList[ !(parList %in% c( "par", "reset" )) ] 

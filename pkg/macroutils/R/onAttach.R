@@ -13,6 +13,8 @@
  libname, 
  pkgname  
 ){  
+    muPar( "timeSeriesValid" = isValidTimeSeries ) 
+    
     # Welcome message
     if( interactive() ){ 
         gitVersion <- system.file( "GIT_VERSION", package = pkgname ) 

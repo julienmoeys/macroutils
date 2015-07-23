@@ -32,6 +32,86 @@
 
 
 
+# ==================== isValidTimeSeries ===================
+
+#' Test that Date or POSIXct date-time are unique, sorted and regular.
+#'
+#'@description
+#'  Test that Date or POSIXct date-time are unique, sorted and 
+#'  regular.
+#'
+#'
+#'@param x
+#'  A vector of \code{\link{Date}}, or of \code{\link{POSIXct}} 
+#'  date-times
+#'
+#'@param units
+#'  Passed to \code{\link{as.numeric}}-\code{difftime}. Only 
+#'  used in case irregularities in the time series are 
+#'  detected.
+#'
+#'@param onError
+#'  A valid R function, such as \code{warning} or \code{stop}, 
+#'  or \code{message}. Function that will be used to output 
+#'  an error message if the time series is not unique, sorted 
+#'  and regular.
+#'
+#'
+#'@return 
+#'  Returns \code{FALSE} if a problem was detected, and 
+#'  \code{TRUE} otherwise (unless \code{onError} is \code{stop}, 
+#'  in which case an error is send and the function stops).
+#'
+#'
+#'@example inst/examples/isValidTimeSeries-examples.R
+#'
+#'@export
+#'
+isValidTimeSeries <- function( 
+    x,      # Date-format or POSIXct-format
+    units   = "hours", 
+    onError = warning 
+){  
+    isValid <- TRUE
+    
+    #   Find if all dates are unique
+    if( any( dup <- duplicated( x ) ) ){
+        onError( sprintf(
+            "Some climate date(s)-time(s) are duplicated. First case: %s. Please check. See also option 'timeSeriesValid' in muPar()", 
+            x[ dup ][ 1L ]
+        ) ) 
+        
+        isValid <- FALSE
+    };  rm( dup )
+    
+    #   Find if all dates are sorted
+    if( any( sort( x ) != x ) ){
+        onError( "Some date(s)-time(s) seems to be unsorted. Please check. See also option 'timeSeriesValid' in muPar()" ) 
+        
+        isValid <- FALSE
+    }   
+    
+    #   Find if time increment is homogeneous
+    # udiff <- unique( diff( x ) )
+    udiff <- unique( difftime( x[ -length(x) ], x[ -1 ], units = units ) )
+    
+    if( length( udiff ) > 1L ){
+        udiff <- as.numeric( udiff, units = units ) 
+        
+        u <- substr( units, 1, 1 )
+        
+        onError( sprintf( 
+            "The time interval between date(s)-time(s) vary. First two time differences: %s %s, %s %s. Please check. See also option 'timeSeriesValid' in muPar()", 
+            udiff[ 1L ], u, udiff[ 2L ], u
+        ) )  
+        
+        isValid <- FALSE
+    }   
+    
+    return( isValid ) 
+}   
+
+
 
 # ==================== .macroReadBin ====================
 
@@ -325,6 +405,14 @@
     #data.complete <- data.frame(data.date, data.values)
     #Set the column name for the date column 
     #colnames(data.complete)[1] = "Date"
+    
+    
+    #   Control that the date-time series is valid
+    .isValidTimeSeries <- getMuPar( "timeSeriesValid" ) 
+    
+    if( !is.null( .isValidTimeSeries ) ){
+        .isValidTimeSeries( data.values[,"Date"] ) 
+    }   
     
     #Return the data.frame
     return( data.values )
@@ -857,6 +945,15 @@ macroWriteBin.data.frame <- function(
     if( any( test.na ) ){
         stop( paste( sum( test.na ), " rows in 'x' were found with NA or NaN values." ) )
     }   
+    
+    
+    #   Control that the date-time series is valid
+    .isValidTimeSeries <- getMuPar( "timeSeriesValid" ) 
+    
+    if( !is.null( .isValidTimeSeries ) ){
+        .isValidTimeSeries( x[, "Date" ] ) 
+    }   
+    
     
     #Version 1.0
     #Writes the contest of a dataframe to a bin file
