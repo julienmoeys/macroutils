@@ -12,6 +12,11 @@ CHANGE SIN VERSION 1.8.4
         if 'gui' is FALSE and 'overwrite' is FALSE, an 
         error is issued when files already exists.
     
+        A sub-section was added in the vignette that describes 
+        how to perform a batch conversion of files with 
+        macroConvertBin(), including listing all the bin 
+        files in a folder.
+    
 CHANGES IN VERSION 1.8.3
 
     2015/07/23  Added the function isValidTimeSeries(), used

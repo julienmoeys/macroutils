@@ -457,6 +457,56 @@ overwrites existing output files without warning!
 
 
 
+% +~~~~~~~~~~~~+
+\subsubsection{Batch conversion of multiple files} 
+
+The example below should how to (a) list all the bin 
+files in a folder, (b) convert these bin files to \texttt{CSV} 
+files and (c) export them in textit{another} folder.
+
+<<echo=TRUE,eval=TRUE>>= 
+#   Location of the directory where the files 
+#   are located. Here I take the default bin files in 
+#   the package installation directory. Just write the 
+#   "path/to/your/own/directory" instead
+fDir <- system.file( "bintest", package = "macroutils" )
+
+#   Location of the directory where the files should 
+#   be output. Here I the working directory
+dirOut <- getwd()
+
+#   List the bin files in fDir
+f <- list.files( path = fDir, pattern = ".bin", 
+    ignore.case = TRUE, full.names = FALSE ) 
+
+#   Excluding a file that raise a warning 
+#   (irregular time series)
+f <- f[ f != "Fert.bin" ]
+
+#   Contruct path and name for output files
+fOut <- file.path( dirOut, sprintf( "%s.csv", f ) )
+
+#   Add the path to the input files
+f <- file.path( fDir, f )
+
+#   Convert the files
+macroConvertBin( file = f, fileOut = fOut, gui = FALSE, 
+    overwrite = TRUE ) 
+@ 
+
+Notice that if \texttt{fileOut} is not set, \texttt{macroConvertBin} 
+will simply output the \texttt{CSV} files into the same folder 
+as the input files, and just add an additional \texttt{.csv} 
+extension to their original name.
+
+<<echo = FALSE,eval=TRUE>>= 
+#   Clean-up the files created above (ignore this)
+out <- unlink( x = fOut )
+rm( out, fOut, f, dirOut, fDir )
+@ 
+
+
+
 % +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 \subsection{Import binary files into R (\texttt{macroReadBin})} 
 
