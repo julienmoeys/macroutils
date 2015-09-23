@@ -5,7 +5,7 @@
 \title{Converts MACRO/SOIL binary files into CSV or TXT text files}
 \usage{
 macroConvertBin(file, gui = TRUE, sep = ",", dec = ".", fileOut = NULL,
-  writeArgs = list(row.names = FALSE), ...)
+  writeArgs = list(row.names = FALSE), overwrite = FALSE, ...)
 }
 \arguments{
 \item{file}{Vector of character strings or a single \code{\link{connection}}
@@ -33,6 +33,9 @@ macroConvertBin(file, gui = TRUE, sep = ",", dec = ".", fileOut = NULL,
  automatically.}
 
 \item{writeArgs}{List of additional arguments passed to \code{\link[utils]{write.table}}}
+
+\item{overwrite}{Single logical value. If \code{TRUE} (not the default),
+ Existing output files are overwritten without warning.}
 
 \item{\dots}{More arguments passed to \code{\link{macroReadBin}}.}
 }

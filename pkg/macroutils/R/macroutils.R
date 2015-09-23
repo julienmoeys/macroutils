@@ -2506,6 +2506,10 @@ macroStripRunID <- function(
 #'@param writeArgs 
 #'  List of additional arguments passed to \code{\link[utils]{write.table}}
 #'  
+#'@param overwrite 
+#'  Single logical value. If \code{TRUE} (not the default), 
+#'  Existing output files are overwritten without warning.
+#'  
 #'@param \dots 
 #'  More arguments passed to \code{\link{macroReadBin}}.
 #'
@@ -2520,6 +2524,7 @@ macroConvertBin <- function(# Converts MACRO/SOIL binary files into CSV or TXT t
     dec       = ".", 
     fileOut   = NULL, 
     writeArgs = list( "row.names" = FALSE ), 
+    overwrite = FALSE, 
     ...
 ){  ## If no file name is provided
     if( missing( file ) ){ 
@@ -2614,23 +2619,38 @@ macroConvertBin <- function(# Converts MACRO/SOIL binary files into CSV or TXT t
     testFile <- file.exists( fileOut ) 
     
     if( any( testFile ) ){ 
-        message( sprintf( 
-            "Some output file(s) already exist(s) (%s)", 
-            paste( fileOut[ testFile ], collapse = ", " )  
-        ) ) 
+        #   Select only the 1st files
+        testFile  <- which( testFile ) 
+        moreFiles <- ifelse( max( testFile ) > 3, "...", 
+            character(0) )
+        testFile  <- testFile[ testFile <= 3 ]
         
-        overwrite <- .macroMenu( 
-            title       = "Do you want to overwrite these files?", 
-            choices     = c( "No", "Yes" ), 
-            graphics    = FALSE, 
-            preselect   = "No", 
-            error       = "You haven't chosen anything :o(", 
-            multi       = FALSE 
-        )   
-        overwrite <- ifelse( overwrite == 1, FALSE, TRUE ) 
-        
-        if( !overwrite ){ 
-            stop( "Operation aborded by the user" )
+        if( gui & (!overwrite) ){
+            message( sprintf( 
+                "Some output file(s) already exist(s) (%s)", 
+                paste( c( fileOut[ testFile ], moreFiles ), collapse = ", " )  
+            ) ) 
+            
+            overwrite2 <- .macroMenu( 
+                title       = "Do you want to overwrite these files?", 
+                choices     = c( "No", "Yes" ), 
+                graphics    = FALSE, 
+                preselect   = "No", 
+                error       = "You haven't chosen anything :o(", 
+                multi       = FALSE 
+            )   
+            overwrite2 <- ifelse( overwrite2 == 1, FALSE, TRUE ) 
+            
+            message( "Note: Set 'overwrite' to TRUE to avoid the question above." )
+            
+            if( !overwrite2 ){ 
+                stop( "Operation aborded by the user" )
+            }   
+        }else if( !overwrite ){
+            stop( sprintf( 
+                "Some output file(s) already exist(s) (%s). Set 'overwrite' to TRUE to ignore existing files.", 
+                paste( c( fileOut[ testFile ], moreFiles ), collapse = ", " )  
+            ) ) 
         }   
     }     
     

@@ -1,6 +1,17 @@
 
     R package: macroutils
 
+CHANGE SIN VERSION 1.8.4
+    
+    2015/09/23  Added an 'overwrite' agument to 
+        macroConvertBin(), and fixed a bug that caused an 
+        interactive question to be asked to the user even 
+        when 'gui' was FALSE and the output files already 
+        existed. Now if 'overwrite' is FALSE and 'gui' is 
+        TRUE a question is asked to the user, and otherwise 
+        if 'gui' is FALSE and 'overwrite' is FALSE, an 
+        error is issued when files already exists.
+    
 CHANGES IN VERSION 1.8.3
 
     2015/07/23  Added the function isValidTimeSeries(), used
