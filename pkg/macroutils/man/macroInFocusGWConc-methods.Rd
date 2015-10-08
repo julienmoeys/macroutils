@@ -10,11 +10,14 @@
 macroInFocusGWConc(x, nbYrsWarmUp = 6L, years80th = 16:17, quiet = FALSE,
   ...)
 
-\method{macroInFocusGWConc}{character}(x, nbYrsWarmUp, years80th, quiet, ...)
+\method{macroInFocusGWConc}{character}(x, nbYrsWarmUp = 6L,
+  years80th = 16:17, quiet = FALSE, ...)
 
-\method{macroInFocusGWConc}{list}(x, nbYrsWarmUp, years80th, quiet, ...)
+\method{macroInFocusGWConc}{list}(x, nbYrsWarmUp = 6L, years80th = 16:17,
+  quiet = FALSE, ...)
 
-\method{macroInFocusGWConc}{data.frame}(x, nbYrsWarmUp, years80th, quiet, ...)
+\method{macroInFocusGWConc}{data.frame}(x, nbYrsWarmUp = 6L,
+  years80th = 16:17, quiet = FALSE, ...)
 }
 \arguments{
 \item{x}{Either a vector of character strings, a
