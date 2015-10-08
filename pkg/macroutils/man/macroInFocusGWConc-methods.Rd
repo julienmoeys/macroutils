@@ -7,14 +7,14 @@
 \alias{macroInFocusGWConc.list}
 \title{INTERNAL: Calculate the yearly and 80th percentile groundwater concentration from a MACROInFOCUS output bin file}
 \usage{
-macroInFocusGWConc(x, ...)
+macroInFocusGWConc(x, nbYrsWarmUp = 6L, years80th = 16:17, quiet = FALSE,
+  ...)
 
-\method{macroInFocusGWConc}{character}(x, ...)
+\method{macroInFocusGWConc}{character}(x, nbYrsWarmUp, years80th, quiet, ...)
 
-\method{macroInFocusGWConc}{list}(x, ...)
+\method{macroInFocusGWConc}{list}(x, nbYrsWarmUp, years80th, quiet, ...)
 
-\method{macroInFocusGWConc}{data.frame}(x, nbYrsWarmUp = 6L,
-  years80th = 16:17, quiet = FALSE, ...)
+\method{macroInFocusGWConc}{data.frame}(x, nbYrsWarmUp, years80th, quiet, ...)
 }
 \arguments{
 \item{x}{Either a vector of character strings, a

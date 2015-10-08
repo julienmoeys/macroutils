@@ -122,7 +122,9 @@
 #'
 macroInFocusGWConc <- function( 
  x, 
- # quiet = FALSE, 
+ nbYrsWarmUp = 6L, 
+ years80th = 16:17, 
+ quiet = FALSE, 
  ...
 ){  
     UseMethod( "macroInFocusGWConc" )
@@ -136,6 +138,9 @@ macroInFocusGWConc <- function(
 #'
 macroInFocusGWConc.character <- function( 
  x, 
+ nbYrsWarmUp, 
+ years80th, 
+ quiet, 
  ...
 ){  
     # if( length( x ) > 1L ){ 
@@ -159,7 +164,8 @@ macroInFocusGWConc.character <- function(
         out[, "file" ] <- x
     }   
     
-    return( macroInFocusGWConc( x = out, ... ) ) 
+    return( macroInFocusGWConc( x = out, nbYrsWarmUp = nbYrsWarmUp, 
+        years80th = years80th, quiet = quiet, ... ) ) 
 }   
 
 #'@rdname macroInFocusGWConc-methods
@@ -170,6 +176,9 @@ macroInFocusGWConc.character <- function(
 #'
 macroInFocusGWConc.list <- function( 
  x, 
+ nbYrsWarmUp, 
+ years80th, 
+ quiet, 
  ...
 ){  
     #   Add the column 'file' if it is not in there yet
@@ -190,7 +199,9 @@ macroInFocusGWConc.list <- function(
     out <- lapply(
         X   = x, 
         FUN = function( xSubset ){
-            return( macroInFocusGWConc( x = xSubset, ... ) )
+            return( macroInFocusGWConc( x = xSubset, 
+                nbYrsWarmUp = nbYrsWarmUp, years80th = years80th, 
+                quiet = quiet, ... ) )
         }   
     )   
     
@@ -221,9 +232,9 @@ macroInFocusGWConc.list <- function(
 #'
 macroInFocusGWConc.data.frame <- function( 
  x, 
- nbYrsWarmUp = 6L, 
- years80th = 16:17, 
- quiet = FALSE, 
+ nbYrsWarmUp, 
+ years80th, 
+ quiet, 
  ...
 ){  
     if( !quiet ){
