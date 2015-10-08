@@ -12,7 +12,7 @@
 #'  function. You are also strongly recommended to inspect 
 #'  the code of these functions before you use them. To 
 #'  inspect the content of these functions, simply type 
-#'  \code{lapply( ls( pattern = "macroInFocusGWConc" ), body )} 
+#'  \code{body( macroutils:::macroInFocusGWConc.data.frame )} 
 #'  after you have loaded the package \code{macroutils}.
 #'
 #'
