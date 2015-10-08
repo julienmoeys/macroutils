@@ -138,9 +138,9 @@ macroInFocusGWConc <- function(
 #'
 macroInFocusGWConc.character <- function( 
  x, 
- nbYrsWarmUp, 
- years80th, 
- quiet, 
+ nbYrsWarmUp = 6L, 
+ years80th = 16:17, 
+ quiet = FALSE, 
  ...
 ){  
     # if( length( x ) > 1L ){ 
@@ -176,9 +176,9 @@ macroInFocusGWConc.character <- function(
 #'
 macroInFocusGWConc.list <- function( 
  x, 
- nbYrsWarmUp, 
- years80th, 
- quiet, 
+ nbYrsWarmUp = 6L, 
+ years80th = 16:17, 
+ quiet = FALSE, 
  ...
 ){  
     #   Add the column 'file' if it is not in there yet
@@ -232,9 +232,9 @@ macroInFocusGWConc.list <- function(
 #'
 macroInFocusGWConc.data.frame <- function( 
  x, 
- nbYrsWarmUp, 
- years80th, 
- quiet, 
+ nbYrsWarmUp = 6L, 
+ years80th = 16:17, 
+ quiet = FALSE, 
  ...
 ){  
     if( !quiet ){
