@@ -39,14 +39,20 @@ head( tbl1 )
 tail( tbl1 ) 
 
 # Same file exported with MACRO-GUI (5.2) 
-tbl1b <- read.table(
-    file    = system.file( "bintest/METFILE.TXT", 
-        package = "macroutils", mustWork = TRUE ), 
-    header  = TRUE, 
-    sep     = "\t", 
-    dec     = ".", 
-    strip.white = TRUE
-)   #
+
+# tbl1b <- read.table(
+    # file    = system.file( "bintest/METFILE.TXT", 
+        # package = "macroutils", mustWork = TRUE ), 
+    # header  = TRUE, 
+    # sep     = "\t", 
+    # dec     = ".", 
+    # strip.white = TRUE
+# )   #
+
+tbl1b <- readRDS( file = system.file( 
+    "bintest/macro52convertedBin/METFILE.rds", 
+    package = "macroutils", 
+    mustWork = TRUE ) ) 
 
 dim( tbl1b ) 
 head( tbl1b ) 
@@ -85,14 +91,19 @@ head( tbl2 )
 tail( tbl2 ) 
 
 # Same file exported with MACRO-GUI (5.2) 
-tbl2b <- read.table(
-    file    = system.file( "bintest/RAINFALL.TXT", 
-        package = "macroutils", mustWork = TRUE ), 
-    header  = TRUE, 
-    sep     = "\t", 
-    dec     = ".", 
-    strip.white = TRUE
-)   #
+# tbl2b <- read.table(
+    # file    = system.file( "bintest/RAINFALL.TXT", 
+        # package = "macroutils", mustWork = TRUE ), 
+    # header  = TRUE, 
+    # sep     = "\t", 
+    # dec     = ".", 
+    # strip.white = TRUE
+# )   #
+
+tbl2b <- readRDS( file = system.file( 
+    "bintest/macro52convertedBin/RAINFALL.rds", 
+    package = "macroutils", 
+    mustWork = TRUE ) ) 
 
 dim( tbl2b ) 
 head( tbl2b ) 
@@ -131,14 +142,19 @@ head( tbl3 )
 tail( tbl3 ) 
 
 # Same file exported with MACRO-GUI (5.2) 
-tbl3b <- read.table(
-    file    = system.file( "bintest/defaultrun.txt", 
-        package = "macroutils", mustWork = TRUE ), 
-    header  = TRUE, 
-    sep     = "\t", 
-    dec     = ".", 
-    strip.white = TRUE
-)   #
+# tbl3b <- read.table(
+    # file    = system.file( "bintest/defaultrun.txt", 
+        # package = "macroutils", mustWork = TRUE ), 
+    # header  = TRUE, 
+    # sep     = "\t", 
+    # dec     = ".", 
+    # strip.white = TRUE
+# )   #
+
+tbl3b <- readRDS( file = system.file( 
+    "bintest/macro52convertedBin/defaultrun.rds", 
+    package = "macroutils", 
+    mustWork = TRUE ) ) 
 
 dim( tbl3b ) 
 head( tbl3b ) 
