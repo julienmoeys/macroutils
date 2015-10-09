@@ -59,6 +59,15 @@
 #'@param quiet
 #'  Single logical value. Set to \code{TRUE} to suppress the 
 #'  warning message. Default value to \code{FALSE}.
+#'
+#'@param negToZero
+#'  Single logical value. If \code{TRUE} (not the default) 
+#'  negative concentrations will be set to 0 (presumably like 
+#'  in MACROInFOCUS). If \code{FALSE}, they will not be set 
+#'  to 0, but if some of the concentrations used to calculate 
+#'  the 80th percentile (see \code{years80th}) are negative, 
+#'  a warning will be issued (so that the user knows that 
+#'  concentrations may differ from those in MACROInFOCUS).
 #' 
 #'@param \dots
 #'  Additional parameters passed to 
@@ -77,7 +86,8 @@
 #'      (see below).
 #'    \item \code{CONC_LAYER_80TH}: The 80th percentile of the 
 #'      yearly pesticide concentration in the water flowing 
-#'      through layer X (X depending on the FOCUS-scenario) 
+#'      through layer X (X depending on the FOCUS-scenario, 
+#'      also called "target depth" in MACROInFOCUS)  
 #'      at depth Y. Derived from \code{SFLOW_}, 
 #'      \code{SFLOWOUT_}, \code{WOUT_} and \code{WFLOWOUT_}, 
 #'      after converting these variables to daily values and 
@@ -124,6 +134,7 @@ macroInFocusGWConc <- function(
  x, 
  nbYrsWarmUp = 6L, 
  years80th = 16:17, 
+ negToZero = FALSE, 
  quiet = FALSE, 
  ...
 ){  
@@ -140,6 +151,7 @@ macroInFocusGWConc.character <- function(
  x, 
  nbYrsWarmUp = 6L, 
  years80th = 16:17, 
+ negToZero = FALSE, 
  quiet = FALSE, 
  ...
 ){  
@@ -178,6 +190,7 @@ macroInFocusGWConc.list <- function(
  x, 
  nbYrsWarmUp = 6L, 
  years80th = 16:17, 
+ negToZero = FALSE, 
  quiet = FALSE, 
  ...
 ){  
@@ -215,12 +228,20 @@ macroInFocusGWConc.list <- function(
     )   
     more <- do.call( what = "rbind", args = more )
     
+    #   Extract other attributes
+    nbYrsWarmUp <- attr( x = out[[ 1L ]], which = "nbYrsWarmUp" ) 
+    years80th   <- attr( x = out[[ 1L ]], which = "years80th" ) 
+    negToZero   <- attr( x = out[[ 1L ]], which = "negToZero" ) 
+    
     #   Bind the main output into a table too
     out <- do.call( what = "rbind", args = out )
     
     #   Add an attribute to the final table
-    attr( x = out, which = "more" ) <- more 
-    
+    attr( x = out, which = "more" )        <- more 
+    attr( x = out, which = "nbYrsWarmUp" ) <- nbYrsWarmUp
+    attr( x = out, which = "years80th" )   <- years80th
+    attr( x = out, which = "negToZero" )   <- negToZero
+
     return( out ) 
 }   
 
@@ -234,6 +255,7 @@ macroInFocusGWConc.data.frame <- function(
  x, 
  nbYrsWarmUp = 6L, 
  years80th = 16:17, 
+ negToZero = FALSE, 
  quiet = FALSE, 
  ...
 ){  
@@ -370,6 +392,36 @@ macroInFocusGWConc.data.frame <- function(
     #   Add the file name to the table:
     xYearly[, "file" ] <- x[ 1L, "file" ]
     
+    #   Handle possible negative values in the concentrations
+    if( negToZero ){
+        xYearly[ xYearly[, "CONC_PERC"  ] < 0, "CONC_PERC"  ] <- 0
+        xYearly[ xYearly[, "CONC_LAYER" ] < 0, "CONC_LAYER" ] <- 0
+    }else{
+        testNegPerc <- 
+            any( xYearly[ order( xYearly[, "CONC_PERC" ] ),  ][ years80th, "CONC_PERC"  ] < 0 ) 
+        
+        testNegLayer <- 
+            any( xYearly[ order( xYearly[, "CONC_LAYER" ] ), ][ years80th, "CONC_LAYER" ] < 0 ) 
+        
+        if( testNegPerc ){
+            warning( paste(
+                "Some of the concentrations used for calculating the 80th percentile are < 0", 
+                "(at bottom boundary).", 
+                "Estimated 80th percentiles may differ from MACROInFOCUS GUI", 
+                "Consider setting 'negToZero'-argument to TRUE"
+            ) )  
+        }   
+        
+        if( testNegLayer ){
+            warning( paste(
+                "Some of the concentrations used for calculating the 80th percentile are < 0", 
+                "(at target depth).", 
+                "Estimated 80th percentiles may differ from MACROInFOCUS GUI", 
+                "Consider setting 'negToZero'-argument to TRUE"
+            ) ) 
+        }   
+    }   
+    
     #   Calculate the percentile-concentrations (different 
     #   methods)
     CONC_PERC_80TH  <- mean( xYearly[ order( xYearly[, "CONC_PERC" ] ), ][ years80th, "CONC_PERC" ] ) 
@@ -408,7 +460,10 @@ macroInFocusGWConc.data.frame <- function(
     
     #   Format the output and output attributes
     out <- percentilesOut 
-    attr( x = out, which = "more" ) <- xYearly
+    attr( x = out, which = "more" )        <- xYearly
+    attr( x = out, which = "nbYrsWarmUp" ) <- nbYrsWarmUp
+    attr( x = out, which = "years80th" )   <- years80th
+    attr( x = out, which = "negToZero" )   <- negToZero
     
     return( out ) 
 }   

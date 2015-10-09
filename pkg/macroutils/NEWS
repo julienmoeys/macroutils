@@ -1,6 +1,12 @@
 
     R package: macroutils
 
+CHANGES IN VERSION 1.10.1
+    
+    2015/10/09  macroInFocusGWConc() now checks for negative 
+        concentrations in the 80th percentile (or can set 
+        negative concentrations to 0)
+    
 CHANGES IN VERSION 1.10.0
     
     2015/10/09  Implemented more strict tests / benchmarks 
@@ -10,7 +16,7 @@ CHANGES IN VERSION 1.10.0
         (at least in terms of numerical accuracy)
         
         Also included a simple benchmark in macroInFocusGWConc()
-        on concentration and percolation
+        on concentration and percolation.
         
 CHANGES IN VERSION 1.9.0
     
