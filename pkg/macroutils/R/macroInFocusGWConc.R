@@ -56,10 +56,6 @@
 #'  Groundwater main report p 475 (reference above).
 #'  Years 16 and 17 are used in FOCUS.
 #'
-#'@param quiet
-#'  Single logical value. Set to \code{TRUE} to suppress the 
-#'  warning message. Default value to \code{FALSE}.
-#'
 #'@param negToZero
 #'  Single logical value. If \code{TRUE} (not the default) 
 #'  negative concentrations will be set to 0 (presumably like 
@@ -68,7 +64,11 @@
 #'  the 80th percentile (see \code{years80th}) are negative, 
 #'  a warning will be issued (so that the user knows that 
 #'  concentrations may differ from those in MACROInFOCUS).
-#' 
+#'
+#'@param quiet
+#'  Single logical value. Set to \code{TRUE} to suppress the 
+#'  warning message. Default value to \code{FALSE}.
+#'
 #'@param \dots
 #'  Additional parameters passed to 
 #'  \code{\link[macroutils]{macroReadBin}}.
