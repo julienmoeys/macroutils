@@ -1,1 +1,1 @@
-b78391b new benchmarks (tested when compiling)
+2f893dc macroInFocusGWConc now checks for conc < 0

@@ -7,17 +7,17 @@
 \alias{macroInFocusGWConc.list}
 \title{INTERNAL: Calculate the yearly and 80th percentile groundwater concentration from a MACROInFOCUS output bin file}
 \usage{
-macroInFocusGWConc(x, nbYrsWarmUp = 6L, years80th = 16:17, quiet = FALSE,
-  ...)
+macroInFocusGWConc(x, nbYrsWarmUp = 6L, years80th = 16:17,
+  negToZero = FALSE, quiet = FALSE, ...)
 
 \method{macroInFocusGWConc}{character}(x, nbYrsWarmUp = 6L,
-  years80th = 16:17, quiet = FALSE, ...)
+  years80th = 16:17, negToZero = FALSE, quiet = FALSE, ...)
 
 \method{macroInFocusGWConc}{list}(x, nbYrsWarmUp = 6L, years80th = 16:17,
-  quiet = FALSE, ...)
+  negToZero = FALSE, quiet = FALSE, ...)
 
 \method{macroInFocusGWConc}{data.frame}(x, nbYrsWarmUp = 6L,
-  years80th = 16:17, quiet = FALSE, ...)
+  years80th = 16:17, negToZero = FALSE, quiet = FALSE, ...)
 }
 \arguments{
 \item{x}{Either a vector of character strings, a
@@ -42,6 +42,14 @@ macroInFocusGWConc(x, nbYrsWarmUp = 6L, years80th = 16:17, quiet = FALSE,
  Groundwater main report p 475 (reference above).
  Years 16 and 17 are used in FOCUS.}
 
+\item{negToZero}{Single logical value. If \code{TRUE} (not the default)
+ negative concentrations will be set to 0 (presumably like
+ in MACROInFOCUS). If \code{FALSE}, they will not be set
+ to 0, but if some of the concentrations used to calculate
+ the 80th percentile (see \code{years80th}) are negative,
+ a warning will be issued (so that the user knows that
+ concentrations may differ from those in MACROInFOCUS).}
+
 \item{quiet}{Single logical value. Set to \code{TRUE} to suppress the
  warning message. Default value to \code{FALSE}.}
 
@@ -60,7 +68,8 @@ Returns a \code{\link{data.frame}} with one row per
      (see below).
    \item \code{CONC_LAYER_80TH}: The 80th percentile of the
      yearly pesticide concentration in the water flowing
-     through layer X (X depending on the FOCUS-scenario)
+     through layer X (X depending on the FOCUS-scenario,
+     also called "target depth" in MACROInFOCUS)
      at depth Y. Derived from \code{SFLOW_},
      \code{SFLOWOUT_}, \code{WOUT_} and \code{WFLOWOUT_},
      after converting these variables to daily values and
