@@ -475,9 +475,15 @@ fDir <- system.file( "bintest", package = "macroutils" )
 #   be output. Here I the working directory
 dirOut <- getwd()
 
-#   List the bin files in fDir
-f <- list.files( path = fDir, pattern = ".bin", 
-    ignore.case = TRUE, full.names = FALSE ) 
+#   List all the files in fDir
+f <- list.files( path = fDir, ignore.case = TRUE, 
+    full.names = FALSE ) 
+
+#   Select only bin files (notice that pattern argument 
+#   in list.files() also selects a folder, so we 
+#   can't use it here, and use grepl instead)
+f <- f[ grepl( x = tolower( f ), pattern = ".bin", 
+    fixed = TRUE ) ]
 
 #   Excluding a file that raise a warning 
 #   (irregular time series)
