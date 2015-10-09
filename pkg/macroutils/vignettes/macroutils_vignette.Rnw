@@ -476,8 +476,7 @@ fDir <- system.file( "bintest", package = "macroutils" )
 dirOut <- getwd()
 
 #   List all the files in fDir
-f <- list.files( path = fDir, ignore.case = TRUE, 
-    full.names = FALSE ) 
+f <- list.files( path = fDir, full.names = FALSE ) 
 
 #   Select only bin files (notice that pattern argument 
 #   in list.files() also selects a folder, so we 
