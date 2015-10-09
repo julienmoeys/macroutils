@@ -1,6 +1,10 @@
 set pkgname=macroutils
+
 cd /D "%rPackagesDir%\macro-sp\%pkgname%\pkg" 
 
-R CMD build --no-vignettes --md5 %pkgname% 
-@REM  --compact-vignette="gs"
+REM svnversion > %pkgname%\inst\SVN_VERSION
+git log -n 1 --oneline --no-notes > %pkgname%\inst\GIT_VERSION
+
+R CMD build --no-build-vignettes --md5 %pkgname% 
+@REM  --no-vignettes
 pause

@@ -1,6 +1,14 @@
 
     R package: macroutils
 
+CHANGES IN VERSION 1.10.0
+    
+    2015/10/09  Implemented more strict tests / benchmarks 
+        between macroReadBin() and bin-file conversion 
+        performed by MACRO 5.2. Should be able to detect 
+        unwanted accidental changes in macroReadBin() 
+        (at least in terms of numerical accuracy)
+    
 CHANGES IN VERSION 1.9.0
     
     2015/10/08  Added the function macroInFocusGWConc() 
