@@ -1,6 +1,15 @@
 
     R package: macroutils
 
+CHANGES IN VERSION 1.11.0
+    
+    2015/11/02  macroInFocusGWConc() now calculates the 
+        mass fraction of the pesticide flow that is 
+        due to micropore or/versus macropore transport.
+        This experimental feature aims at estimating the 
+        importance of macropore flow in the calculated 
+        concentration.
+    
 CHANGES IN VERSION 1.10.1
     
     2015/10/09  macroInFocusGWConc() now checks for negative 

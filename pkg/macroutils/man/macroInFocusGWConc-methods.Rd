@@ -82,6 +82,16 @@ Returns a \code{\link{data.frame}} with one row per
    \item \code{yearTo}: The year corresponding to the
      17th (or \code{years80th[2]}th) concentration after
      ordering them by order of increasing \code{CONC_LAYER}.
+   \item \code{F_CONC_LAYER_MIC}: Experimental. The average
+     mass-fraction of the total solute flow due to transport
+     in the micropores, for the same two years as used
+     to calculate the 80th percentile of
+     \code{CONC_LAYER_80TH}.
+   \item \code{F_CONC_LAYER_MAC}: Experimental. The average
+     mass-fraction of the total solute flow due to transport
+     in the macropores, for the same two years as used
+     to calculate the 80th percentile of
+     \code{CONC_LAYER_80TH}.
    \item \code{file}: Name of the input file, or index of
      the table in the input list of table.
  }

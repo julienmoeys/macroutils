@@ -1,6 +1,6 @@
 Package: macroutils
-Version: 1.10.1
-Date: 2015-10-09
+Version: 1.11.0
+Date: 2015-11-02
 Title: R Utility Functions for the MACRO and SOILNDB Models
 Author: Julien Moeys [aut, cre], Kristian Persson [aut]
 Authors@R: c( person( "Julien", "Moeys", role = c("aut", "cre"), email = "JulienDOTMoeys@sluDOTse" ), person( "Kristian", "Persson", role = "aut" ) )

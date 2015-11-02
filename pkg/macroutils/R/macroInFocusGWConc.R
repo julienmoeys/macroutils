@@ -100,6 +100,16 @@
 #'    \item \code{yearTo}: The year corresponding to the 
 #'      17th (or \code{years80th[2]}th) concentration after 
 #'      ordering them by order of increasing \code{CONC_LAYER}.
+#'    \item \code{F_CONC_LAYER_MIC}: Experimental. The average 
+#'      mass-fraction of the total solute flow due to transport 
+#'      in the micropores, for the same two years as used 
+#'      to calculate the 80th percentile of 
+#'      \code{CONC_LAYER_80TH}.
+#'    \item \code{F_CONC_LAYER_MAC}: Experimental. The average 
+#'      mass-fraction of the total solute flow due to transport 
+#'      in the macropores, for the same two years as used 
+#'      to calculate the 80th percentile of 
+#'      \code{CONC_LAYER_80TH}.
 #'    \item \code{file}: Name of the input file, or index of 
 #'      the table in the input list of table.
 #'  }   
@@ -385,6 +395,14 @@ macroInFocusGWConc.data.frame <- function(
         (xYearly[, "acc_SFLOW" ] + xYearly[, "acc_SFLOWOUT" ]) / 
         ((xYearly[, "acc_WOUT" ] + xYearly[, "acc_WFLOWOUT" ]) / 1000)
     
+    xYearly[, "F_SOL_LAYER_MIC" ] <- 
+        xYearly[, "acc_SFLOW" ] / 
+        (xYearly[, "acc_SFLOW" ] + xYearly[, "acc_SFLOWOUT" ]) 
+    
+    xYearly[, "F_SOL_LAYER_MAC" ] <- 
+        xYearly[, "acc_SFLOWOUT" ] / 
+        (xYearly[, "acc_SFLOW" ] + xYearly[, "acc_SFLOWOUT" ]) 
+    
     # xYearly[, "CONC_LAYERb" ] <- 
         # (xYearly[, "SFLOW_DAILY2b" ] + xYearly[, "SFLOWOUT_DAILY2b" ]) / 
         # ((xYearly[, "WOUT_DAILY" ] + xYearly[, "WFLOWOUT_DAILY" ]) / 1000)
@@ -427,6 +445,9 @@ macroInFocusGWConc.data.frame <- function(
     CONC_PERC_80TH  <- mean( xYearly[ order( xYearly[, "CONC_PERC" ] ), ][ years80th, "CONC_PERC" ] ) 
     CONC_LAYER_80TH <- mean( xYearly[ order( xYearly[, "CONC_LAYER" ] ), ][ years80th, "CONC_LAYER" ] ) 
     
+    F_SOL_LAYER_MAC_80TH <- mean( xYearly[ order( xYearly[, "CONC_LAYER" ] ), ][ years80th, "F_SOL_LAYER_MAC" ] ) 
+    F_SOL_LAYER_MIC_80TH <- mean( xYearly[ order( xYearly[, "CONC_LAYER" ] ), ][ years80th, "F_SOL_LAYER_MIC" ] ) 
+    
     # CONC_LAYER_80THb <- mean( xYearly[ order( xYearly[, "CONC_LAYERb" ] ), ][ years80th, "CONC_LAYERb" ] ) 
     
     # #   Percentile-percolation
@@ -454,6 +475,8 @@ macroInFocusGWConc.data.frame <- function(
         # "p_acc_SFLOWTOT"  = p_acc_SFLOWTOT, 
         "yearFrom"          = xYearly[ order( xYearly[, "CONC_LAYER" ] ), ][ min( years80th ), "year" ], 
         "yearTo"            = xYearly[ order( xYearly[, "CONC_LAYER" ] ), ][ max( years80th ), "year" ], 
+        "F_SOL_LAYER_MAC_80TH" = F_SOL_LAYER_MAC_80TH, 
+        "F_SOL_LAYER_MIC_80TH" = F_SOL_LAYER_MIC_80TH, 
         "file"              = x[ 1L, "file" ], 
         stringsAsFactors = FALSE 
     )   
