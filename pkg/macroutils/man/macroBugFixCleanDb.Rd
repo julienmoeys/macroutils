@@ -29,7 +29,7 @@ Clean-up MACRO 5.2 parameter databases. Fixes 4 known bugs
  (orphan, incomplete or unnecessary values). It is very
  highly recommended to make a backup-copy of MACRO 5.2
  parameter databases before you try this utility. The
- R package \bold{\code{\link{RODBC}}} is required to run
+ R \bold{\code{\link[RODBC]{RODBC-package}}} is required to run
  this function, and you also need to run a \bold{32 bit
  (i386)} version of R (maybe located in
  \code{\{R installation directory\}bin/i386/Rgui.exe},
