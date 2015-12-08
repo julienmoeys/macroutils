@@ -331,7 +331,7 @@ macroBugFixCleanDb <- function(
             
             #   Find outputs that are not selected in `Output()`
             #   but nonetheless present in `OutputLayers`
-            uOutput2 <- output[, c( "R_ID", "Var", "Output()ID", "selected" ) ] 
+            uOutput2 <- unique( output[, c( "R_ID", "Var", "Output()ID", "selected" ) ] )
             
             #   Only keep those that are not selected 
             #   as layered output
@@ -387,6 +387,8 @@ macroBugFixCleanDb <- function(
             #     added
             # ----------------------------------------------
             
+            uOutput2 <- unique( output[, c( "R_ID", "Var", "Output()ID", "selected" ) ] )
+            
             #   Find the one that should not be there
             selFixSelCol <- is.na( outputLayers[, "Selected" ] )
             
@@ -399,7 +401,7 @@ macroBugFixCleanDb <- function(
                 
                 message( sprintf( 
                     "Found %s entries in `OutputLayers` where selected is not set, for RUNID(s) %s", 
-                    length( selFixSelCol ), 
+                    sum( selFixSelCol ), 
                     paste( unique( uOutput2[ testOut, "R_ID" ] ), collapse = "; " ) 
                 ) ) 
                 
