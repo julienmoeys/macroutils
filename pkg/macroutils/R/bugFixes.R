@@ -140,7 +140,14 @@ macroBugFixCleanDb <- function(
     if( !testRODBC ){ 
         stop( "'RODBC' package not available. Please install RODBC first: install.package('RODBC')" )
     }else{ 
-        # require( "RODBC" ) 
+        arch <- utils::sessionInfo()[[ "R.version" ]][[ "arch" ]]
+        
+        if( arch != "i386" ){
+            warning( sprintf( 
+                "'RODBC' MS Access interface requires a 32 bit version of R (i386) (now: %s). Consider running R i386 instead ({R install dir}/i386/Rgui.exe)", 
+                arch
+            ) ) 
+        }   
     }   
     
     
@@ -185,13 +192,15 @@ macroBugFixCleanDb <- function(
         FUN = function(f){ 
             # f <- file[1]
             
+            message( sprintf( "Starts processing database: '%s'.", f ) )
+            
             channel <- RODBC::odbcConnectAccess( access.file = f ) 
             
             on.exit( try( RODBC::odbcClose( channel = channel ) ) )
             
             tablesList <- RODBC::sqlTables( channel = channel )
             
-            .tables <- c( "Output()", "Run_ID" ) 
+            .tables <- c( "Output()", "Run_ID", "OutputLayers" ) 
             testTables <- .tables %in% 
                 tablesList[, "TABLE_NAME" ]
             
@@ -207,19 +216,30 @@ macroBugFixCleanDb <- function(
             
             runIdTbl <- RODBC::sqlFetch( channel = channel, sqtable = "Run_ID" )
             
+            outputLayers <- RODBC::sqlFetch( channel = channel, sqtable = "OutputLayers" )
+            
             # runIds <- runIdTbl[, "R_ID" ]
             
+            
+            
+            # 1 - ORPHAN `R_ID` IN `Output()` (NOT ANY MORE 
+            #     IN `Run_ID`)
+            # ----------------------------------------------
+            
             #   ID in "Output()" but not in "Run_ID"
-            missId <- unique( output[ 
+            missId <- unique( missId0 <- output[ 
                 !(output[, "R_ID" ] %in% runIdTbl[, "R_ID" ]), 
                 "R_ID" ] ) 
             
             #   Delete IDs in Output() that are 'orphan'
             if( length( missId ) > 0 ){ 
                 message( sprintf( 
-                    "Found orphan values in `Output()` for RUNID(s) %s", 
+                    "Found %s orphan values in `Output()` for RUNID(s) %s", 
+                    length( missId0 ), 
                     paste( missId, collapse = "; " )
                 ) ) 
+                
+                rm( missId0 )
                 
                 for( id in missId ){ 
                     RODBC::sqlQuery( 
@@ -228,13 +248,22 @@ macroBugFixCleanDb <- function(
                     )   
                 }   
                 
-                message( "Orphan values deleted" )
+                message( "Orphan values deleted in `Output()`" )
+            }else{
+                message( "Found no orphan values in `Output()` (fine!)" )
             }   
+            
+            rm( missId )
             
             #   Re-fetch Output()
             output <- RODBC::sqlFetch( channel = channel, sqtable = "Output()" ) 
             
-            #   Find RUNID with dupliacted export parameters
+            
+            
+            # 2 - DUPLICATED `R_ID`-`Var` IN `Output()`
+            # ----------------------------------------------
+            
+            #   Find RUNID with duplicated export parameters
             uOutput   <- output[, c( "R_ID", "Var" ) ] 
             selDuplic <- duplicated( uOutput ) 
             
@@ -243,7 +272,8 @@ macroBugFixCleanDb <- function(
             
             if( length( duplicId ) > 0 ){ 
                 message( sprintf( 
-                    "Found duplicated values in `Output()` for RUNID(s) %s", 
+                    "Found %s duplicated values in `Output()` for RUNID(s) %s", 
+                    length( selDuplic ), 
                     paste( duplicId, collapse = "; " ) 
                 ) ) 
                 
@@ -277,14 +307,131 @@ macroBugFixCleanDb <- function(
                             )   
                         }   
                         
+                        rm( outputId )
+                        
                     }   
                     
-                    nrow( sOutput ) # 98
+                    # nrow( sOutput ) # 98
                     
+                    rm( sOutput, uVar, v )
                 }   
                 
-                message( "Duplicated values deleted" )
+                message( "Duplicated values deleted in `Output()`" )
+            }else{
+                message( "Found no duplicated values in `Output()` (fine!)" )
             }   
+            
+            rm( duplicId )
+            
+            
+            
+            # 3 - EXPORT PARAMS IN `Output()` NOT SELECTED 
+            #     BUT STILL PRESENT IN `OutputLayers`
+            # ----------------------------------------------
+            
+            #   Find outputs that are not selected in `Output()`
+            #   but nonetheless present in `OutputLayers`
+            uOutput2 <- output[, c( "R_ID", "Var", "Output()ID", "selected" ) ] 
+            
+            #   Only keep those that are not selected 
+            #   as layered output
+            uOutput2 <- subset( x = uOutput2, subset = eval( quote( selected != 1 ) ) )
+            
+            #   Find the one that should not be there
+            testOutLay <- outputLayers[, "Output()ID" ] %in% 
+                uOutput2[, "Output()ID" ]
+            
+            if( any( testOutLay ) ){
+                #   Reverse selection: entries in `Output()`
+                #   that have unnecessary layers parameters in 
+                #   `OutputLayers`
+                testOut <- uOutput2[, "Output()ID" ] %in% 
+                    outputLayers[ testOutLay, "Output()ID" ] 
+                
+                message( sprintf( 
+                    "Found %s unnecessary entries in `OutputLayers` for RUNID(s) %s", 
+                    length( testOutLay ),
+                    paste( unique( uOutput2[ testOut, "R_ID" ] ), collapse = "; " ) 
+                ) ) 
+                
+                rm( testOut )
+                
+                #   Find the OutputLayerID to be removed
+                idOut <- outputLayers[ testOutLay, "OutputLayerID" ]
+                
+                RODBC::sqlQuery( 
+                    channel = channel, 
+                    query   = sprintf( 
+                        "DELETE * FROM `OutputLayers` WHERE `OutputLayerID` IN (%s)", 
+                        paste( as.character( idOut ), collapse = ", " ) 
+                    ),  
+                )   
+                
+                message( sprintf( 
+                    "Deleted %s unnecessary entries in `OutputLayers`", 
+                    length( idOut ) 
+                ) ) 
+                
+                rm( idOut )
+            }else{
+                message( "Found no unnecessary entries in `OutputLayers` (fine!)" )
+            }   
+            
+            rm( uOutput2, testOutLay )
+            
+            
+            
+            # 4 - EXPORT PARAMS IN `OutputLayers` WHERE THE 
+            #     COLUMN `Selected` IS NOT SET (neither 0 nor 
+            #     1), presumably after more layers were 
+            #     added
+            # ----------------------------------------------
+            
+            #   Find the one that should not be there
+            selFixSelCol <- is.na( outputLayers[, "Selected" ] )
+            
+            if( any( selFixSelCol ) ){
+                #   Reverse selection: entries in `Output()`
+                #   that have unnecessary layers parameters in 
+                #   `OutputLayers`
+                testOut <- uOutput2[, "Output()ID" ] %in% 
+                    outputLayers[ selFixSelCol, "Output()ID" ] 
+                
+                message( sprintf( 
+                    "Found %s entries in `OutputLayers` where selected is not set, for RUNID(s) %s", 
+                    length( selFixSelCol ), 
+                    paste( unique( uOutput2[ testOut, "R_ID" ] ), collapse = "; " ) 
+                ) ) 
+                
+                rm( testOut )
+                
+                #   Find the OutputLayerID to be removed
+                idOut <- outputLayers[ selFixSelCol, "OutputLayerID" ]
+                
+                RODBC::sqlQuery( 
+                    channel = channel, 
+                    query   = sprintf( 
+                        "UPDATE `OutputLayers` SET `Selected`=0 WHERE `OutputLayerID` IN (%s)", 
+                        paste( as.character( idOut ), collapse = ", " ) 
+                    ),  
+                )   
+                
+                message( sprintf( 
+                    "Set %s entries in `OutputLayers` (`Selected` set to 0)", 
+                    length( idOut ) 
+                ) ) 
+                
+                rm( idOut )
+            }else{
+                message( "Found no entries with `Selected` not set in `OutputLayers` (fine!)" )
+            }   
+            
+            rm( selFixSelCol )
+            
+            
+            
+            # Close and exit
+            # ----------------------------------------------
             
             RODBC::odbcClose( channel = channel ) 
             

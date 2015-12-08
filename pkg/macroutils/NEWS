@@ -1,6 +1,22 @@
 
     R package: macroutils
 
+CHANGES IN VERSION 1.12.0
+
+    2015/12/08  macroBugFixCleanDb() now issues a warning 
+        message if not run in R 32 bit (i386), as RODBC 
+        for MS Access works (only?) with R 32 bit.
+        
+        macroBugFixCleanDb() now also attempts to fix a 
+        bug that appear when increasing (changing) the 
+        number of numerical layers. It seems some values 
+        in the parameter table `OutputLayers` (new numerical 
+        layers) have their column `Selected` empty, instead 
+        of 0 or 1. The bug fix will also attempt to fix 
+        value in `OutputLayers` that are present despite 
+        the parameter in `Output()` having selected set 
+        to 0.
+    
 CHANGES IN VERSION 1.11.0
     
     2015/11/02  macroInFocusGWConc() now calculates the 
