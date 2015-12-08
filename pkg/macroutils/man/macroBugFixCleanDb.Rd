@@ -2,7 +2,7 @@
 % Please edit documentation in R/bugFixes.R
 \name{macroBugFixCleanDb}
 \alias{macroBugFixCleanDb}
-\title{Read bin file from the Soil and MACRO models.}
+\title{Clean-up MACRO 5.2 parameter databases. Fixes 4 known bugs (orphan, incomplete or unnecessary values)}
 \usage{
 macroBugFixCleanDb(file, paranoia = TRUE, ...)
 }
@@ -10,7 +10,7 @@ macroBugFixCleanDb(file, paranoia = TRUE, ...)
 \item{file}{Vector of character strings or a single \code{\link{connection}}
  to a MACRO GUI MS Access parameter database. If a vector of
  character strings, it should be the name(s) of
- the Access database(s) contianing MACRO parameters. The path
+ the Access database(s) containing MACRO parameters. The path
  of the file(s) may be provided as well, if file(s)
  is (are) not in the working directory.}
 
@@ -25,12 +25,14 @@ Do not return anything. Used for it side effect on a MACRO
  parameter database.
 }
 \description{
-Read bin file from the Soil and MACRO models. Adapted from an "anonymous" SLU
- origial code by Kristian Persson. R code vectorisation by Julien Moeys.
-}
-\details{
-Many global arguments can be set-up and retrieved via \code{\link{muPar}}
- and \code{\link{getMuPar}}.  Please check the help page of these functions
- if you need to tune \code{macroReadBin}.
+Clean-up MACRO 5.2 parameter databases. Fixes 4 known bugs
+ (orphan, incomplete or unnecessary values). It is very
+ highly recommended to make a backup-copy of MACRO 5.2
+ parameter databases before you try this utility. The
+ R package \bold{\code{\link{RODBC}}} is required to run
+ this function, and you also need to run a \bold{32 bit
+ (i386)} version of R (maybe located in
+ \code{\{R installation directory\}bin/i386/Rgui.exe},
+ if it has been installed).
 }
 
