@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Display and / or export system and package version...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body>
+
+<table width="100%" summary="page for macroutilsInfo {macroutils}"><tr><td>macroutilsInfo {macroutils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Display and / or export system and package version information</h2>
+
+<h3>Description</h3>
+
+<p>Display and / or export system and package version information.
+Can be used to provide an overview of the system and the R
+packages that were used to produce some calculations, thus
+improving the traceability of that work in the long run.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+macroutilsInfo(file = NULL, verbose = TRUE, depends = FALSE, md5 = TRUE,
+  packages = "macroutils")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>Single character string. Name of the text file (with or without
+its path) in which the information will be exported. If
+<code>NULL</code> (default), information are not exported.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>Single logical value. If <code>TRUE</code>, information are displayed
+on the screen.</p>
+</td></tr>
+<tr valign="top"><td><code>depends</code></td>
+<td>
+<p>Single logical value. If <code>TRUE</code>, information on packages
+dependencies are also displayed, in the same way</p>
+</td></tr>
+<tr valign="top"><td><code>md5</code></td>
+<td>
+<p>Single logical value. If <code>TRUE</code>, the package MD5 checksums
+are returned too</p>
+</td></tr>
+<tr valign="top"><td><code>packages</code></td>
+<td>
+<p>Single character string. Name of the package whose information
+must be returned.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Invisibly returns the information as a vector of character
+strings
+</p>
+
+
+<h3>See Also</h3>
+
+<p>The base functions that were used internally to compile
+the information: <code><a href="../../base/html/Sys.time.html">Sys.time</a></code>,
+<code><a href="../../base/html/Sys.info.html">Sys.info</a></code>, <code><a href="../../base/html/version.html">version</a></code>,
+<code><a href="../../base/html/.packages.html">.packages</a></code>,
+<code><a href="../../utils/html/installed.packages.html">installed.packages</a></code>,
+<code><a href="../../tools/html/package_dependencies.html">package_dependencies</a></code>. See also the
+<code>MD5</code> file in each package directory (and
+<code><a href="../../tools/html/md5sum.html">md5sum</a></code> for generating these MD5 checksums).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">library( &quot;macroutils&quot; )
+
+#   Temporary file where the info will be exported:
+f &lt;- tempfile() 
+
+#   Generate package information
+macroutilsInfo( file = f, depends = TRUE, verbose = FALSE )
+
+#   Read again the info (as for verbose = TRUE)
+cat( readLines( f ), sep = &quot;\n&quot; ) 
+</code></pre>
+
+<pre><code>## INFORMATION ON SYSTEM AND PACKAGE(S) VERSION(S)
+## ===============================================
+## 
+## Date and time: 2016-01-18 14:37:14
+## 
+## System info and R version
+## -------------------------
+## 
+## System info:
+##             info                      value
+## 1        sysname                    Windows
+## 2        release                      7 x64
+## 3        version build 7601, Service Pack 1
+## 4       nodename               ************
+## 5        machine                        x86
+## 6          login                    *******
+## 7           user                    *******
+## 8 effective_user                    *******
+## 
+## R version:
+##              info                        value
+## 1        platform             i386-w64-mingw32
+## 2            arch                         i386
+## 3              os                      mingw32
+## 4          system                i386, mingw32
+## 5          status                             
+## 6           major                            3
+## 7           minor                          2.0
+## 8            year                         2015
+## 9           month                           04
+## 10            day                           16
+## 11        svn rev                        68180
+## 12       language                            R
+## 13 version.string R version 3.2.0 (2015-04-16)
+## 14       nickname          Full of Ingredients
+## 
+## Loaded packages:
+##      package version
+## 1       base   3.2.0
+## 2   datasets   3.2.0
+## 3   graphics   3.2.0
+## 4  grDevices   3.2.0
+## 5      knitr    1.11
+## 6 macroutils  1.12.0
+## 7    methods   3.2.0
+## 8      stats   3.2.0
+## 9      utils   3.2.0
+## 
+## Information for packages: macroutils
+## 
+## Dependencies (except base packages): none
+## 
+## Package information for macroutils
+## -----------------------
+## 
+## Package version: 1.12.0
+## 
+## SVN revision: 18:52M
+## 
+## No MD5 checksum found
+</code></pre>
+
+<pre><code class="r">unlink( f )
+
+#   Also works with other packages
+macroutilsInfo( packages = &quot;tools&quot; )
+</code></pre>
+
+<pre><code>## INFORMATION ON SYSTEM AND PACKAGE(S) VERSION(S)
+## ===============================================
+## 
+## Date and time: 2016-01-18 14:37:14
+## 
+## System info and R version
+## -------------------------
+## 
+## System info:
+##             info                      value
+## 1        sysname                    Windows
+## 2        release                      7 x64
+## 3        version build 7601, Service Pack 1
+## 4       nodename               ************
+## 5        machine                        x86
+## 6          login                    *******
+## 7           user                    *******
+## 8 effective_user                    *******
+## 
+## R version:
+##              info                        value
+## 1        platform             i386-w64-mingw32
+## 2            arch                         i386
+## 3              os                      mingw32
+## 4          system                i386, mingw32
+## 5          status                             
+## 6           major                            3
+## 7           minor                          2.0
+## 8            year                         2015
+## 9           month                           04
+## 10            day                           16
+## 11        svn rev                        68180
+## 12       language                            R
+## 13 version.string R version 3.2.0 (2015-04-16)
+## 14       nickname          Full of Ingredients
+## 
+## Loaded packages:
+##      package version
+## 1       base   3.2.0
+## 2   datasets   3.2.0
+## 3   graphics   3.2.0
+## 4  grDevices   3.2.0
+## 5      knitr    1.11
+## 6 macroutils  1.12.0
+## 7    methods   3.2.0
+## 8      stats   3.2.0
+## 9      utils   3.2.0
+## 
+## Information for packages: tools
+## 
+## Package information for tools
+## -----------------------
+## 
+## Package version: 3.2.0
+## 
+## No MD5 checksum found
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

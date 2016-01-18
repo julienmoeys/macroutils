@@ -1,0 +1,294 @@
+
+    R package: macroutils
+
+CHANGES IN VERSION 1.12.0
+
+    2015/12/08  macroBugFixCleanDb() now issues a warning 
+        message if not run in R 32 bit (i386), as RODBC 
+        for MS Access works (only?) with R 32 bit.
+        
+        macroBugFixCleanDb() now also attempts to fix a 
+        bug that appear when increasing (changing) the 
+        number of numerical layers. It seems some values 
+        in the parameter table `OutputLayers` (new numerical 
+        layers) have their column `Selected` empty, instead 
+        of 0 or 1. The bug fix will also attempt to fix 
+        value in `OutputLayers` that are present despite 
+        the parameter in `Output()` having selected set 
+        to 0.
+    
+CHANGES IN VERSION 1.11.0
+    
+    2015/11/02  macroInFocusGWConc() now calculates the 
+        mass fraction of the pesticide flow that is 
+        due to micropore or/versus macropore transport.
+        This experimental feature aims at estimating the 
+        importance of macropore flow in the calculated 
+        concentration.
+    
+CHANGES IN VERSION 1.10.1
+    
+    2015/10/09  macroInFocusGWConc() now checks for negative 
+        concentrations in the 80th percentile (or can set 
+        negative concentrations to 0)
+    
+CHANGES IN VERSION 1.10.0
+    
+    2015/10/09  Implemented more strict tests / benchmarks 
+        between macroReadBin() and bin-file conversion 
+        performed by MACRO 5.2. Should be able to detect 
+        unwanted accidental changes in macroReadBin() 
+        (at least in terms of numerical accuracy)
+        
+        Also included a simple benchmark in macroInFocusGWConc()
+        on concentration and percolation.
+        
+CHANGES IN VERSION 1.9.0
+    
+    2015/10/08  Added the function macroInFocusGWConc() 
+        to calculate pesticide concentrations from MACROInFOCUS 
+        output bin file(s). Internal and experimental.
+    
+CHANGE SIN VERSION 1.8.4
+    
+    2015/09/23  Added an 'overwrite' agument to 
+        macroConvertBin(), and fixed a bug that caused an 
+        interactive question to be asked to the user even 
+        when 'gui' was FALSE and the output files already 
+        existed. Now if 'overwrite' is FALSE and 'gui' is 
+        TRUE a question is asked to the user, and otherwise 
+        if 'gui' is FALSE and 'overwrite' is FALSE, an 
+        error is issued when files already exists.
+    
+        A sub-section was added in the vignette that describes 
+        how to perform a batch conversion of files with 
+        macroConvertBin(), including listing all the bin 
+        files in a folder.
+    
+CHANGES IN VERSION 1.8.3
+
+    2015/07/23  Added the function isValidTimeSeries(), used
+        internally to check that time series read from or 
+        written to BIN-files are consistent (increasing, 
+        homogeneous increment and no duplicated values).
+    
+CHANGES IN VERSION 1.8.2
+    
+    2015/04/17  Compiled for R 3.2.0 RC (2015-04-15 r68178).
+    
+        Cleaned-up internal call to library() or require() 
+        and use :: instead (+ Depends or Suggests or Import 
+        fields in package DESCRIPTION)
+    
+    2015/05/04  Compiled for R 3.2.0 Official release.
+    
+CHANGES IN VERSION 1.8.1
+    
+    2015/03/17  Moved from a local SVN to a public git (GitHub) 
+        repository. Last SVN version was 18:52M (macroutils 1.8.0)
+    
+CHANGES IN VERSION 1.8.0
+    
+    2015/03/17  From now on macroutils will contain only "official" 
+        MACRO routines and utilities, and the routines related 
+        to crop growth (under development) have been moved to 
+        another R package, macrocrop (not publicly released).
+        
+        macroutils was split for SVN version "18:50M" (macroutils 
+        version 1.7.4).
+        
+CHANGES IN VERSION 1.7.4
+    
+    2014/12/08  Bug fix in macroLAI()
+    
+CHANGES IN VERSION 1.7.3
+
+    2014/09/28  Compiled for R 3.1.1
+    
+CHANGES IN VERSION 1.7.2
+
+    2014/07/03  Added the function macroutilsInfo() that fetches 
+        and return a rather comprehensive report on system info 
+        and package(s) version(s) and MD5, either for macroutils 
+        or for any other package
+        
+        SVN revision is now displayed when the package is attached
+        
+CHANGES IN VERSION 1.7.1
+    
+    2014/05/28 to 2014/06/03    Attempts to improve the LAI-calculations 
+        for multiple crops. Did not work in some cases.
+    
+CHANGES IN VERSION 1.7.0
+    
+    2014/05/26  Now macroLAI() can handle a data.frame of 
+        crop parameters (multiple crops).
+        
+        Parameter "Date" in macroLAI() renamed 'x'
+        
+        macroIntercept() parameters now simplified
+    
+CHANGES IN VERSION 1.6.2
+    
+    2014/05/22  fixed a bug in macroLAI() and macroRootDepth() 
+        and macroRootDensity(): parameters iharv and laiharv renamed 
+        iharv and laihar (now correct)
+        
+        bug fix: macroPlot() was not always identifying correctly 
+            when given a list of data.frame to plot
+        
+CHANGES IN VERSION 1.6.1
+    
+    2014/05/22  macroPlot() now includes a parameter 'z' for 
+        pre-selecting the variables to include in the graph
+    
+CHANGES IN VERSION 1.6.0
+
+    2014/05/15  Included macroLAI() and macroIntercept() to calculate 
+        total and green LAI a-la-MACRO and the fraction of irrigation 
+        water intercepted by the crop vegetation.
+    
+CHANGES IN VERSION 1.5.0
+
+    2014/05/12  Included macroRootDepth() and macroRootDensity(), 
+        functions to estimate root depth and density as in 
+        MACRO
+
+CHANGES IN VERSION 1.4.0
+    
+    2014/05/12  Included a bug-fix for MACRO GUI parameter database, 
+        macroBugFixCleanDb(), that remove orphan and duplicated 
+        values in the table `Output()`. Might be deleted when 
+        the bug has been fixed in MACRO GUI.
+    
+CHANGES IN VERSION 1.3.0
+    
+    2014/03/19
+        
+        macroReadBin() now output macroTimeSeries or 
+        macroTimeSeriesList objects (class), instead of 
+        macroData and macroDataList
+        
+        Some functions made S3 generic and S3 methods, to favour 
+        future extensions.
+        
+        macroPlot() created, generic and method function to plot 
+        macroTimeSeries and macroTimeSeriesList, as well 
+        as bin files (with GUI). Superseeds macroPlotBin() 
+        
+        A bug was fixed in macroPlot() background grid, which 
+        were not displayed at the right place on the X-axis, 
+        because of the POSIXct time format (incompatible with 
+        grid()).
+        
+        macroPlot() now uses a ggplot2-style for axes, grid and 
+        background color.
+        
+        macroPlot() now uses hcl() to generate default variable 
+        colors (it looks nicer)
+
+CHANGES IN VERSION 1.2.7
+
+    2013/04/24 Compiled on R 3.0.0
+
+CHANGES IN VERSION 1.2.6
+ 
+    2013/04/22
+        
+        The package was renamed from "soilmacroutils" to 
+        "macroutils"
+        
+        The internal documentation was migrated to Roxygen2
+        
+        SMU.readBin()   renamed to macroReadBin()
+        .SMU.readBin()  renamed to .macroReadBin() (internal)
+        SMU.writeBin()  renamed to macroWriteBin()
+        SMU.plot()      renamed to macroPlotBin()
+        SMU.aggregate() renamed to macroAggregateBin()
+        SMU.convert()   renamed to macroConvertBin()
+        SMU.view()      renamed to macroViewBin()
+        smuPar()        renamed to muPar()
+        getSmuPar()     renamed to getMuPar()
+    
+CHANGES IN VERSION 1.2.5 
+ 
+    2013/04/08 Fixed a bug in .SMU.stripRunID() that was not 
+              systematically removing the RUN_ID from the column 
+              names of MACRO simulation results.
+
+CHANGES IN VERSION 1.2.3 
+
+    2012/11/19 Created a vignette (tutorial).
+
+CHANGES IN VERSION 1.2.2 
+
+    2012/11/19 SMU.convert can now converts binary files into 
+              text files with tabulation or a multiple spaces 
+              as a field separator.
+
+CHANGES IN VERSION 1.2.1 (labelled 1.1.8) 
+ 
+    2012/11/16 Improved legend for single plots in SMU.plot(). 
+              
+              Fixed a bug when plotting just one variable 
+              after a multi-variable plot.
+
+CHANGES IN VERSION 1.2.0 (labelled 1.1.7) 
+ 
+    2012/11/16 New option system, smuPar() and getSmuPar() 
+              SMU.readBin() now has much less arguments.
+              
+              SMU.plot() now has a "menu" to change the 
+              variables plotted, the plot style, or to 
+              zoom in and out.
+              
+              The file chooser in the GUI now remembers 
+              the last location.
+              
+CHANGES IN VERSION 1.1.6 
+ 
+    2012/11/15 Corrected a bug in SMU.plot() occuring when 
+              only one variable was selected
+              
+              Added SMU.convert() to convert binary files into 
+              CSV text files
+              
+              Added SMU.view() to view the content of binary 
+              files in a user friendly way. 
+
+CHANGES IN VERSION 1.1.5 
+ 
+    2012/11/14 SMU.readBin() and SMU.plot() now have a complete 
+              GUI (simple, but portable). 
+    
+              SMU.plot() have been changed heavily, and 
+              does not rely any more on 'ggplot2'.
+    
+              SMU.stripRunID() becomes .SMU.stripRunID() 
+              (hidden)
+    
+CHANGES IN VERSION 1.1.4 
+
+    2012/05/10 Added SMU.stripRunID to remove Run ID from MACRO 
+              results column names. Also as an option in 
+              SMU.readBin
+
+CHANGES IN VERSION 1.1.3 and before
+
+    2010/09/08 Version 1.0 of the package. Documented.
+   
+    2010/10/28 New read and write bin functions by Christian 
+              Persson.
+   
+    2010/10/28 Examples bin with the bin file from the Soil 
+              program.
+   
+    2011/04/14 Added SMU.aggregate(), to aggregate simulation 
+              results by hours or month, etc.
+   
+    2011/05/12 Fixed a bug with ggplot2 and SMU.plot() for 
+              long time series (Date format needed) 
+   
+    2011/10/19 Added a "header" argument to SMU.readBin and 
+              SMU.writeBin so weather files without header 
+              can be read.

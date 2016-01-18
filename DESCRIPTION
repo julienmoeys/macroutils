@@ -1,0 +1,30 @@
+Package: macroutils
+Version: 1.12.0
+Date: 2015-12-08
+Title: R Utility Functions for the MACRO and SOILNDB Models
+Author: Julien Moeys [aut, cre], Kristian Persson [aut]
+Authors@R: c( person( "Julien", "Moeys", role = c("aut", "cre"), email = "JulienDOTMoeys@sluDOTse" ), person( "Kristian", "Persson", role = "aut" ) )
+Maintainer: Julien Moeys <JulienDOTMoeys@sluDOTse>
+Depends: R (>= 3.2.0), utils
+Suggests: RODBC
+LazyLoad: yes
+ByteCompile: yes
+Description: Read, write, convert, display and plot the content of binary files from the models MACRO and SOILNDB. Miscellaneous utility functions related MACRO, such as bug-fixes.
+URL: https://github.com/julienmoeys/macroutils http://www.slu.se/soil/
+        http://www.slu.se/ckb/
+BugReports: https://github.com/julienmoeys/macroutils/issues
+License: AGPL-3
+Imports: tcltk, tools
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: macroutils
+RemoteUsername: julienmoeys
+RemoteRef: master
+RemoteSha: ea2fda3fcf01155c3d47871f68e82b64779df1c1
+RemoteSubdir: pkg/macroutils
+GithubRepo: macroutils
+GithubUsername: julienmoeys
+GithubRef: master
+GithubSHA1: ea2fda3fcf01155c3d47871f68e82b64779df1c1
+GithubSubdir: pkg/macroutils
+Built: R 3.2.0; ; 2015-12-08 15:49:52 UTC; windows

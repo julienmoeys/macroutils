@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get or set default parameters for the package.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for muPar {macroutils}"><tr><td>muPar {macroutils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get or set default parameters for the package.</h2>
+
+<h3>Description</h3>
+
+<p>Get or set default parameters for the package. Notice changes done to the
+parameter values are reset everytime the R session is closed and the package
+is reloaded.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+muPar(par = NULL, reset = FALSE, dateMethod, removeSpace, alphaNumOnly,
+  stripRunID, tz, alphaNum, header, lastBinWd, timeSeriesValid)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>par</code></td>
+<td>
+<p>Three possible cases: </p>
+ <ul>
+<li><p> If <code>par</code> is <code>NULL</code>
+(default): All the actual value of the parameters will be silently returned.
+</p>
+</li>
+<li><p> If <code>par</code> is a vector of character strings representing parameter
+names. The value of the parameters named here will be (silently) returned.
+</p>
+</li>
+<li><p> If <code>par</code> is a list following the format <code>tag = value</code>, where
+<code>tag</code> is the name of the parameter to be changed, and <code>value</code> is
+its new value.  Such a list is returned by <code>muPar()</code>. Notice that
+parameters can also be set indivudually, using the options listed below. </p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>reset</code></td>
+<td>
+<p>Single logical. If TRUE, all the parameters will be set to their
+default value. Values are reset before any change to the parameter values, as
+listed below.</p>
+</td></tr>
+<tr valign="top"><td><code>dateMethod</code></td>
+<td>
+<p>Single integer. If 1 uses a new (shorter) method for
+converting dates (from the weird bin file format to POSIXct), if 2 uses the
+old / slower method implemented for the SOIL model (and MACRO?) and if 0 (or
+any other value than 1 or 2) returns the original date in minutes since 2
+days before the 1st of January of year 0001 at 00:00. For 1 and 2 the date
+returned is POSIXct with time-zone <code>tz</code>, and for 0 it is integers.</p>
+</td></tr>
+<tr valign="top"><td><code>removeSpace</code></td>
+<td>
+<p>Single logical. If TRUE remove extra spaces and minus
+signs in column names and replace them by underscores _. Multiple spaces are
+grouped. Trailing (end) space(s) are always removed (whatever is the value of
+<code>removeSpace</code>). If <code>gui</code> is <code>TRUE</code>, <code>removeSpace</code> is
+ignored, and a menu will ask you what to do.</p>
+</td></tr>
+<tr valign="top"><td><code>alphaNumOnly</code></td>
+<td>
+<p>Single logical. If TRUE remove all non alpha-numeric
+characters from the column names (and replace them by underscores). See also
+the <code>alphaNum</code> parameter. Use this option to obtain database compatible
+column names. If <code>gui</code> is <code>TRUE</code>, <code>alphaNumOnly</code> is ignored,
+and a menu will ask you what to do.</p>
+</td></tr>
+<tr valign="top"><td><code>stripRunID</code></td>
+<td>
+<p>Single logical. If TRUE remove the simulation ID at the end
+of each column name. <code>removeSpace</code> must be <code>TRUE</code> for using this
+option (otherwise ignored). If <code>gui</code> is <code>TRUE</code>, <code>stripRunID</code>
+is ignored, and a menu will ask you what to do.</p>
+</td></tr>
+<tr valign="top"><td><code>tz</code></td>
+<td>
+<p>Single character string. &quot;A timezone specification to be used for
+the conversion. System-specific (see <code><a href="../../base/html/as.POSIXlt.html">as.POSIXlt</a></code>), but &quot;&quot; is the
+current time zone, and &quot;GMT&quot; is UTC&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>alphaNum</code></td>
+<td>
+<p>Vector of single characters. List of characters allowed in
+the column names when <code>alphaNumOnly == TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>header</code></td>
+<td>
+<p>Single logical. If TRUE the header is present in the bin file,
+if FALSE it is not present.</p>
+</td></tr>
+<tr valign="top"><td><code>lastBinWd</code></td>
+<td>
+<p>Single character string. Last folder in which some binary files
+were fetched.</p>
+</td></tr>
+<tr valign="top"><td><code>timeSeriesValid</code></td>
+<td>
+<p>A valid R function. The first parameter of the function
+must accept a Date or POSIXct time series (as read from
+or exported to a BIN-file). The purpose of the
+function is to check that the time series is &quot;valid&quot;.
+The default function
+<code><a href="isValidTimeSeries.html">isValidTimeSeries</a></code> (set when
+the package is attached) will for example check that
+date-times in the time series are unique, sorted and
+regular(ly increasing). Set to <code>NULL</code> or
+<code>function(x){TRUE}</code> to cancel any check.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function has 3 possible, non-exclusive behaviours: </p>
+ <ul>
+<li><p> If
+<code>reset=TRUE</code>, resetting the parameters to their initial values, as
+defined in this function. </p>
+</li>
+<li><p> (Silently) returning the actual value of the
+package parameters. If <code>par=NULL</code>, all the values are returned.  If
+<code>par</code> is a vector of parameter names, their value will be returned.
+</p>
+</li>
+<li><p> Setting-up the value of some parameters, passing a list of parameter
+value to <code>par</code> OR setting some of the parameters listed above. </p>
+</li></ul>
+
+<p>Notice that when <code>reset=TRUE</code> and some new parameter values are
+provided, the parameters are first reset, and then the new parameter values
+are set. If <code>par</code> is a list, parameters are set first according to
+values in <code>par</code>, and then according to values in the parameters listed
+below. This combination is not recommended, but nonetheless possible.
+</p>
+<p>The actual value of the parameters is stored in (and can be retrieved from)
+the environment <code>rspPars</code>. The default value of the parameters are
+stored in the environment <code>rspPars</code>. Do not use them directly.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a partial or complete list of (actual) parameter values, as a
+named list.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="getMuPar.html">getMuPar</a></code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

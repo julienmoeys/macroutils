@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: INTERNAL. Import a MACRO indump.tmp file and output it in a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for macroReadIndump {macroutils}"><tr><td>macroReadIndump {macroutils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>INTERNAL. Import a MACRO indump.tmp file and output it in a human readable format.</h2>
+
+<h3>Description</h3>
+
+<p>INTERNAL. Import a MACRO indump.tmp file and output it in a
+human readable format. It reads layered parameters, options,
+crop parameters and irrigation parameters, but not yet output
+parameters. EXPERIMENTAL. USE AT YOUR OWN RISKS.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+macroReadIndump(f, layerLoc = 7, exportTrash = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p>Single character string. Name (and if needed, path) of the
+indump.tmp file to be read</p>
+</td></tr>
+<tr valign="top"><td><code>layerLoc</code></td>
+<td>
+<p>Single integer. Line where the number of numerical layers is
+written</p>
+</td></tr>
+<tr valign="top"><td><code>exportTrash</code></td>
+<td>
+<p>Single logical value. If TRUE, 'filling' parameter values (i.e.
+values written but not used) are also exported.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list of <code><a href="../../base/html/data.frame.html">data.frame</a></code>s with different
+MACRO parameters
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

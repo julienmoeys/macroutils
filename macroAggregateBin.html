@@ -1,0 +1,537 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Aggregate simulation results by some date subsets, using...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body>
+
+<table width="100%" summary="page for macroAggregateBin {macroutils}"><tr><td>macroAggregateBin {macroutils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Aggregate simulation results by some date subsets, using various functions</h2>
+
+<h3>Description</h3>
+
+<p>Aggregate simulation results by some date subsets, using various functions.
+macroAggregateBin can be used on a data.frame containing simulation results (or
+weather data or any time series data) to compute some aggregation function
+(FUN = sum, mean, median, ...) over subsets of dates (aggregate by day, week,
+month, ...).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+macroAggregateBin(x, columns = colnames(x), by = "%Y-%m-%d", FUN = sum,
+  dateCol = "Date")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A data.frame, with a date column named after 'dateCol' (default
+&quot;Date&quot;) and one or several variables to be aggregated on a certain time
+interval (defined in 'by'). The column 'dateCol' must be in POSIXct format.</p>
+</td></tr>
+<tr valign="top"><td><code>columns</code></td>
+<td>
+<p>A vector of character strings. Name of the columns to be
+selected and aggregated. 'dateCol' does not need to be specified here, but
+can be included.</p>
+</td></tr>
+<tr valign="top"><td><code>by</code></td>
+<td>
+<p>A charcater string representing a POSIXct format (see
+?format.POSIXct). &quot;%Y-%m-%d&quot; (the default) will aggregate the data by days
+and &quot;%Y-%m-%d %H&quot;, &quot;%Y-%W&quot;, &quot;%Y-%m&quot; will aggregate the data by hour,
+week of the year or month, respectively. Other combinations are possible.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>A function to be applied to aggregate the data on each element of
+'by'. Can be 'sum', 'mean', 'median', etc. For removing missing values,
+choose something like 'function(x)sum(x,na.rm=TRUE)'.  Another possibility
+would be 'function(x)quantile(x,probs=.75)'.  The same function is applied
+for all columns, so consider applying different macroAggregateBin() on different
+data types if needed.</p>
+</td></tr>
+<tr valign="top"><td><code>dateCol</code></td>
+<td>
+<p>Name of the column cotaining the POSIXct date values. Default
+is 'Date'.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a data.frame with the values in columns aggregated by 'by'
+with the function 'FUN'. Notice that the format of 'dateCol' is then
+&quot;character&quot;, and not any more POSIXct (because no uniform date format are
+possible for exporying back the dates).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">library( &quot;macroutils&quot; )
+
+
+
+# ====== Read a bin file ======
+
+#   Format the path to a test binary file
+( filenm &lt;- system.file( &quot;bintest/METFILE.BIN&quot;, 
+    package = &quot;macroutils&quot;, mustWork = TRUE ) ) 
+</code></pre>
+
+<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/METFILE.BIN&quot;
+</code></pre>
+
+<pre><code class="r">#   Read the binary file
+tmp1 &lt;- macroReadBin( file = filenm ) 
+
+#   Inspect the table
+colnames( tmp1 ) 
+</code></pre>
+
+<pre><code>## [1] &quot;Date&quot;                                       
+## [2] &quot;Max_air_temperature_oC_Sutton_Bonington&quot;    
+## [3] &quot;Min_air_temperature_oC_Sutton_Bonington&quot;    
+## [4] &quot;Solar_radiation_W_m_2_Sutton_Bonington_TRS1&quot;
+## [5] &quot;Vapour_pressure_kPa_Sutton_Bonington_TRS1&quot;  
+## [6] &quot;Wind_speed_m_s_1_Sutton_Bonington_TRS1&quot;
+</code></pre>
+
+<pre><code class="r">dim( tmp1 ) 
+</code></pre>
+
+<pre><code>## [1] 731   6
+</code></pre>
+
+<pre><code class="r"># ====== Aggregate the results =====
+
+#   Sum by year and month:
+( r1 &lt;- macroAggregateBin( x = tmp1, by = &quot;%Y-%m&quot;, FUN = sum ) )
+</code></pre>
+
+<pre><code>##       Date Max_air_temperature_oC_Sutton_Bonington
+## 1  1987-01                                    96.9
+## 2  1987-02                                   190.1
+## 3  1987-03                                   232.7
+## 4  1987-04                                   447.1
+## 5  1987-05                                   444.0
+## 6  1987-06                                   498.4
+## 7  1987-07                                   621.7
+## 8  1987-08                                   615.4
+## 9  1987-09                                   538.2
+## 10 1987-10                                   410.2
+## 11 1987-11                                   255.9
+## 12 1987-12                                   250.6
+## 13 1988-01                                   248.1
+## 14 1988-02                                   230.3
+## 15 1988-03                                   304.9
+## 16 1988-04                                   354.5
+## 17 1988-05                                   495.3
+## 18 1988-06                                   553.5
+## 19 1988-07                                   572.3
+## 20 1988-08                                   615.9
+## 21 1988-09                                   525.6
+## 22 1988-10                                   431.8
+## 23 1988-11                                   261.8
+## 24 1988-12                                   308.6
+##    Min_air_temperature_oC_Sutton_Bonington
+## 1                                    -59.8
+## 2                                     20.9
+## 3                                     19.4
+## 4                                    159.5
+## 5                                    167.1
+## 6                                    257.6
+## 7                                    355.3
+## 8                                    365.7
+## 9                                    281.7
+## 10                                   178.5
+## 11                                   121.1
+## 12                                    94.7
+## 13                                    83.6
+## 14                                    51.8
+## 15                                    89.8
+## 16                                   120.3
+## 17                                   200.3
+## 18                                   289.5
+## 19                                   360.7
+## 20                                   344.3
+## 21                                   291.7
+## 22                                   219.9
+## 23                                    23.8
+## 24                                   140.7
+##    Solar_radiation_W_m_2_Sutton_Bonington_TRS1
+## 1                                     827.7796
+## 2                                    1480.9061
+## 3                                    2619.1030
+## 4                                    3401.2806
+## 5                                    5278.5996
+## 6                                    4475.9358
+## 7                                    5170.8447
+## 8                                    4028.4811
+## 9                                    3631.2580
+## 10                                   2043.0601
+## 11                                    730.3257
+## 12                                    506.5983
+## 13                                    833.3352
+## 14                                   1800.1197
+## 15                                   2700.0059
+## 16                                   3689.1285
+## 17                                   5515.0584
+## 18                                   5373.5073
+## 19                                   5059.7334
+## 20                                   5059.8491
+## 21                                   3270.4933
+## 22                                   1902.3190
+## 23                                    999.5392
+## 24                                    589.8161
+##    Vapour_pressure_kPa_Sutton_Bonington_TRS1
+## 1                                      18.06
+## 2                                      19.69
+## 3                                      21.39
+## 4                                      30.32
+## 5                                      30.18
+## 6                                      36.87
+## 7                                      43.27
+## 8                                      46.15
+## 9                                      37.64
+## 10                                     32.30
+## 11                                     25.12
+## 12                                     25.32
+## 13                                     24.17
+## 14                                     19.49
+## 15                                     24.01
+## 16                                     26.06
+## 17                                     32.11
+## 18                                     38.46
+## 19                                     41.02
+## 20                                     40.54
+## 21                                     35.28
+## 22                                     33.59
+## 23                                     23.02
+## 24                                     27.65
+##    Wind_speed_m_s_1_Sutton_Bonington_TRS1
+## 1                                67.54072
+## 2                                68.92960
+## 3                                99.02200
+## 4                                78.49744
+## 5                                80.45216
+## 6                                61.67656
+## 7                                63.63128
+## 8                                59.92760
+## 9                                69.49544
+## 10                               72.32464
+## 11                               72.99336
+## 12                               92.02616
+## 13                              101.69688
+## 14                              102.15984
+## 15                               86.57352
+## 16                               79.93776
+## 17                               70.26704
+## 18                               63.99136
+## 19                               90.48296
+## 20                               81.84104
+## 21                               78.29168
+## 22                               76.90280
+## 23                               48.61080
+## 24                               92.23192
+</code></pre>
+
+<pre><code class="r">#   Sum by month too, but on one column only:
+( r2 &lt;- macroAggregateBin( 
+    x       = tmp1, 
+    columns = &quot;Wind_speed_m_s_1_Sutton_Bonington_TRS1&quot;, 
+    by      = &quot;%Y-%m&quot;, 
+    FUN     = sum ) ) 
+</code></pre>
+
+<pre><code>##       Date Wind_speed_m_s_1_Sutton_Bonington_TRS1
+## 1  1987-01                               67.54072
+## 2  1987-02                               68.92960
+## 3  1987-03                               99.02200
+## 4  1987-04                               78.49744
+## 5  1987-05                               80.45216
+## 6  1987-06                               61.67656
+## 7  1987-07                               63.63128
+## 8  1987-08                               59.92760
+## 9  1987-09                               69.49544
+## 10 1987-10                               72.32464
+## 11 1987-11                               72.99336
+## 12 1987-12                               92.02616
+## 13 1988-01                              101.69688
+## 14 1988-02                              102.15984
+## 15 1988-03                               86.57352
+## 16 1988-04                               79.93776
+## 17 1988-05                               70.26704
+## 18 1988-06                               63.99136
+## 19 1988-07                               90.48296
+## 20 1988-08                               81.84104
+## 21 1988-09                               78.29168
+## 22 1988-10                               76.90280
+## 23 1988-11                               48.61080
+## 24 1988-12                               92.23192
+</code></pre>
+
+<pre><code class="r">#   Sum by week of year (00 -&gt; 53):
+r3 &lt;- macroAggregateBin( x = tmp1, by = &quot;%Y-%W&quot;, FUN = sum ) 
+
+#   Inspect the results
+head( r3 ) 
+</code></pre>
+
+<pre><code>##      Date Max_air_temperature_oC_Sutton_Bonington
+## 1 1987-00                                    31.9
+## 2 1987-01                                    16.4
+## 3 1987-02                                   -10.3
+## 4 1987-03                                    38.8
+## 5 1987-04                                    24.0
+## 6 1987-05                                    64.8
+##   Min_air_temperature_oC_Sutton_Bonington
+## 1                                     4.1
+## 2                                    -8.5
+## 3                                   -42.1
+## 4                                     0.9
+## 5                                   -21.3
+## 6                                    21.4
+##   Solar_radiation_W_m_2_Sutton_Bonington_TRS1
+## 1                                    72.91683
+## 2                                   229.16717
+## 3                                   135.41697
+## 4                                   122.68546
+## 5                                   330.09332
+## 6                                   251.15797
+##   Vapour_pressure_kPa_Sutton_Bonington_TRS1
+## 1                                      3.01
+## 2                                      3.60
+## 3                                      3.14
+## 4                                      5.10
+## 5                                      3.62
+## 6                                      5.94
+##   Wind_speed_m_s_1_Sutton_Bonington_TRS1
+## 1                               13.16864
+## 2                               17.84968
+## 3                               24.99984
+## 4                                6.68720
+## 5                                6.84152
+## 6                               19.34144
+</code></pre>
+
+<pre><code class="r">tail( r3 ) 
+</code></pre>
+
+<pre><code>##        Date Max_air_temperature_oC_Sutton_Bonington
+## 101 1988-47                                    37.3
+## 102 1988-48                                    58.9
+## 103 1988-49                                    67.4
+## 104 1988-50                                    64.7
+## 105 1988-51                                    79.3
+## 106 1988-52                                    69.4
+##     Min_air_temperature_oC_Sutton_Bonington
+## 101                                   -17.6
+## 102                                    16.8
+## 103                                    21.2
+## 104                                    29.5
+## 105                                    42.9
+## 106                                    37.6
+##     Solar_radiation_W_m_2_Sutton_Bonington_TRS1
+## 101                                   217.13011
+## 102                                    98.61133
+## 103                                   178.58836
+## 104                                   122.45397
+## 105                                   108.56505
+## 106                                   128.00954
+##     Vapour_pressure_kPa_Sutton_Bonington_TRS1
+## 101                                      4.05
+## 102                                      5.86
+## 103                                      5.56
+## 104                                      6.19
+## 105                                      6.69
+## 106                                      6.12
+##     Wind_speed_m_s_1_Sutton_Bonington_TRS1
+## 101                                7.30448
+## 102                               17.23240
+## 103                               20.93608
+## 104                               11.77976
+## 105                               30.19528
+## 106                               18.77560
+</code></pre>
+
+<pre><code class="r">#   Notice the new format of the column &#39;Date&#39; (&quot;character&quot;)
+class( r1[,&quot;Date&quot;] )
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+
+<pre><code class="r">#   Trick to convert r1$Date to POSIXct date again, by adding a virtual day:
+r1[,&quot;Date&quot;] &lt;- as.POSIXct( paste( sep = &quot;&quot;, r1[,&quot;Date&quot;], &quot;-15&quot; ), 
+    format = &quot;%Y-%m-%d&quot;, tz = getMuPar( &quot;tz&quot; ) ) 
+class( r1[,&quot;Date&quot;] )
+</code></pre>
+
+<pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;
+</code></pre>
+
+<pre><code class="r">#   Plot the results
+plot( r1[,2] ~ r1[,&quot;Date&quot;], type = &quot;b&quot;, col = &quot;red&quot; ) 
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAeFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrY6AAA6ADo6AGY6OmY6OpA6ZrY6kLY6kNtmAABmADpmAGZmOgBmtv+QOgCQOjqQOmaQkLaQtpCQ29uQ2/+2ZgC2Zma2///bkDrb25Db/9vb////AAD/tmb/25D//7b//9v///9OXdW+AAAACXBIWXMAAAsSAAALEgHS3X78AAAO1klEQVR4nO2di3bbuBFAld3GaZquvF07fdiNt5Fk6///sCb1sCU+TAADzABz7zm7siIDA+AaBCAS5GoPLllpFwB0QLxTEO8UxDsF8U5BvFMQ7xTEOwXxTkG8UxDvFMQ7BfFOQbxTEO8UxDsF8U5BvFMQ7xTEOwXxTkG8UxDvFMQ7BfFOQbxTEO8UxDsF8U5BvFMQ7xTEOwXxTkG8UxDvFMQ7BfFOQbxTEO8UxDsF8U5BvFMQ7xTEOwXxTkG8UxDvFMQ7BfFOQbxTEO8UxDsF8U5BvFMQ7xTEOwXxTkG8U1LEr8AyGcUnpIXcIN4piHcK4p2CeKcg3imIdwrinYJ4pyDeKS2J32w2pUPWS0PiN8f/YAmIdwrindKQ+PMYfx7qmxn0M1SkJfFvHNqpmUNAjoq0Kf4A4mdAfAWYFL/70l/I88uPiLS5YYyfJlX8y/1d/7r9/DM4rTSNWC5Dqvjnf/y4eA1JKw3iA6DHOyV5jH++tTLGt+o9T70amtWPNlD9fw2bixcxEG8dq+LtLOfGm6Z285vBDzI0NLlDfAgZlnMLd2dJM9EwlYvfjPwkQjs9fqph6jZvVryd5VyT4jcTP6fTzqy+RfGbyTfJNCN+ulkqNm9Z/O7L3cv9ajUc4hGfzGb2bRoSk7vH1/nd7pvy5G6mVao1b1n86zLu5fuDgbNzDYq/Lrcp8V13365fl3M3EWklQXwY6ZO7x345N/ReVvxso9RpflhqyXq0MqtHfCCIt8pIoRE/ZL5NqjQ/gmA9EF8TiL/mgxZB/AAf4lsxj/hr2hI/vX9Crh6It8fMjinEX/Fhg9RkHvGL+bg9GhEvVw/EG2RmjyTiL1jQHFWZnwbxF7QjvthkBfGmKDdmNSF+UWNUYH7J7Q8Q/45GxBethh/x5s0vLJ9QNRBfG4g/U7arZCDo3kaIP7O0Kayan/umbuLX00G8PoiPBPEReBJv13zQ/QsRf2R5Q1gVH4hINVyJbwTEH0B8DIivEIkaI16d8PIjviNoQmzxPuaIjyNwBWzOfESBEN/hULxEJRCvTFR5EL+vfozXKlD14s2ZDEOt+IjXBfGx1C1er/SIVyW29OmTFXfiTf2hRHtPSHukdvHB1Uf8AcQrEl0WxCt90S1EfFEY42sWr1qSysUrneGQAfHx1CxetyCIVwPxCVQsPrUc2rN63SdNKp3MlqBy8brPndM6mS1AeinSckgVP/KkycVp00F8NPR4HQQKoSvezpMmF4P4jspn9VEYMC9ShKRMEF9vEXTF6y7nojAgXgRV8ZqTu9hTVIjfZ1nOrU6klGsB0SelWxGfVJGKe3z81QjK5sWu7tcUr7icq1W83H4eVfF50i4iuue0Ij4lm5rFR4N4mcldd7QfDvGInwwvtoNPV3w/od/9PTytGkzrRcTvvv3UOjsXC+bTxd9++s8/ux7/rfRyLkUe4gUmdy/3q5v9tvhyLskd4uud1dcrXjK4P/FprdeM+PjMfIpXNY/4BJQvUbUTGvFl05sJ7Ux8cuM1Iz46O8SXBvHxaF+Tbik04otnYSRyZH41ipdoOjXx4oERXzwPG4H9iNe/Jt1UYMSXz8RG4Lgc6xOvf9WSsbiI18jGQFgn4g1crmYsLOJV8jEQNirP2sSLNRziUz7OlnYSuYbTMY/4OATbrR3xUZkivih5gjoQLwjiEz7OlrYAiE/4OFvaveQOs4n8s+ZeNmhEtmbFC+4pnYlQGsR/yFC89CEA8fEfZ0v7TvzmKFz8EKAgPlfIlsQPOjjiRTO2K/4axItmXI94+Wl+efOGdulWJF4cxEd/nC1tEYprMOTdsPj8rYT46I+zpd0jPizn4PmPZ/HFzWed1AdmjviCIH4JiA/LuBXxJaQUFp8xXENjPOLzgvhyIH4JRVqprArELwHxeUF8MTIHY1ZvFcQvAvF5s7cqvj3viF8E4jPnnyw+0yNGC4nPffH+RSxT+aeKz/XAwTI+8l+8fxnLUIBU8SOPGF2cdg7EZw5Aj0d8xMf7bI8YbW+Mb018nrQNzuoRvwS85w5hdDmH+NwhjE7uEJ87RIbl3OpESDmuaOdrlYJx6PEWI7UmPtNyDvG5Q7if1Zf6wsBaDPfiC35HaCqIjPjd1+GRHvHFo5QUfxzixwb5BPElV3OIj/h435l/VS7d4xGfPYjAof759vOfiLcQpfgYv/sysppDfOkgCpM76bQtXe9eLAbiDQaz923BAvHnifvo93PRWc+B+Oxhlog/n38ZubAuPus5EJ89jMlDfXN7GQ2eEFgifvdl9ekhtL8jvmyI0DgLxHdnXl/u182KLxCuTvEH4Y83iDccITjOwh7/ytOvY1/PxWc9A+LzB1oyxj/frruXp6DFHOKLRggOxKze3BXvZSIhHvERH2dKW/rialsbmMtEsii++EX17VzFj3jbAbORRfzz7eompBCIV2BxVejxGgHzISm++Nm5xsSXvM+OrPjS5+PLd8CcETeZ8x9GWwSH+twREb8YxKdFW4RB8QpTrawhqx3jY0G8BkurEjK5K3R2DvEpCIrvL7+JAPEaSIrfP//+EFGEisQ3ZF5UfByIz5tzWrxlPT7wartFWU/SlHiz30IuEv/ynUO9tYxTIy7r8ZM3OErIegqV4TZXULsTVXtjPOKLhER8zqiGRy3E54yK+AAaEm951EJ8xqiID6Ed8UpfBy4Li/hsUbW+Bka8cljEB2G7uTQzlA2M+FxxER9GK+L1TvQiXjUu4gNpRLzmlR2LYiM+T2DEh9KGeNVLuRCvF9iBeOEnTVqfE5XPK1P0VPHSz51rQ7wuRcSPPGlycdoxEJ/OaE2uN3LR4/UjizNSlcHWzeQxXvhJk4rNLxS66B7JiSKM/5OseOG01Ysvuyt6ugwj/4T4nKGNihcf49tZzjUu/homd9KhbY7xAzIs5863SloQ/hrzX3FXQYU93v5XnVVwXZORmhlbziFehM3s2x5js3rEi4D48sFN/PVsZt4dkVjOrR851MtmkkoB8d3k7rF7gvw3JndSeaSzmXxzRmI5t12LnZ2r4ER29iwEKCD+tJyT6fHKzdaM+PfFmCiRwHKuMz/2aDKP4o14LyFeNC3ihdiM/HQJ4kXDIz4ube3irXh/K8hkiRAvGV+7/GcQXza+dvnPbK5ehyBeML528d+xuXgZwZR49YZrTfxMgRAvWAD18r+B+IIFUC/+Ozbn/02AeLkS6Bf/CsSXKYF+8QNAvFgJ9EsfAuLFSqBf+hAQL4Wtwn94dT/ipTBV+I/381gSb6rpgjFVesQXw1bhER9K9M43C4V/R1VjvIG2+7inzKWsCcQPihBVDANlDwPxgyIg/uOPZdNaaLzT2Hj9+mG6bCXKBOJnGR4Bxv8SDBb9AwyJt9h4Z/Gbo/CJscBi2edB/CwDz4hPznqAyca7PrKPizdZ9HkQH8joGF9H0S9AvAQVFt2Q+KoYDPy1gfhINhM/1wLiY9G/j2ESiI+navNmxBu4E2gw9ZX4DSvi48+HQhSIT6XGQ9Ue8cnUWnAr4mvtOIiXTVsPiBdNWxGVHqoQ7xTEO8WI+CqPllVjQzzei4N4p5gQj/fyIN4pFsTjXYFk8emPGMW7BqniBR44iHgNUsWPPGJ0cdoDeFdBv8cjXoXkMT71EaN410F7Vo93JRDvFOXlHN61UJ7cIV6LDMu51YmPo+NdDf3lHKigvpwDHbRn9aCEnvhKr05tBYnl3KeHiO/qa70evRUkJncv92vE14bMcu7xBvGVIbSce/r1a+hpWcZ4VQSWc+vu5Wm4nmNWbxmWc05BvFMQ7xQ18czsdEG8U7TE410ZxDsF8U5BvFOUxONdG8Q7BfFOQbxTdMTjXR3EOwXxTlERj3d9EO8UxDsF8U7REI93AyDeKYh3ioJ4vFsA8U5BvFMQ75Ty4vFuAsQ7BfFOQbxTiovHuw0Q7xTEO6W0eLwbAfFOQbxTEO+UwuLxbgXEOwXxTikrHu9mQLxTEO8UxDulqHi82yFZfMiTJhFvh1TxQc+dQ7wdUsWPPGlyOi3i7VCyx+PdEMljfMCTJhFvCKXbnYE2iHdK0eUc2KHocg7skGE5tzpx8Ys8X9AWpXo8TxQ1RqnlHOKNUWpWj3hjFFvOMcbbgnW8UxDvlOTl3O1x7cZjxOsiuce/3K+j04Ie6Yf6598fotOCGozxTkG8UxDvFMQ7BfFOQbxTcooHy+QTL5eFCVqpx7KKIP5MK/VAfCCt1APxgbRSD8QH0ko9EB9IK/VAfCCt1KOYeKgRxDsF8U5BvFMQ7xTEOwXxTkG8UxDvFMQ7JVb87uuP/vY4v5xfnvrLPu5ES5efYT1OL5URWpFI8dsuy+fbu/3T55/dTpunw/0yRm6bYZuReryrTkWMVeTwbiJBnPjHT/9+/QPbffvZ7a/qX/o75ExutrLKWD3eqlMRkxWZNJJyqD/m/NZFnm4ic9NjWI86e/xIRfKJ748lnx66ndR9Q1XX4fej9ThVpy6GFTm9Gyd1cvfb94fdXx/2224WUd0Ivx+rx7k6dTEi5PBu4veTxO/72991vvvO/ji1kd4ww3qcq1MXY0JGbzZ/JOlQ340lN/vTH9jL5F+XYYb1qLjHX1bk+G6CpB6/XfWj4etLN5RU2E1G63F8qYzxikwPvnxz5xTEOwXxTkG8UxDvFMQ7BfFOQbxTEO8UxDsF8U5BvFMQ7xTEOwXxTkG8UxDvFMQ7BfFOQbxTXIrvLkzcni5EfFo/rXdfLjd8nq5V7j/97b66raAL8Ci+32C4PV143IvvRHc7T45ciF/vHxFfObu//fHLj8MGw7P47d327iC622zW9f2759vXP43+f/2niK+e3Zde4e69+NM/7E/7DV/fdO8f1+ftCIivneMhfEL8cStQt8P4a78P5bQBCfG1My/+sAGwe3xyJ757mPJxRw3ia2de/PZwF4nDof79dkPE186s+KP0bs/hcYw/7ftGfO1cin9btL2t459Wq7/8cfdy38/qT3snEd8QXY//78LN0IhviO3q8//+teg3X/jmDtoB8U5BvFMQ7xTEOwXxTkG8UxDvFMQ7BfFOQbxTEO8UxDsF8U5BvFMQ75T/AwK1rZmWdoGzAAAAAElFTkSuQmCC" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r"># ====== using the original R aggregate() =====
+
+#   More code, but a bit faster
+r1b &lt;- aggregate( 
+    x   = tmp1[,-1], 
+    by  = list( &quot;Date&quot; = format.POSIXct( tmp1[,&quot;Date&quot;], &quot;%Y-%m&quot; ) ), 
+    FUN = sum ) 
+r1b 
+</code></pre>
+
+<pre><code>##       Date Max_air_temperature_oC_Sutton_Bonington
+## 1  1987-01                                    96.9
+## 2  1987-02                                   190.1
+## 3  1987-03                                   232.7
+## 4  1987-04                                   447.1
+## 5  1987-05                                   444.0
+## 6  1987-06                                   498.4
+## 7  1987-07                                   621.7
+## 8  1987-08                                   615.4
+## 9  1987-09                                   538.2
+## 10 1987-10                                   410.2
+## 11 1987-11                                   255.9
+## 12 1987-12                                   250.6
+## 13 1988-01                                   248.1
+## 14 1988-02                                   230.3
+## 15 1988-03                                   304.9
+## 16 1988-04                                   354.5
+## 17 1988-05                                   495.3
+## 18 1988-06                                   553.5
+## 19 1988-07                                   572.3
+## 20 1988-08                                   615.9
+## 21 1988-09                                   525.6
+## 22 1988-10                                   431.8
+## 23 1988-11                                   261.8
+## 24 1988-12                                   308.6
+##    Min_air_temperature_oC_Sutton_Bonington
+## 1                                    -59.8
+## 2                                     20.9
+## 3                                     19.4
+## 4                                    159.5
+## 5                                    167.1
+## 6                                    257.6
+## 7                                    355.3
+## 8                                    365.7
+## 9                                    281.7
+## 10                                   178.5
+## 11                                   121.1
+## 12                                    94.7
+## 13                                    83.6
+## 14                                    51.8
+## 15                                    89.8
+## 16                                   120.3
+## 17                                   200.3
+## 18                                   289.5
+## 19                                   360.7
+## 20                                   344.3
+## 21                                   291.7
+## 22                                   219.9
+## 23                                    23.8
+## 24                                   140.7
+##    Solar_radiation_W_m_2_Sutton_Bonington_TRS1
+## 1                                     827.7796
+## 2                                    1480.9061
+## 3                                    2619.1030
+## 4                                    3401.2806
+## 5                                    5278.5996
+## 6                                    4475.9358
+## 7                                    5170.8447
+## 8                                    4028.4811
+## 9                                    3631.2580
+## 10                                   2043.0601
+## 11                                    730.3257
+## 12                                    506.5983
+## 13                                    833.3352
+## 14                                   1800.1197
+## 15                                   2700.0059
+## 16                                   3689.1285
+## 17                                   5515.0584
+## 18                                   5373.5073
+## 19                                   5059.7334
+## 20                                   5059.8491
+## 21                                   3270.4933
+## 22                                   1902.3190
+## 23                                    999.5392
+## 24                                    589.8161
+##    Vapour_pressure_kPa_Sutton_Bonington_TRS1
+## 1                                      18.06
+## 2                                      19.69
+## 3                                      21.39
+## 4                                      30.32
+## 5                                      30.18
+## 6                                      36.87
+## 7                                      43.27
+## 8                                      46.15
+## 9                                      37.64
+## 10                                     32.30
+## 11                                     25.12
+## 12                                     25.32
+## 13                                     24.17
+## 14                                     19.49
+## 15                                     24.01
+## 16                                     26.06
+## 17                                     32.11
+## 18                                     38.46
+## 19                                     41.02
+## 20                                     40.54
+## 21                                     35.28
+## 22                                     33.59
+## 23                                     23.02
+## 24                                     27.65
+##    Wind_speed_m_s_1_Sutton_Bonington_TRS1
+## 1                                67.54072
+## 2                                68.92960
+## 3                                99.02200
+## 4                                78.49744
+## 5                                80.45216
+## 6                                61.67656
+## 7                                63.63128
+## 8                                59.92760
+## 9                                69.49544
+## 10                               72.32464
+## 11                               72.99336
+## 12                               92.02616
+## 13                              101.69688
+## 14                              102.15984
+## 15                               86.57352
+## 16                               79.93776
+## 17                               70.26704
+## 18                               63.99136
+## 19                               90.48296
+## 20                               81.84104
+## 21                               78.29168
+## 22                               76.90280
+## 23                               48.61080
+## 24                               92.23192
+</code></pre>
+
+<pre><code class="r">identical( r1[,-1], r1b[,-1] )
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

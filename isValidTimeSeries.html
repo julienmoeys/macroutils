@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test that Date or POSIXct date-time are unique, sorted and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body>
+
+<table width="100%" summary="page for isValidTimeSeries {macroutils}"><tr><td>isValidTimeSeries {macroutils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test that Date or POSIXct date-time are unique, sorted and regular.</h2>
+
+<h3>Description</h3>
+
+<p>Test that Date or POSIXct date-time are unique, sorted and
+regular.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+isValidTimeSeries(x, units = "hours", onError = warning)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A vector of <code><a href="../../base/html/Dates.html">Date</a></code>, or of <code><a href="../../base/html/DateTimeClasses.html">POSIXct</a></code>
+date-times</p>
+</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+<p>Passed to <code><a href="../../base/html/numeric.html">as.numeric</a></code>-<code>difftime</code>. Only
+used in case irregularities in the time series are
+detected.</p>
+</td></tr>
+<tr valign="top"><td><code>onError</code></td>
+<td>
+<p>A valid R function, such as <code>warning</code> or <code>stop</code>,
+or <code>message</code>. Function that will be used to output
+an error message if the time series is not unique, sorted
+and regular.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns <code>FALSE</code> if a problem was detected, and
+<code>TRUE</code> otherwise (unless <code>onError</code> is <code>stop</code>,
+in which case an error is send and the function stops).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">library( &quot;macroutils&quot; )
+
+timeseries &lt;- seq.POSIXt(
+    from = as.POSIXct( &quot;2015-01-01 12:00&quot;, tz = &quot;GMT&quot; ), 
+    to   = as.POSIXct( &quot;2015-12-31 12:00&quot;, tz = &quot;GMT&quot; ), 
+    by   = &quot;day&quot;
+)   
+
+isValidTimeSeries( x = timeseries ) 
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r"># [1] TRUE
+
+
+
+warning2 &lt;- function(w){message(&quot;&quot;,w)}
+
+#   The time series is not increasing
+tryCatch( isValidTimeSeries( x = rev( timeseries ) ), 
+    warning = warning2 )
+</code></pre>
+
+<pre><code>## simpleWarning in isValidTimeSeries(x = rev(timeseries)): Some date(s)-time(s) seems to be unsorted. Please check. See also option &#39;timeSeriesValid&#39; in muPar()
+</code></pre>
+
+<pre><code class="r">#   The time series is not increasing homogeneously
+tryCatch( isValidTimeSeries( x = timeseries[ -2 ] ), 
+    warning = warning2 )
+</code></pre>
+
+<pre><code>## simpleWarning in isValidTimeSeries(x = timeseries[-2]): The time interval between date(s)-time(s) vary. First two time differences: -48 h, -24 h. Please check. See also option &#39;timeSeriesValid&#39; in muPar()
+</code></pre>
+
+<pre><code class="r">#   The time series has duplicated values
+timeseries2 &lt;- rep( timeseries, each = 2 ) 
+tryCatch( isValidTimeSeries( x = timeseries2 ), 
+    warning = warning2 )
+</code></pre>
+
+<pre><code>## simpleWarning in isValidTimeSeries(x = timeseries2): Some climate date(s)-time(s) are duplicated. First case: 2015-01-01 12:00:00. Please check. See also option &#39;timeSeriesValid&#39; in muPar()
+</code></pre>
+
+<pre><code class="r">#   See also option &#39;timeSeriesValid&#39; in ?muPar
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+</body></html>
