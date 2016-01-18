@@ -242,7 +242,7 @@ generally greatly helps to narrow down the problem.
 [GitHub]:           https://github.com/ "GitHub"
 [macroutils_gh]:    https://github.com/julienmoeys/macroutils "R package macroutils (on GitHub)"
 [macroutils_issues]:https://github.com/julienmoeys/macroutils/issues "Issues on the package macroutils"
-[macroutils_help]:  http://docs.julienmoeys.info/macroutils/ "Documentation for package 'macroutils'"
+[macroutils_help]:  http://julienmoeys.github.io/macroutils/ "Documentation for package 'macroutils'"
 [R]:                http://www.r-project.org/ "R is a free software environment for statistical computing and graphics"
 [CRAN]:             http://cran.r-project.org/ "The Comprehensive R Archive Network"
 [CRAN_mirrors]:     http://cran.r-project.org/mirrors.html "CRAN Mirrors"
