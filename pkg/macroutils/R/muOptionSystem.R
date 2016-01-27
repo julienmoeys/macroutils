@@ -216,7 +216,7 @@ muPar <- function(
             tmpPar <- get( x = parLabel )  
             
             if( is.null( tmpPar ) ){
-                muParValues[ parLabel ] <- list( NULL )
+                muParValues[ parLabel ] <- list( NULL ) # Fixed 2016/01/27
             }else{
                 muParValues[[ parLabel ]] <- tmpPar
             };  rm( tmpPar )
