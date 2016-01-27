@@ -1,9 +1,10 @@
 
 rm(list=ls(all=TRUE)) 
 pkgName     <- "macroutils"
-pkgDir      <- file.path( 
-    "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/macro-sp/", 
-    pkgName, "pkg" ) 
+pkgDir      <- file.path( sprintf( 
+    "D:/Users/%s/Documents/_WORKS/_PROJECTS/r_packages/macro-se/", 
+    Sys.info()[[ "user" ]] 
+    ), pkgName, "pkg" ) 
 
 
 library( "roxygen2" )
@@ -17,7 +18,7 @@ source( file.path( pkgDir, "..", "packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = file.path( pkgDir ), 
-    pkgVersion  = "1.12.0", 
+    pkgVersion  = "1.12.1", 
     pkgDepends  = "utils", # Must be in "Depends" as choose.files not available on Unix
     pkgImports  = c( "tcltk", "tools" ), 
     pkgSuggests = c( "RODBC" ), 

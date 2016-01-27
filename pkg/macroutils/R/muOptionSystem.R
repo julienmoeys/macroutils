@@ -196,7 +196,11 @@ muPar <- function(
         
         # Set the values
         for( i in parNames ){ 
-            muParValues[[ i ]] <- par[[ i ]] 
+            if( is.null( par[[ i ]] ) ){
+                muParValues[ i ] <- list( NULL ) # Fixed 2016/01/27
+            }else{
+                muParValues[[ i ]] <- par[[ i ]] 
+            }   
         }   
     }   
     
@@ -209,7 +213,14 @@ muPar <- function(
         )   
         
         if( eval( testExpr ) ){ 
-            muParValues[[ parLabel ]] <- get( x = parLabel )  
+            tmpPar <- get( x = parLabel )  
+            
+            if( is.null( tmpPar ) ){
+                muParValues[ parLabel ] <- list( NULL )
+            }else{
+                muParValues[[ parLabel ]] <- tmpPar
+            };  rm( tmpPar )
+            
         }   
     }   
     
