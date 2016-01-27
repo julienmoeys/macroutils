@@ -1,6 +1,6 @@
 set pkgname=macroutils
 
-cd /D "%rPackagesDir%\macro-sp\%pkgname%\pkg" 
+cd /D "%rPackagesDir%\macro-se\%pkgname%\pkg" 
 
 REM svnversion > %pkgname%\inst\SVN_VERSION
 git log -n 1 --oneline --no-notes > %pkgname%\inst\GIT_VERSION
