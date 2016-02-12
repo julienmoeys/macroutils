@@ -95,29 +95,29 @@ macroReadIndump <- function(
     rm( colLoc1, colLoc2 ) 
     
     # Read the 1st variables index-array
-    # colz <- unlist( lapply( 
+    # varIndex <- unlist( lapply( 
         # X   = indump[ colLoc ], 
         # FUN = function(X){ scan( text = X, what = "character", quiet = TRUE ) } ) ) 
     tmp  <- tempfile() 
     writeLines( text = paste( indump[ colLoc ] ), con = tmp ) 
     # library( "utils" )
-    colz <- utils::read.fwf( file = tmp, widths = rep(9,8), stringsAsFactors = FALSE ) 
+    varIndex <- utils::read.fwf( file = tmp, widths = rep(9,8), stringsAsFactors = FALSE ) 
     unlink( tmp ); rm( tmp ) 
-    colz <- unlist( lapply( 
-        X   = 1:nrow(colz),
+    varIndex <- unlist( lapply( 
+        X   = 1:nrow(varIndex),
         FUN = function(X){
             scan( 
-                text  = paste( colz[X,], collapse = " " ),
+                text  = paste( varIndex[X,], collapse = " " ),
                 what  = "character", 
                 quiet = TRUE 
             )
         }
     ) ) 
-    colz <- colz[ !is.na( colz ) ] 
+    varIndex <- varIndex[ !is.na( varIndex ) ] 
     
     # Bind the columns and their indexes
-    colz <- data.frame( 
-        "name"   = colz, 
+    varIndex <- data.frame( 
+        "name"   = varIndex, 
         "start"  = ind[ -length( ind ) ], 
         "stop"   = ind[ -length( ind ) ] + diff( ind ) - 1, 
         "length" = diff( ind ), 
@@ -128,19 +128,19 @@ macroReadIndump <- function(
     vr    <- numeric(0) 
     trash <- list() 
     
-    for( r in 1:nrow( colz ) ){ 
+    for( r in 1:nrow( varIndex ) ){ 
         #   Locate the values 
-        i <- colz[ r, "start" ] 
-        j <- colz[ r, "stop" ]  
+        i <- varIndex[ r, "start" ] 
+        j <- varIndex[ r, "stop" ]  
         
         #   Case: layered variable:
-        if( colz[ r, "length" ] == nlayer ){ 
+        if( varIndex[ r, "length" ] == nlayer ){ 
             #   Read the values into a matrix
             matTmp <- matrix( data = val[ i:j ], nrow = nlayer, 
                 ncol = 1, byrow = FALSE ) 
             
             #   Name the column
-            colnames( matTmp ) <- colz[ r, "name" ] 
+            colnames( matTmp ) <- varIndex[ r, "name" ] 
             
             #   Bind to the existing data
             mat <- cbind( mat, matTmp ); rm( matTmp ) 
@@ -150,13 +150,13 @@ macroReadIndump <- function(
             varTmp <- val[ i:j ] 
             
             #   Case: not a single value (strange stuff)
-            if( colz[ r, "length" ] != 1 ){ 
+            if( varIndex[ r, "length" ] != 1 ){ 
                 #   Only keep the last value
-                trash[[ colz[ r, "name" ] ]] <- varTmp[ -1 ] # -length( varTmp )
+                trash[[ varIndex[ r, "name" ] ]] <- varTmp[ -1 ] # -length( varTmp )
                 varTmp <- varTmp[ 1 ] # length( varTmp )
             }   
             
-            names( varTmp ) <- colz[ r, "name" ] 
+            names( varTmp ) <- varIndex[ r, "name" ] 
             vr <- c( vr, varTmp ); rm( varTmp ) 
         }   
     }   
@@ -278,27 +278,27 @@ macroReadIndump <- function(
                 FUN = function(X){ scan( text = X, what = "character", quiet = TRUE ) } ) ) ) 
             
             
-            colz2 <- lapply( 
+            varIndex2 <- lapply( 
                 X   = ind, 
                 FUN = function(X){ 
-                    testCol <- (colz[,"start"] <= X) & 
-                        (colz[,"stop" ] >= X) 
+                    testCol <- (varIndex[,"start"] <= X) & 
+                        (varIndex[,"stop" ] >= X) 
                     testCol <- which( testCol ) 
                     
                     if( length(testCol) == 0 ){ 
                         stop( "Can't find index of time-variable parameter" )
                     }   
                     
-                    return( colz[ testCol[1], ] ) 
+                    return( varIndex[ testCol[1], ] ) 
                 }   
             )   
-            colz2 <- unique( do.call( "rbind", colz2 ) ) 
+            varIndex2 <- unique( do.call( "rbind", varIndex2 ) ) 
             
-            # testCol <- which( colz[,"start"] %in% ind )
-            # colz2 <- data.frame( 
-                # "name"   = colz[ testCol, "name" ], 
+            # testCol <- which( varIndex[,"start"] %in% ind )
+            # varIndex2 <- data.frame( 
+                # "name"   = varIndex[ testCol, "name" ], 
                 # "start"  = ind, 
-                # "length" = colz[ testCol, "length" ], 
+                # "length" = varIndex[ testCol, "length" ], 
                 # stringsAsFactors = FALSE 
             # )   
             
@@ -311,20 +311,20 @@ macroReadIndump <- function(
             # if( timeI == 2 ){ browser() }
             
             #   Read the new values
-            for( r in 1:nrow( colz2 ) ){ 
+            for( r in 1:nrow( varIndex2 ) ){ 
                 # Locate the values 
-                # i <- colz2[ r, "start" ] 
+                # i <- varIndex2[ r, "start" ] 
                 i <- j+1
-                j <- i + colz2[ r, "length" ] - 1 
+                j <- i + varIndex2[ r, "length" ] - 1 
                 
                 #   Case: layered variable:
-                if( colz2[ r, "length" ] == nlayer ){ 
+                if( varIndex2[ r, "length" ] == nlayer ){ 
                     #   Read the values into a matrix
                     matTmp <- matrix( data = valDate[ i:j ], nrow = nlayer, 
                         ncol = 1, byrow = FALSE ) 
                     
                     #   Name the column
-                    colnames( matTmp ) <- colz2[ r, "name" ] 
+                    colnames( matTmp ) <- varIndex2[ r, "name" ] 
                     
                     #   Bind to the existing data
                     mat2 <- cbind( mat2, matTmp ); rm( matTmp ) 
@@ -334,13 +334,13 @@ macroReadIndump <- function(
                     varTmp <- valDate[ i:j ] 
                     
                     #   Case: not a single value (strange stuff)
-                    if( colz2[ r, "length" ] != 1 ){ 
+                    if( varIndex2[ r, "length" ] != 1 ){ 
                         #   Only keep the last value
-                        trash2[[ colz2[ r, "name" ] ]] <- varTmp[ -1 ] 
+                        trash2[[ varIndex2[ r, "name" ] ]] <- varTmp[ -1 ] 
                         varTmp <- varTmp[ 1 ] 
                     }   
                     
-                    names( varTmp ) <- colz2[ r, "name" ] 
+                    names( varTmp ) <- varIndex2[ r, "name" ] 
                     vr2 <- c( vr2, varTmp ); rm( varTmp ) 
                 }   
             }   
@@ -369,7 +369,7 @@ macroReadIndump <- function(
         "IDSTART", "IDMAX", "IHARV", "ZHMIN", "LAIMIN", "LAIMAX", 
         "ZDATEMIN", "DFORM", "LAIHAR", "HMAX", "RSMIN", "ATTEN" ) 
     
-    irrCol <- c("IRRDAY", "AMIR", "IRRSTART", "IRREND", "ZFINT", 
+    irrCol <- c( "IRRDAY", "AMIR", "IRRSTART", "IRREND", "ZFINT", 
         "CONCI", "NIRR" )
     
     type <- unlist( lapply( 
@@ -515,6 +515,12 @@ macroReadIndump <- function(
         irr <- rbind( irr, irrLater ); rm( irrLater ) 
     }   
     
+    # === === Prepare the index of variables
+    
+    varIndex[, "isCrop" ] <- varIndex[, "name" ] %in% cropCol 
+    varIndex[, "isIrr" ]  <- varIndex[, "name" ]  %in% irrCol 
+    
+    
     
     # === === Final export === === 
     
@@ -532,7 +538,8 @@ macroReadIndump <- function(
         "crop"      = crop, 
         "irrig"     = irr, 
         "dateRange" = valDates, 
-        "timePar"   = timePar ) 
+        "timePar"   = timePar, 
+        "varIndex"  = varIndex ) 
     
     return( out )
 }   
