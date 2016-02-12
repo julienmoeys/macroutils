@@ -1,6 +1,11 @@
 
     R package: macroutils
 
+CHANGES IN VERSION 1.13.0
+    
+    2016/02/12  macroReadIndump() now also returns a table 
+        with the variables' index (in the indump.tmp)
+    
 CHANGES IN VERSION 1.12.1
     
     2016/01/27  Fix a bug in muPar() that prevented parameter 
