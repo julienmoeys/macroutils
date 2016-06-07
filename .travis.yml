@@ -5,12 +5,12 @@
 #   https://github.com/craigcitro/r-travis/wiki
 
 language: R
-sudo: false
 cache: packages
 
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
+  - sudo add-apt-repository -y ppa:texlive-backports/ppa
   - ./travis-tool.sh bootstrap
 install:
   - cd ./pkg/macroutils
