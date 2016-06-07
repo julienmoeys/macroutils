@@ -8,13 +8,10 @@ language: R
 
 cache: packages
 
-env: _R_CHECK_CRAN_INCOMING_=FALSE
+env:
+  - PACK_DIR=macroutils
 
-install:
-  - cd ./pkg/macroutils
-  - ./travis-tool.sh install_deps
-
-script: ./travis-tool.sh run_tests
+script: cd ./pkg/$TEST_DIR && ./travis-tool.sh run_tests
 
 after_failure:
   - ./travis-tool.sh dump_logs
