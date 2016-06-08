@@ -1392,6 +1392,8 @@ macroPlot.data.frame <- function(
 #'importFrom graphics axTicks
 #'importFrom graphics abline
 #'importFrom graphics axis
+NULL 
+
 .paf <- function( 
  bg        = gray( .95 ), 
  col       = "white", 
