@@ -15,11 +15,13 @@ environment:
   global:
     WARNINGS_ARE_ERRORS: 0
   matrix:
-    - PACK_DIR: "macroutils"
+    - PACK_DIR: macroutils
 
 before_build:
-  - cp travis-tool.sh pkg/%PACK_DIR%/travis-tool.sh
-  - cd /D "pkg/%PACK_DIR%"
+  - cp ../travis-tool.sh pkg\%PACK_DIR%\travis-tool.sh
+  - cp travis-tool.sh.cmd pkg\%PACK_DIR%\travis-tool.sh.cmd
+  - cd pkg\%PACK_DIR%
+  - bash -c "echo '^travis-tool\.sh\.cmd$' >> .Rbuildignore"
 
 build_script:
   - travis-tool.sh install_deps
