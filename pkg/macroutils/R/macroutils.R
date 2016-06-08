@@ -2770,7 +2770,7 @@ macroConvertBin <- function(# Converts MACRO/SOIL binary files into CSV or TXT t
 #'@export
 #'
 #'
-#'importFrom utils View
+#'@importFrom utils View
 macroViewBin <- function(
     file, 
     ...
