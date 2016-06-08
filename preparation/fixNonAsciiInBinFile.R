@@ -16,6 +16,8 @@ tmp3 <- macroReadBin( file = filenm )
 
 colnames( tmp3 ) 
 
+tools::showNonASCII(colnames(tmp3))
+
 colnames(tmp3) <- gsub(x=colnames(tmp3),pattern="²", 
     replacement = "2",fixed=TRUE) 
 
