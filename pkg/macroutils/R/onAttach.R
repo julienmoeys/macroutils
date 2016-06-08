@@ -9,7 +9,7 @@
 
 
 
-#'importFrom utils packageVersion
+#'@importFrom utils packageVersion
 NULL
 
 .onAttach <- function(# Internal. Message displayed when loading the package.
