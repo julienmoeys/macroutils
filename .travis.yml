@@ -11,15 +11,16 @@ cache:
 
 sudo: false
 
+apt_packages:
+ - unixodbc-dev
+ - r-cran-rodbc
+
 #   Subdirectories containing R packages to be compiled
 env:
   - PACK_DIR=macroutils
 
 before_install:
   - cd pkg/$PACK_DIR
-
-script: 
-  - ./travis-tool.sh install_github julienmoeys/macroutils/pkg/$PACK_DIR
 
 after_failure:
   - ./travis-tool.sh dump_logs
