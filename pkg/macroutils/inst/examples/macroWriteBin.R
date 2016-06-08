@@ -1,4 +1,4 @@
-require( "macroutils" )
+library( "macroutils" )
 
 
 # ====== Write a binary file in SOIL or MACRO style ======

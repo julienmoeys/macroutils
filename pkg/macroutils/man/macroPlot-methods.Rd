@@ -106,7 +106,7 @@ Plot time series from SOIL or MACRO simulation data (input or output). When
 }
 \examples{
 
-require( "macroutils" )
+library( "macroutils" )
 
 
 

@@ -36,7 +36,7 @@ Many global arguments can be set-up and retrieved via \code{\link{muPar}}
  if you need to tune \code{macroReadBin}.
 }
 \examples{
-require( "macroutils" )
+library( "macroutils" )
 
 
 # ====== Example 1: MACRO model weather file ====== 

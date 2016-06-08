@@ -38,7 +38,7 @@ Write bin file for the SOIL and MACRO models. Origial code by
  Kristian Persson. R code vectorisation by Julien Moeys.
 }
 \examples{
-require( "macroutils" )
+library( "macroutils" )
 
 
 # ====== Write a binary file in SOIL or MACRO style ======

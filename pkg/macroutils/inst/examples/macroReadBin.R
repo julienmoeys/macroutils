@@ -1,4 +1,4 @@
-require( "macroutils" )
+library( "macroutils" )
 
 
 # ====== Example 1: MACRO model weather file ====== 
