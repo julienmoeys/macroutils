@@ -250,8 +250,8 @@ isValidTimeSeries <- function(
             }   
         ) ) 
         
-        #   Attempt to fix the encoding
-        Encoding( col.Names ) <- 'UTF-8'
+        # #   Attempt to fix the encoding
+        # Encoding( col.Names ) <- 'UTF-8'
         
         # Remove trailing blanks
         col.Names <- sub( 
