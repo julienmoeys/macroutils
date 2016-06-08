@@ -15,10 +15,10 @@ environment:
   global:
     WARNINGS_ARE_ERRORS: 0
   matrix:
-    - PACK_DIR=macroutils
+    - PACK_DIR: "macroutils"
 
 before_install:
-  - cd /D "pkg/$PACK_DIR"
+  - cd /D "pkg/%PACK_DIR%"
 
 build_script:
   - travis-tool.sh install_deps
