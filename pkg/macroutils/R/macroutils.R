@@ -1385,13 +1385,13 @@ macroPlot.data.frame <- function(
 }   
 
 
-#'importFrom grDevices gray
-#'importFrom graphics par
-#'importFrom graphics rect
-#'importFrom graphics axis.POSIXct
-#'importFrom graphics axTicks
-#'importFrom graphics abline
-#'importFrom graphics axis
+#'@importFrom grDevices gray
+#'@importFrom graphics par
+#'@importFrom graphics rect
+#'@importFrom graphics axis.POSIXct
+#'@importFrom graphics axTicks
+#'@importFrom graphics abline
+#'@importFrom graphics axis
 NULL 
 
 .paf <- function( 
