@@ -261,6 +261,7 @@ macroInFocusGWConc.list <- function(
 #'
 #'@export 
 #'
+#'@importFrom stats aggregate
 macroInFocusGWConc.data.frame <- function( 
  x, 
  nbYrsWarmUp = 6L, 
@@ -365,7 +366,7 @@ macroInFocusGWConc.data.frame <- function(
     
     #   Aggregate water and solute flow for each year
     #   (This will accumulate all flow, for each year)
-    xYearly <- aggregate(
+    xYearly <- stats::aggregate(
         x   = x[, c( "dTSOUT", "dTFLOWOUT", "SFLOW_DAILY", 
             "SFLOWOUT_DAILY", "WOUT_DAILY", 
             "WFLOWOUT_DAILY", "WFLOWTOT_DAILY", "SFLOWTOT_DAILY") ], 
