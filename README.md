@@ -1,4 +1,4 @@
-<!-- [![Build Status](https://travis-ci.org/julienmoeys/macroutils.svg?branch=master)](https://travis-ci.org/julienmoeys/macroutils) -->
+<!-- [![Build Status](https://travis-ci.org/julienmoeys/macroutils.svg?branch=master)](https://travis-ci.org/julienmoeys/macroutils)  -->
 
 macroutils
 ==========
