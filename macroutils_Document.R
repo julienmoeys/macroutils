@@ -18,9 +18,9 @@ source( file.path( pkgDir, "..", "packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = file.path( pkgDir ), 
-    pkgVersion  = "1.13.0", 
+    pkgVersion  = "1.14.0", 
     pkgDepends  = "utils", # Must be in "Depends" as choose.files not available on Unix
-    pkgImports  = c( "tcltk", "tools" ), 
+    pkgImports  = c( "tcltk", "tools", "graphics", "grDevices", "stats" ), 
     pkgSuggests = c( "RODBC" ), 
     RVersion    = NULL 
 )   

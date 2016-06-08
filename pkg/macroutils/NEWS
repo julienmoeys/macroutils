@@ -1,6 +1,10 @@
 
     R package: macroutils
 
+CHANGES IN VERSION 1.14.0
+    
+    2016/06/08  Compile for R 3.3.0 (test)
+    
 CHANGES IN VERSION 1.13.0
     
     2016/02/12  macroReadIndump() now also returns a table 
