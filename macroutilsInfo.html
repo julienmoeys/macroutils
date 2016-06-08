@@ -14,9 +14,9 @@
 
 <h3>Description</h3>
 
-<p>Display and / or export system and package version information.
-Can be used to provide an overview of the system and the R
-packages that were used to produce some calculations, thus
+<p>Display and / or export system and package version information. 
+Can be used to provide an overview of the system and the R 
+packages that were used to produce some calculations, thus 
 improving the traceability of that work in the long run.
 </p>
 
@@ -34,28 +34,28 @@ macroutilsInfo(file = NULL, verbose = TRUE, depends = FALSE, md5 = TRUE,
 <table summary="R argblock">
 <tr valign="top"><td><code>file</code></td>
 <td>
-<p>Single character string. Name of the text file (with or without
-its path) in which the information will be exported. If
+<p>Single character string. Name of the text file (with or without 
+its path) in which the information will be exported. If 
 <code>NULL</code> (default), information are not exported.</p>
 </td></tr>
 <tr valign="top"><td><code>verbose</code></td>
 <td>
-<p>Single logical value. If <code>TRUE</code>, information are displayed
+<p>Single logical value. If <code>TRUE</code>, information are displayed 
 on the screen.</p>
 </td></tr>
 <tr valign="top"><td><code>depends</code></td>
 <td>
-<p>Single logical value. If <code>TRUE</code>, information on packages
+<p>Single logical value. If <code>TRUE</code>, information on packages 
 dependencies are also displayed, in the same way</p>
 </td></tr>
 <tr valign="top"><td><code>md5</code></td>
 <td>
-<p>Single logical value. If <code>TRUE</code>, the package MD5 checksums
+<p>Single logical value. If <code>TRUE</code>, the package MD5 checksums 
 are returned too</p>
 </td></tr>
 <tr valign="top"><td><code>packages</code></td>
 <td>
-<p>Single character string. Name of the package whose information
+<p>Single character string. Name of the package whose information 
 must be returned.</p>
 </td></tr>
 </table>
@@ -63,20 +63,20 @@ must be returned.</p>
 
 <h3>Value</h3>
 
-<p>Invisibly returns the information as a vector of character
+<p>Invisibly returns the information as a vector of character 
 strings
 </p>
 
 
 <h3>See Also</h3>
 
-<p>The base functions that were used internally to compile
-the information: <code><a href="../../base/html/Sys.time.html">Sys.time</a></code>,
-<code><a href="../../base/html/Sys.info.html">Sys.info</a></code>, <code><a href="../../base/html/version.html">version</a></code>,
-<code><a href="../../base/html/.packages.html">.packages</a></code>,
-<code><a href="../../utils/html/installed.packages.html">installed.packages</a></code>,
-<code><a href="../../tools/html/package_dependencies.html">package_dependencies</a></code>. See also the
-<code>MD5</code> file in each package directory (and
+<p>The base functions that were used internally to compile 
+the information: <code><a href="../../base/html/Sys.time.html">Sys.time</a></code>, 
+<code><a href="../../base/html/Sys.info.html">Sys.info</a></code>, <code><a href="../../base/html/version.html">version</a></code>, 
+<code><a href="../../base/html/.packages.html">.packages</a></code>, 
+<code><a href="../../utils/html/installed.packages.html">installed.packages</a></code>, 
+<code><a href="../../tools/html/package_dependencies.html">package_dependencies</a></code>. See also the 
+<code>MD5</code> file in each package directory (and 
 <code><a href="../../tools/html/md5sum.html">md5sum</a></code> for generating these MD5 checksums).
 </p>
 
@@ -98,7 +98,7 @@ cat( readLines( f ), sep = &quot;\n&quot; )
 <pre><code>## INFORMATION ON SYSTEM AND PACKAGE(S) VERSION(S)
 ## ===============================================
 ## 
-## Date and time: 2016-01-18 14:37:14
+## Date and time: 2016-06-08 14:43:46
 ## 
 ## System info and R version
 ## -------------------------
@@ -122,26 +122,26 @@ cat( readLines( f ), sep = &quot;\n&quot; )
 ## 4          system                i386, mingw32
 ## 5          status                             
 ## 6           major                            3
-## 7           minor                          2.0
-## 8            year                         2015
-## 9           month                           04
-## 10            day                           16
-## 11        svn rev                        68180
+## 7           minor                          3.0
+## 8            year                         2016
+## 9           month                           05
+## 10            day                           03
+## 11        svn rev                        70573
 ## 12       language                            R
-## 13 version.string R version 3.2.0 (2015-04-16)
-## 14       nickname          Full of Ingredients
+## 13 version.string R version 3.3.0 (2016-05-03)
+## 14       nickname       Supposedly Educational
 ## 
 ## Loaded packages:
 ##      package version
-## 1       base   3.2.0
-## 2   datasets   3.2.0
-## 3   graphics   3.2.0
-## 4  grDevices   3.2.0
-## 5      knitr    1.11
-## 6 macroutils  1.12.0
-## 7    methods   3.2.0
-## 8      stats   3.2.0
-## 9      utils   3.2.0
+## 1       base   3.3.0
+## 2   datasets   3.3.0
+## 3   graphics   3.3.0
+## 4  grDevices   3.3.0
+## 5      knitr    1.13
+## 6 macroutils  1.14.0
+## 7    methods   3.3.0
+## 8      stats   3.3.0
+## 9      utils   3.3.0
 ## 
 ## Information for packages: macroutils
 ## 
@@ -150,11 +150,59 @@ cat( readLines( f ), sep = &quot;\n&quot; )
 ## Package information for macroutils
 ## -----------------------
 ## 
-## Package version: 1.12.0
+## Package version: 1.14.0
 ## 
 ## SVN revision: 18:52M
 ## 
-## No MD5 checksum found
+## Package MD5: C:/Users/*******/Documents/R/win-library/3.3/macroutils/MD5
+## 
+## 445dace162b46f9d3ec423f299f305a0 *DESCRIPTION
+## 5a02633632e0f77a79932cceba78b686 *GIT_VERSION
+## 832b7c0878361dc8e3481f8db92fe5fd *INDEX
+## 193228f9359d37b4e497fcf0557efb34 *Meta/Rd.rds
+## 80ca6a78a29dfbba343856d6b8c4eae3 *Meta/hsearch.rds
+## 5b634fdb3acaec5b6343291bd94080b9 *Meta/links.rds
+## 27cd2bdfae7c72b432020d5fd1e4e8eb *Meta/nsInfo.rds
+## f1f0fc0c2261492cac97e7558edb9801 *Meta/package.rds
+## 9af45260d2fcce84e89c51e5f511a402 *Meta/vignette.rds
+## 63db22611141262bc6db8df12c802fad *NAMESPACE
+## c275f9efd547a28d7e3eafaeab35f45b *NEWS
+## ebf0fc819595d631b8bf280c4b049940 *R/macroutils
+## 578e66a5478eb004d237a74708ca243f *R/macroutils.rdb
+## 54efad70e2eead25eb539f7e9a596a89 *R/macroutils.rdx
+## d20624f431987345dc64de6a40263936 *SVN_VERSION
+## 9d55845f0182e694249cdc37ba5fb91d *bintest/Fert.bin
+## 7a275fd9f116224e844b6d457d32a131 *bintest/MACRO001_20151005.BIN
+## adcf76a000a1c78ae0f9bda8566338ea *bintest/METFILE.BIN
+## 5ac4a98c62f04e9c86bdf90bf4f0acc3 *bintest/RAINFALL.BIN
+## b35692dbfe1021295b6015e365239201 *bintest/defaultrun.bin
+## f337feabfd5f04518880d7df81085c75 *bintest/macro52convertedBin/Fert.rds
+## f1db63dd3204638dceeacb50eca7228e *bintest/macro52convertedBin/MACRO001_20151005.rds
+## 2d5d9fb1e63071d073320823671cd8bd *bintest/macro52convertedBin/METFILE.rds
+## a8da931e6e795b1c6a0fcd02bbe59095 *bintest/macro52convertedBin/RAINFALL.rds
+## f06b4330299f76798b3c04894bb41ffa *bintest/macro52convertedBin/defaultrun.rds
+## 641b5412e0e56b15bd42a9b43b3af3bd *bintest/macro52convertedBin/soiln001.rds
+## 859c22f58568352b7b933f490e6faa42 *bintest/macroInFocus/conc005.rds
+## 8016c343bbaa003372250273048d5977 *bintest/macroInFocus/perc005.rds
+## bd22dfcede83e9af5b1fc675fad3983a *bintest/soiln001.BIN
+## 68cac4547b6a5e5faf3f11a85efb703a *doc/index.html
+## f50fe94b92b46c19a16bfb337dbc34ad *doc/macroutils_vignette.R
+## f6abe74b0614b124ff5c98277a6fe505 *doc/macroutils_vignette.Rnw
+## 2520bd4b2a31b1f1042f11618ff3707f *doc/macroutils_vignette.pdf
+## d56f6a92ab7e0e966a1f12b9b318d743 *examples/isValidTimeSeries-examples.R
+## 2ac32afc7405efdd04f8d002bcae6fee *examples/macroAggregateBin.R
+## bfbfb86bc5e5bbc4880ff2845c75883c *examples/macroInFocusGWConc-examples.R
+## c5d22b502772d9549f4ff2b0c7dbdb3c *examples/macroPlotBin.R
+## a6739dd9b49b1175271057e5890c37b6 *examples/macroReadBin.R
+## 79548875913df2b70037c271bb046db0 *examples/macroWriteBin.R
+## cb70bc9bafc46df88bf2fd3584fa432e *examples/macroutilsInfo-examples.R
+## 0236812c3123964b12fbe5ae87cce813 *help/AnIndex
+## 7a22e16f5c711c01e173a32580229e41 *help/aliases.rds
+## f34d376049c6f5bd923fd7a0ea768425 *help/macroutils.rdb
+## c52abd0542b352fe33478a78b6c31300 *help/macroutils.rdx
+## 7768112ec560143d7a6faa5fb29da8c5 *help/paths.rds
+## b6a277a7fd484d539bf2b7302ee9e647 *html/00Index.html
+## b6763e6916890c631fdc3f2643803b1a *html/R.css
 </code></pre>
 
 <pre><code class="r">unlink( f )
@@ -166,7 +214,7 @@ macroutilsInfo( packages = &quot;tools&quot; )
 <pre><code>## INFORMATION ON SYSTEM AND PACKAGE(S) VERSION(S)
 ## ===============================================
 ## 
-## Date and time: 2016-01-18 14:37:14
+## Date and time: 2016-06-08 14:43:46
 ## 
 ## System info and R version
 ## -------------------------
@@ -190,37 +238,37 @@ macroutilsInfo( packages = &quot;tools&quot; )
 ## 4          system                i386, mingw32
 ## 5          status                             
 ## 6           major                            3
-## 7           minor                          2.0
-## 8            year                         2015
-## 9           month                           04
-## 10            day                           16
-## 11        svn rev                        68180
+## 7           minor                          3.0
+## 8            year                         2016
+## 9           month                           05
+## 10            day                           03
+## 11        svn rev                        70573
 ## 12       language                            R
-## 13 version.string R version 3.2.0 (2015-04-16)
-## 14       nickname          Full of Ingredients
+## 13 version.string R version 3.3.0 (2016-05-03)
+## 14       nickname       Supposedly Educational
 ## 
 ## Loaded packages:
 ##      package version
-## 1       base   3.2.0
-## 2   datasets   3.2.0
-## 3   graphics   3.2.0
-## 4  grDevices   3.2.0
-## 5      knitr    1.11
-## 6 macroutils  1.12.0
-## 7    methods   3.2.0
-## 8      stats   3.2.0
-## 9      utils   3.2.0
+## 1       base   3.3.0
+## 2   datasets   3.3.0
+## 3   graphics   3.3.0
+## 4  grDevices   3.3.0
+## 5      knitr    1.13
+## 6 macroutils  1.14.0
+## 7    methods   3.3.0
+## 8      stats   3.3.0
+## 9      utils   3.3.0
 ## 
 ## Information for packages: tools
 ## 
 ## Package information for tools
 ## -----------------------
 ## 
-## Package version: 3.2.0
+## Package version: 3.3.0
 ## 
 ## No MD5 checksum found
 </code></pre>
 
 
-<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.14.0 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -14,7 +14,7 @@
 
 <h3>Description</h3>
 
-<p>Write bin file for the SOIL and MACRO models. Origial code by
+<p>Write bin file for the SOIL and MACRO models. Origial code by 
 Kristian Persson. R code vectorisation by Julien Moeys.
 </p>
 
@@ -43,7 +43,7 @@ macroWriteBin(x, file, ...)
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
-<p>A <code><a href="../../base/html/data.frame.html">data.frame</a></code>.
+<p>A <code><a href="../../base/html/data.frame.html">data.frame</a></code>. 
 Table of data to be written in <code>file</code>. The table must contain one column named &quot;Date&quot; containing POSIXct dates, and
 thus must have column names. All columns but &quot;Date&quot; must be of type numerical
 (integer or double), and will be written as double. The &quot;Date&quot; will be
@@ -66,7 +66,7 @@ not in the working directory.</p>
 
 <h3>Examples</h3>
 
-<pre><code class="r">require( &quot;macroutils&quot; )
+<pre><code class="r">library( &quot;macroutils&quot; )
 
 
 # ====== Write a binary file in SOIL or MACRO style ======
@@ -79,7 +79,7 @@ not in the working directory.</p>
     package = &quot;macroutils&quot;, mustWork = TRUE ) )
 </code></pre>
 
-<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/METFILE.BIN&quot;
+<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/METFILE.BIN&quot;
 </code></pre>
 
 <pre><code class="r">#   Read the file
@@ -92,7 +92,7 @@ tmp1 &lt;- macroReadBin( file = filenm )
 ( filenm &lt;- tempfile(  ) )
 </code></pre>
 
-<pre><code>## [1] &quot;C:\\Users\\*******\\AppData\\Local\\Temp\\Rtmp6d7DnO\\file1483417791b&quot;
+<pre><code>## [1] &quot;C:\\Users\\*******\\AppData\\Local\\Temp\\Rtmp6ZAx3P\\file1394427449ea&quot;
 </code></pre>
 
 <pre><code class="r"># 1.3. Write this table in SOIL or MACRO bin style 
@@ -130,7 +130,7 @@ filenm2 &lt;- tempfile(  )
 filenm2 
 </code></pre>
 
-<pre><code>## [1] &quot;C:\\Users\\*******\\AppData\\Local\\Temp\\Rtmp6d7DnO\\file14861b1f8e&quot;
+<pre><code>## [1] &quot;C:\\Users\\*******\\AppData\\Local\\Temp\\Rtmp6ZAx3P\\file1394ced4146&quot;
 </code></pre>
 
 <pre><code class="r">#   Write the table a second time
@@ -956,5 +956,5 @@ file.remove( filenm )
 </code></pre>
 
 
-<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.14.0 <a href="00Index.html">Index</a>]</div>
 </body></html>

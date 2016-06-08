@@ -1,7 +1,7 @@
 
 #   Location of the working directory
 wd <- setwd( sprintf( 
-    "D:/Users/%s/Documents/_WORKS/_PROJECTS/r_packages/macro-sp/macroutils_www", 
+    "D:/Users/%s/Documents/_WORKS/_PROJECTS/r_packages/macro-se/macroutils_www", 
     Sys.info()[[ "user" ]] ) ) 
 
 pkg <- "macroutils"

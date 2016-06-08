@@ -42,7 +42,7 @@ directory.</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
-<p>Additional options passed to specific
+<p>Additional options passed to specific 
 methods and to <code><a href="../../base/html/readBin.html">readBin</a></code></p>
 </td></tr>
 </table>
@@ -58,10 +58,10 @@ if you need to tune <code>macroReadBin</code>.
 
 <h3>Value</h3>
 
-<p>Returns a <code>data.frame</code> with the content of the bin file.
-If <code>length(file) &gt; 1</code>, then a <code>list</code> of <code>data.frame</code>
-is returned instead. The <code>Date</code> column in the bin file is
-converted from &quot;Julian Date&quot; into <code><a href="../../base/html/POSIXct.html">POSIXct</a></code>
+<p>Returns a <code>data.frame</code> with the content of the bin file. 
+If <code>length(file) &gt; 1</code>, then a <code>list</code> of <code>data.frame</code> 
+is returned instead. The <code>Date</code> column in the bin file is 
+converted from &quot;Julian Date&quot; into <code><a href="../../base/html/POSIXct.html">POSIXct</a></code> 
 date format.
 </p>
 
@@ -74,7 +74,7 @@ date format.
 
 <h3>Examples</h3>
 
-<pre><code class="r">require( &quot;macroutils&quot; )
+<pre><code class="r">library( &quot;macroutils&quot; )
 
 
 # ====== Example 1: MACRO model weather file ====== 
@@ -84,7 +84,7 @@ date format.
     package = &quot;macroutils&quot;, mustWork = TRUE ) )
 </code></pre>
 
-<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/METFILE.BIN&quot;
+<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/METFILE.BIN&quot;
 </code></pre>
 
 <pre><code class="r">#   Read the file
@@ -140,7 +140,7 @@ muPar( reset = TRUE )
     package = &quot;macroutils&quot;, mustWork = TRUE ) ) 
 </code></pre>
 
-<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/soiln001.BIN&quot;
+<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/soiln001.BIN&quot;
 </code></pre>
 
 <pre><code class="r">#   Read the file
@@ -154,53 +154,53 @@ tmp3 &lt;- macroReadBin( file = filenm )
 colnames( tmp1 ) 
 </code></pre>
 
-<pre><code>##  [1] &quot;Date&quot;                                   
-##  [2] &quot;Nitrogen_g_m_0_25NNO3_A_13&quot;             
-##  [3] &quot;Nitrogen_g_m_25_50NNO3_A_38&quot;            
-##  [4] &quot;Nitrogen_g_m_50_75NNO3_A_63&quot;            
-##  [5] &quot;Nitrogen_g_m_75_100NNO3_A_88&quot;           
-##  [6] &quot;Nitrogen_g_m_100_150NNO3_A_125&quot;         
-##  [7] &quot;Nitrogen_g_m_Nt_Plant_N_A&quot;              
-##  [8] &quot;Cumulated_Nitrogen_g_m_Denitrified_NO_A&quot;
-##  [9] &quot;Cumulated_Nitrogen_g_m_Leached_NO3_N_A&quot; 
-## [10] &quot;Nitrogen_g_m_0_25NNH4_A_13&quot;             
-## [11] &quot;Nitrogen_g_m_25_50NNH4_A_38&quot;            
-## [12] &quot;Nitrogen_g_m_50_75NNH4_A_63&quot;            
-## [13] &quot;Nitrogen_g_m_75_100NNH4_A_88&quot;           
-## [14] &quot;Nitrogen_g_m_100_150NNH4_A_125&quot;         
-## [15] &quot;Nitrogen_g_m_Harvest_residu_A&quot;          
-## [16] &quot;Nitrogen_flow_g_mdayDeposition_to_A&quot;    
-## [17] &quot;Nitrogen_flow_g_mday_75_100_A_88&quot;       
-## [18] &quot;Nitrogen_flow_g_mday_0_25_Man_fa_A_13&quot;  
-## [19] &quot;Nitrogen_flow_g_mdayHarvest_export_A&quot;   
-## [20] &quot;Nitrogen_flow_g_mday_0_25_Man_NH_A_13&quot;  
-## [21] &quot;Nitrate_N_mg_l_0_25_water_A_13&quot;         
-## [22] &quot;Nitrogen_flow_g_mdayNO3_N_tile_dra_A&quot;   
-## [23] &quot;Nitrogen_flow_g_mdayNO3_N_stream_Q_A&quot;   
-## [24] &quot;Nitrogen_g_m_Litter_tot_pro_A&quot;          
-## [25] &quot;Nitrogen_g_m_Faeces_tot_pro_A&quot;          
-## [26] &quot;Nitrogen_g_m_Humus_tot_prof_A&quot;          
-## [27] &quot;Nitrogen_g_m_NH4_N_tot_prof_A&quot;          
-## [28] &quot;Nitrogen_g_m_NO3_N_tot_prof_A&quot;          
-## [29] &quot;Depth_m_zr_RootDepth_A&quot;                 
-## [30] &quot;Nitrogen_flow_g_mdayXNd_PotPlant_A&quot;     
-## [31] &quot;Nitrogen_flow_g_mdayAct_denitrific_A&quot;   
-## [32] &quot;Nitrogen_flow_g_mdayXNu_ActPlant_A&quot;     
-## [33] &quot;Water_flow_mm_day_In_drainage_ti_A&quot;     
-## [34] &quot;Water_flow_mm_day_In_stream_A&quot;          
-## [35] &quot;Nitrogen_flow_g_mdayLitter_NH4_A&quot;       
-## [36] &quot;Nitrogen_flow_g_mdayFaeces_NH4_A&quot;       
-## [37] &quot;Nitrogen_flow_g_mdayOrg_NH4_A&quot;          
-## [38] &quot;C_N_ratio_0_25_Litter_A_13&quot;             
-## [39] &quot;C_N_ratio_25_50_Litter_A_38&quot;            
-## [40] &quot;C_N_ratio_50_75_Litter_A_63&quot;            
-## [41] &quot;C_N_ratio_75_100_Litter_A_88&quot;           
-## [42] &quot;C_N_ratio_100_150_Litter_A_125&quot;         
-## [43] &quot;C_N_ratio_0_25_Faeces_A_13&quot;             
-## [44] &quot;Nitrogen_mg_l_NO3_N_stream_A&quot;           
-## [45] &quot;Nitrogen_mg_l_NO3_N_tile_dra_A&quot;         
-## [46] &quot;Water_flow_mm_day_Surface_runoff_A&quot;     
-## [47] &quot;Water_flow_mm_day_Surface_runoff_A&quot;     
+<pre><code>##  [1] &quot;Date&quot;                                    
+##  [2] &quot;Nitrogen_g_m2_0_25NNO3_A_13&quot;             
+##  [3] &quot;Nitrogen_g_m2_25_50NNO3_A_38&quot;            
+##  [4] &quot;Nitrogen_g_m2_50_75NNO3_A_63&quot;            
+##  [5] &quot;Nitrogen_g_m2_75_100NNO3_A_88&quot;           
+##  [6] &quot;Nitrogen_g_m2_100_150NNO3_A_125&quot;         
+##  [7] &quot;Nitrogen_g_m2_Nt_Plant_N_A&quot;              
+##  [8] &quot;Cumulated_Nitrogen_g_m2_Denitrified_NO_A&quot;
+##  [9] &quot;Cumulated_Nitrogen_g_m2_Leached_NO3_N_A&quot; 
+## [10] &quot;Nitrogen_g_m2_0_25NNH4_A_13&quot;             
+## [11] &quot;Nitrogen_g_m2_25_50NNH4_A_38&quot;            
+## [12] &quot;Nitrogen_g_m2_50_75NNH4_A_63&quot;            
+## [13] &quot;Nitrogen_g_m2_75_100NNH4_A_88&quot;           
+## [14] &quot;Nitrogen_g_m2_100_150NNH4_A_125&quot;         
+## [15] &quot;Nitrogen_g_m2_Harvest_residu_A&quot;          
+## [16] &quot;Nitrogen_flow_g_m2day_Deposition_to_A&quot;   
+## [17] &quot;Nitrogen_flow_g_m2day_75_100_A_88&quot;       
+## [18] &quot;Nitrogen_flow_g_m2day_0_25_Man_fa_A_13&quot;  
+## [19] &quot;Nitrogen_flow_g_m2day_Harvest_export_A&quot;  
+## [20] &quot;Nitrogen_flow_g_m2day_0_25_Man_NH_A_13&quot;  
+## [21] &quot;Nitrate_N_mg_l_0_25_water_A_13&quot;          
+## [22] &quot;Nitrogen_flow_g_m2day_NO3_N_tile_dra_A&quot;  
+## [23] &quot;Nitrogen_flow_g_m2day_NO3_N_stream_Q_A&quot;  
+## [24] &quot;Nitrogen_g_m2_Litter_tot_pro_A&quot;          
+## [25] &quot;Nitrogen_g_m2_Faeces_tot_pro_A&quot;          
+## [26] &quot;Nitrogen_g_m2_Humus_tot_prof_A&quot;          
+## [27] &quot;Nitrogen_g_m2_NH4_N_tot_prof_A&quot;          
+## [28] &quot;Nitrogen_g_m2_NO3_N_tot_prof_A&quot;          
+## [29] &quot;Depth_m_zr_RootDepth_A&quot;                  
+## [30] &quot;Nitrogen_flow_g_m2day_XNd_PotPlant_A&quot;    
+## [31] &quot;Nitrogen_flow_g_m2day_Act_denitrific_A&quot;  
+## [32] &quot;Nitrogen_flow_g_m2day_XNu_ActPlant_A&quot;    
+## [33] &quot;Water_flow_mm_day_In_drainage_ti_A&quot;      
+## [34] &quot;Water_flow_mm_day_In_stream_A&quot;           
+## [35] &quot;Nitrogen_flow_g_m2day_Litter_NH4_A&quot;      
+## [36] &quot;Nitrogen_flow_g_m2day_Faeces_NH4_A&quot;      
+## [37] &quot;Nitrogen_flow_g_m2day_Org_NH4_A&quot;         
+## [38] &quot;C_N_ratio_0_25_Litter_A_13&quot;              
+## [39] &quot;C_N_ratio_25_50_Litter_A_38&quot;             
+## [40] &quot;C_N_ratio_50_75_Litter_A_63&quot;             
+## [41] &quot;C_N_ratio_75_100_Litter_A_88&quot;            
+## [42] &quot;C_N_ratio_100_150_Litter_A_125&quot;          
+## [43] &quot;C_N_ratio_0_25_Faeces_A_13&quot;              
+## [44] &quot;Nitrogen_mg_l_NO3_N_stream_A&quot;            
+## [45] &quot;Nitrogen_mg_l_NO3_N_tile_dra_A&quot;          
+## [46] &quot;Water_flow_mm_day_Surface_runoff_A&quot;      
+## [47] &quot;Water_flow_mm_day_Surface_runoff_A&quot;      
 ## [48] &quot;Water_flow_mm_day_Percolation_A&quot;
 </code></pre>
 
@@ -208,53 +208,53 @@ colnames( tmp1 )
 </code></pre>
 
 <pre><code>##  [1] &quot;Date&quot;                                                
-##  [2] &quot;Nitrogen            g m²      0- 25(NNO3)  A 001  13&quot;
-##  [3] &quot;Nitrogen            g m²     25- 50(NNO3)  A 001  38&quot;
-##  [4] &quot;Nitrogen            g m²     50- 75(NNO3)  A 001  63&quot;
-##  [5] &quot;Nitrogen            g m²     75-100(NNO3)  A 001  88&quot;
-##  [6] &quot;Nitrogen            g m²    100-150(NNO3)  A 001 125&quot;
-##  [7] &quot;Nitrogen            g m²    (Nt) Plant-N   A 001&quot;    
-##  [8] &quot;Cumulated Nitrogen  g m²    Denitrified NO A 001&quot;    
-##  [9] &quot;Cumulated Nitrogen  g m²    Leached NO3-N  A 001&quot;    
-## [10] &quot;Nitrogen            g m²      0- 25(NNH4)  A 001  13&quot;
-## [11] &quot;Nitrogen            g m²     25- 50(NNH4)  A 001  38&quot;
-## [12] &quot;Nitrogen            g m²     50- 75(NNH4)  A 001  63&quot;
-## [13] &quot;Nitrogen            g m²     75-100(NNH4)  A 001  88&quot;
-## [14] &quot;Nitrogen            g m²    100-150(NNH4)  A 001 125&quot;
-## [15] &quot;Nitrogen            g m²    Harvest residu A 001&quot;    
-## [16] &quot;Nitrogen flow       g m²day Deposition (to A 001&quot;    
-## [17] &quot;Nitrogen flow       g m²day  75-100        A 001  88&quot;
-## [18] &quot;Nitrogen flow       g m²day   0- 25 Man-fa A 001  13&quot;
-## [19] &quot;Nitrogen flow       g m²day Harvest export A 001&quot;    
-## [20] &quot;Nitrogen flow       g m²day   0- 25 Man-NH A 001  13&quot;
-## [21] &quot;Nitrate-N           mg l      0- 25 water  A 001  13&quot;
-## [22] &quot;Nitrogen flow       g m²day NO3-N tile dra A 001&quot;    
-## [23] &quot;Nitrogen flow       g m²day NO3-N stream Q A 001&quot;    
-## [24] &quot;Nitrogen            g m²    Litter tot pro A 001&quot;    
-## [25] &quot;Nitrogen            g m²    Faeces tot pro A 001&quot;    
-## [26] &quot;Nitrogen            g m²    Humus tot prof A 001&quot;    
-## [27] &quot;Nitrogen            g m²    NH4-N tot prof A 001&quot;    
-## [28] &quot;Nitrogen            g m²    NO3-N tot prof A 001&quot;    
+##  [2] &quot;Nitrogen            g m2      0- 25(NNO3)  A 001  13&quot;
+##  [3] &quot;Nitrogen            g m2     25- 50(NNO3)  A 001  38&quot;
+##  [4] &quot;Nitrogen            g m2     50- 75(NNO3)  A 001  63&quot;
+##  [5] &quot;Nitrogen            g m2     75-100(NNO3)  A 001  88&quot;
+##  [6] &quot;Nitrogen            g m2    100-150(NNO3)  A 001 125&quot;
+##  [7] &quot;Nitrogen            g m2    (Nt) Plant-N   A 001&quot;    
+##  [8] &quot;Cumulated Nitrogen  g m2    Denitrified NO A 001&quot;    
+##  [9] &quot;Cumulated Nitrogen  g m2    Leached NO3-N  A 001&quot;    
+## [10] &quot;Nitrogen            g m2      0- 25(NNH4)  A 001  13&quot;
+## [11] &quot;Nitrogen            g m2     25- 50(NNH4)  A 001  38&quot;
+## [12] &quot;Nitrogen            g m2     50- 75(NNH4)  A 001  63&quot;
+## [13] &quot;Nitrogen            g m2     75-100(NNH4)  A 001  88&quot;
+## [14] &quot;Nitrogen            g m2    100-150(NNH4)  A 001 125&quot;
+## [15] &quot;Nitrogen            g m2    Harvest residu A 001&quot;    
+## [16] &quot;Nitrogen flow       g m2day Deposition (to A 001&quot;    
+## [17] &quot;Nitrogen flow       g m2day  75-100        A 001  88&quot;
+## [18] &quot;Nitrogen flow       g m2day   0- 25 Man-fa A 001  13&quot;
+## [19] &quot;Nitrogen flow       g m2day Harvest export A 001&quot;    
+## [20] &quot;Nitrogen flow       g m2day   0- 25 Man-NH A 001  13&quot;
+## [21] &quot;Nitrate-N           mg l      0- 25 water  A 001  13&quot;
+## [22] &quot;Nitrogen flow       g m2day NO3-N tile dra A 001&quot;    
+## [23] &quot;Nitrogen flow       g m2day NO3-N stream Q A 001&quot;    
+## [24] &quot;Nitrogen            g m2    Litter tot pro A 001&quot;    
+## [25] &quot;Nitrogen            g m2    Faeces tot pro A 001&quot;    
+## [26] &quot;Nitrogen            g m2    Humus tot prof A 001&quot;    
+## [27] &quot;Nitrogen            g m2    NH4-N tot prof A 001&quot;    
+## [28] &quot;Nitrogen            g m2    NO3-N tot prof A 001&quot;    
 ## [29] &quot;Depth               m       (zr) RootDepth A 001&quot;    
-## [30] &quot;Nitrogen flow       g m²day (XNd) PotPlant A 001&quot;    
-## [31] &quot;Nitrogen flow       g m²day Act denitrific A 001&quot;    
-## [32] &quot;Nitrogen flow       g m²day (XNu) ActPlant A 001&quot;    
-## [33] &quot;Water flow          mm day  In drainage ti A 001&quot;    
-## [34] &quot;Water flow          mm day  In stream      A 001&quot;    
-## [35] &quot;Nitrogen flow       g m²day Litter-NH4     A 001&quot;    
-## [36] &quot;Nitrogen flow       g m²day Faeces-NH4     A 001&quot;    
-## [37] &quot;Nitrogen flow       g m²day Org-NH4        A 001&quot;    
+## [30] &quot;Nitrogen flow       g m2day (XNd) PotPlant A 001&quot;    
+## [31] &quot;Nitrogen flow       g m2day Act denitrific A 001&quot;    
+## [32] &quot;Nitrogen flow       g m2day (XNu) ActPlant A 001&quot;    
+## [33] &quot;Water flow          mm day  In drainage ti A 001&quot;    
+## [34] &quot;Water flow          mm day  In stream      A 001&quot;    
+## [35] &quot;Nitrogen flow       g m2day Litter-NH4     A 001&quot;    
+## [36] &quot;Nitrogen flow       g m2day Faeces-NH4     A 001&quot;    
+## [37] &quot;Nitrogen flow       g m2day Org-NH4        A 001&quot;    
 ## [38] &quot;C-N ratio           -         0- 25 Litter A 001  13&quot;
 ## [39] &quot;C-N ratio           -        25- 50 Litter A 001  38&quot;
 ## [40] &quot;C-N ratio           -        50- 75 Litter A 001  63&quot;
 ## [41] &quot;C-N ratio           -        75-100 Litter A 001  88&quot;
 ## [42] &quot;C-N ratio           -       100-150 Litter A 001 125&quot;
 ## [43] &quot;C-N ratio           -         0- 25 Faeces A 001  13&quot;
-## [44] &quot;Nitrogen            mg l    NO3-N stream   A 001&quot;    
-## [45] &quot;Nitrogen            mg l    NO3-N tile dra A 001&quot;    
-## [46] &quot;Water flow          mm day  Surface runoff A 001&quot;    
-## [47] &quot;Water flow          mm day  Surface runoff A 001&quot;    
-## [48] &quot;Water flow          mm day  Percolation    A 001&quot;
+## [44] &quot;Nitrogen            mg l    NO3-N stream   A 001&quot;    
+## [45] &quot;Nitrogen            mg l    NO3-N tile dra A 001&quot;    
+## [46] &quot;Water flow          mm day  Surface runoff A 001&quot;    
+## [47] &quot;Water flow          mm day  Surface runoff A 001&quot;    
+## [48] &quot;Water flow          mm day  Percolation    A 001&quot;
 </code></pre>
 
 <pre><code class="r">dim( tmp1 ) 
@@ -274,5 +274,5 @@ muPar( reset = TRUE )
 </code></pre>
 
 
-<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.14.0 <a href="00Index.html">Index</a>]</div>
 </body></html>

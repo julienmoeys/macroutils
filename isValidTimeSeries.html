@@ -14,7 +14,7 @@
 
 <h3>Description</h3>
 
-<p>Test that Date or POSIXct date-time are unique, sorted and
+<p>Test that Date or POSIXct date-time are unique, sorted and 
 regular.
 </p>
 
@@ -31,20 +31,20 @@ isValidTimeSeries(x, units = "hours", onError = warning)
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
-<p>A vector of <code><a href="../../base/html/Dates.html">Date</a></code>, or of <code><a href="../../base/html/DateTimeClasses.html">POSIXct</a></code>
+<p>A vector of <code><a href="../../base/html/Dates.html">Date</a></code>, or of <code><a href="../../base/html/DateTimeClasses.html">POSIXct</a></code> 
 date-times</p>
 </td></tr>
 <tr valign="top"><td><code>units</code></td>
 <td>
-<p>Passed to <code><a href="../../base/html/numeric.html">as.numeric</a></code>-<code>difftime</code>. Only
-used in case irregularities in the time series are
+<p>Passed to <code><a href="../../base/html/numeric.html">as.numeric</a></code>-<code>difftime</code>. Only 
+used in case irregularities in the time series are 
 detected.</p>
 </td></tr>
 <tr valign="top"><td><code>onError</code></td>
 <td>
-<p>A valid R function, such as <code>warning</code> or <code>stop</code>,
-or <code>message</code>. Function that will be used to output
-an error message if the time series is not unique, sorted
+<p>A valid R function, such as <code>warning</code> or <code>stop</code>, 
+or <code>message</code>. Function that will be used to output 
+an error message if the time series is not unique, sorted 
 and regular.</p>
 </td></tr>
 </table>
@@ -52,8 +52,8 @@ and regular.</p>
 
 <h3>Value</h3>
 
-<p>Returns <code>FALSE</code> if a problem was detected, and
-<code>TRUE</code> otherwise (unless <code>onError</code> is <code>stop</code>,
+<p>Returns <code>FALSE</code> if a problem was detected, and 
+<code>TRUE</code> otherwise (unless <code>onError</code> is <code>stop</code>, 
 in which case an error is send and the function stops).
 </p>
 
@@ -109,5 +109,5 @@ tryCatch( isValidTimeSeries( x = timeseries2 ),
 </code></pre>
 
 
-<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.14.0 <a href="00Index.html">Index</a>]</div>
 </body></html>

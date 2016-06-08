@@ -14,18 +14,18 @@
 
 <h3>Description</h3>
 
-<p>INTERNAL &amp; EXPERIMENTAL: Calculate the yearly and 80th percentile
-groundwater concentration from a MACROInFOCUS output bin
-file. <b>WARNING</b> This function is <b>not</b> part
-of the official MACROInFOCUS program. It is provided
-for test-purpose, without any guarantee or support from
-the authors, CKB or SLU. You are strongly recommended to
-benchmark the function against a range of (official)
-MACROInFOCUS simulation results, before you use the
-function. You are also strongly recommended to inspect
-the code of these functions before you use them. To
-inspect the content of these functions, simply type
-<code>body( macroutils:::macroInFocusGWConc.data.frame )</code>
+<p>INTERNAL &amp; EXPERIMENTAL: Calculate the yearly and 80th percentile 
+groundwater concentration from a MACROInFOCUS output bin 
+file. <b>WARNING</b> This function is <b>not</b> part 
+of the official MACROInFOCUS program. It is provided 
+for test-purpose, without any guarantee or support from 
+the authors, CKB or SLU. You are strongly recommended to 
+benchmark the function against a range of (official) 
+MACROInFOCUS simulation results, before you use the 
+function. You are also strongly recommended to inspect 
+the code of these functions before you use them. To 
+inspect the content of these functions, simply type 
+<code>body( macroutils:::macroInFocusGWConc.data.frame )</code> 
 after you have loaded the package <code>macroutils</code>.
 </p>
 
@@ -55,50 +55,50 @@ macroInFocusGWConc(x, nbYrsWarmUp = 6L,
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
-<p>Either a vector of character strings, a
-<code><a href="../../base/html/data.frame.html">data.frame</a></code>, or a list of
-<code><a href="../../base/html/data.frame.html">data.frame</a></code>s. If a vector of character
-strings, names (and possibly paths to) a <code>.bin</code> file
-output by MACROInFOCUS. The argument is passed internally
-to <code><a href="macroReadBin.html">macroReadBin</a></code> (its
-<code>file</code>-argument). If a (list of)
-<code><a href="../../base/html/data.frame.html">data.frame</a></code>(s), it should be imported from
-a <code>.bin</code> file output by MACROInFOCUS (for example
+<p>Either a vector of character strings, a 
+<code><a href="../../base/html/data.frame.html">data.frame</a></code>, or a list of 
+<code><a href="../../base/html/data.frame.html">data.frame</a></code>s. If a vector of character 
+strings, names (and possibly paths to) a <code>.bin</code> file 
+output by MACROInFOCUS. The argument is passed internally 
+to <code><a href="macroReadBin.html">macroReadBin</a></code> (its 
+<code>file</code>-argument). If a (list of) 
+<code><a href="../../base/html/data.frame.html">data.frame</a></code>(s), it should be imported from 
+a <code>.bin</code> file output by MACROInFOCUS (for example 
 with <code><a href="macroReadBin.html">macroReadBin</a></code>).</p>
 </td></tr>
 <tr valign="top"><td><code>nbYrsWarmUp</code></td>
 <td>
-<p>Single integer values: Number of warm-up years that
+<p>Single integer values: Number of warm-up years that 
 should be removed from the beginning of the model output.
 Six years of warn-up are considered in FOCUS.</p>
 </td></tr>
 <tr valign="top"><td><code>years80th</code></td>
 <td>
-<p>Vector of integer values: Index of the years who should
-be used to calculate the 80th percentile concentration
-after removing the warm-up years and (then) sorting in
-order of increasing by concentrations. See FOCUS
+<p>Vector of integer values: Index of the years who should 
+be used to calculate the 80th percentile concentration 
+after removing the warm-up years and (then) sorting in 
+order of increasing by concentrations. See FOCUS 
 Groundwater main report p 475 (reference above).
 Years 16 and 17 are used in FOCUS.</p>
 </td></tr>
 <tr valign="top"><td><code>negToZero</code></td>
 <td>
-<p>Single logical value. If <code>TRUE</code> (not the default)
-negative concentrations will be set to 0 (presumably like
-in MACROInFOCUS). If <code>FALSE</code>, they will not be set
-to 0, but if some of the concentrations used to calculate
-the 80th percentile (see <code>years80th</code>) are negative,
-a warning will be issued (so that the user knows that
+<p>Single logical value. If <code>TRUE</code> (not the default) 
+negative concentrations will be set to 0 (presumably like 
+in MACROInFOCUS). If <code>FALSE</code>, they will not be set 
+to 0, but if some of the concentrations used to calculate 
+the 80th percentile (see <code>years80th</code>) are negative, 
+a warning will be issued (so that the user knows that 
 concentrations may differ from those in MACROInFOCUS).</p>
 </td></tr>
 <tr valign="top"><td><code>quiet</code></td>
 <td>
-<p>Single logical value. Set to <code>TRUE</code> to suppress the
+<p>Single logical value. Set to <code>TRUE</code> to suppress the 
 warning message. Default value to <code>FALSE</code>.</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
-<p>Additional parameters passed to
+<p>Additional parameters passed to 
 <code><a href="macroReadBin.html">macroReadBin</a></code>.</p>
 </td></tr>
 </table>
@@ -106,94 +106,94 @@ warning message. Default value to <code>FALSE</code>.</p>
 
 <h3>Value</h3>
 
-<p>Returns a <code><a href="../../base/html/data.frame.html">data.frame</a></code> with one row per
+<p>Returns a <code><a href="../../base/html/data.frame.html">data.frame</a></code> with one row per 
 input file (or table), and the following columns
 </p>
 
 <ul>
-<li> <p><code>CONC_PERC_80TH</code>: The 80th percentile of the
-yearly pesticide concentration in the water percolating
-at the lower boundary of the soil. Derived from the
-columns <code>TSOUT</code> and <code>TFLOWOUT</code>. Corresponds
-to <code>CONC_PERC</code> in the table of yearly concentrations
+<li> <p><code>CONC_PERC_80TH</code>: The 80th percentile of the 
+yearly pesticide concentration in the water percolating 
+at the lower boundary of the soil. Derived from the 
+columns <code>TSOUT</code> and <code>TFLOWOUT</code>. Corresponds 
+to <code>CONC_PERC</code> in the table of yearly concentrations 
 (see below).
 </p>
 </li>
-<li> <p><code>CONC_LAYER_80TH</code>: The 80th percentile of the
-yearly pesticide concentration in the water flowing
-through layer X (X depending on the FOCUS-scenario,
-also called &quot;target depth&quot; in MACROInFOCUS)
-at depth Y. Derived from <code>SFLOW_</code>,
-<code>SFLOWOUT_</code>, <code>WOUT_</code> and <code>WFLOWOUT_</code>,
-after converting these variables to daily values and
-cumulating them for each year. Corresponds
-to <code>CONC_LAYER</code> in the table of yearly concentrations
-(see below).
+<li> <p><code>CONC_LAYER_80TH</code>: The 80th percentile of the 
+yearly pesticide concentration in the water flowing 
+through layer X (X depending on the FOCUS-scenario, 
+also called &quot;target depth&quot; in MACROInFOCUS)  
+at depth Y. Derived from <code>SFLOW_</code>, 
+<code>SFLOWOUT_</code>, <code>WOUT_</code> and <code>WFLOWOUT_</code>, 
+after converting these variables to daily values and 
+cumulating them for each year. Corresponds 
+to <code>CONC_LAYER</code> in the table of yearly concentrations 
+(see below). 
 </p>
 </li>
-<li> <p><code>yearFrom</code>: The year corresponding to the
-16th (or <code>years80th[1]</code>th) concentration after
+<li> <p><code>yearFrom</code>: The year corresponding to the 
+16th (or <code>years80th[1]</code>th) concentration after 
 ordering them by order of increasing <code>CONC_LAYER</code>.
 </p>
 </li>
-<li> <p><code>yearTo</code>: The year corresponding to the
-17th (or <code>years80th[2]</code>th) concentration after
+<li> <p><code>yearTo</code>: The year corresponding to the 
+17th (or <code>years80th[2]</code>th) concentration after 
 ordering them by order of increasing <code>CONC_LAYER</code>.
 </p>
 </li>
-<li> <p><code>F_CONC_LAYER_MIC</code>: Experimental. The average
-mass-fraction of the total solute flow due to transport
-in the micropores, for the same two years as used
-to calculate the 80th percentile of
+<li> <p><code>F_CONC_LAYER_MIC</code>: Experimental. The average 
+mass-fraction of the total solute flow due to transport 
+in the micropores, for the same two years as used 
+to calculate the 80th percentile of 
 <code>CONC_LAYER_80TH</code>.
 </p>
 </li>
-<li> <p><code>F_CONC_LAYER_MAC</code>: Experimental. The average
-mass-fraction of the total solute flow due to transport
-in the macropores, for the same two years as used
-to calculate the 80th percentile of
+<li> <p><code>F_CONC_LAYER_MAC</code>: Experimental. The average 
+mass-fraction of the total solute flow due to transport 
+in the macropores, for the same two years as used 
+to calculate the 80th percentile of 
 <code>CONC_LAYER_80TH</code>.
 </p>
 </li>
-<li> <p><code>file</code>: Name of the input file, or index of
+<li> <p><code>file</code>: Name of the input file, or index of 
 the table in the input list of table.
 </p>
 </li></ul>
-
-<p>In addition to this table, an <code><a href="../../base/html/attr.html">attr</a></code>ibute
-is attached to the output table. This attribute is
-names <code>more</code>, can be obtained by typing
-<code><a href="../../base/html/attr.html">attr</a>( output, "more" )</code>, and contains
+   
+<p>In addition to this table, an <code><a href="../../base/html/attr.html">attr</a></code>ibute  
+is attached to the output table. This attribute is 
+names <code>more</code>, can be obtained by typing 
+<code><a href="../../base/html/attr.html">attr</a>( output, "more" )</code>, and contains 
 a table with all the yearly results for all the input files.
-It has the following columns: <code>"year"</code>, <code>"TSOUT"</code>,
-<code>"TFLOWOUT"</code>, <code>"acc_SFLOW"</code>, <code>"acc_SFLOWOUT"</code>,
-<code>"acc_WOUT"</code>, <code>"acc_WFLOWOUT"</code>, <code>"acc_WFLOWTOT"</code>,
-<code>"acc_SFLOWTOT"</code>, <code>"CONC_PERC"</code>, <code>"CONC_LAYER"</code>,
-<code>"file"</code>. <code>"TSOUT"</code> and <code>"TFLOWOUT"</code> have
-been de-accumulated and then re-accumulated for each simulation
-<code>year</code>. All the columns starting with <code>acc_</code>
-have been first converted to daily flow (instead of hourly
-flow) and then accumulated for each simulation <code>year</code>.
-<code>file</code> is the same as above. The total number of rows
-should be <code>20 * length(x)</code> (20 simulation years times
+It has the following columns: <code>"year"</code>, <code>"TSOUT"</code>, 
+<code>"TFLOWOUT"</code>, <code>"acc_SFLOW"</code>, <code>"acc_SFLOWOUT"</code>, 
+<code>"acc_WOUT"</code>, <code>"acc_WFLOWOUT"</code>, <code>"acc_WFLOWTOT"</code>, 
+<code>"acc_SFLOWTOT"</code>, <code>"CONC_PERC"</code>, <code>"CONC_LAYER"</code>, 
+<code>"file"</code>. <code>"TSOUT"</code> and <code>"TFLOWOUT"</code> have 
+been de-accumulated and then re-accumulated for each simulation 
+<code>year</code>. All the columns starting with <code>acc_</code> 
+have been first converted to daily flow (instead of hourly 
+flow) and then accumulated for each simulation <code>year</code>. 
+<code>file</code> is the same as above. The total number of rows 
+should be <code>20 * length(x)</code> (20 simulation years times 
 number of input tables from MACROInFOCUS).
 </p>
 
 
 <h3>Author(s)</h3>
 
-<p>Julien Moeys <a href="mailto:Julien.Moeys@slu.se">Julien.Moeys@slu.se</a>,
-contributions from Stefan Reichenberger
+<p>Julien Moeys <a href="mailto:Julien.Moeys@slu.se">Julien.Moeys@slu.se</a>, 
+contributions from Stefan Reichenberger 
 <a href="mailto:SReichenberger@knoell.com">SReichenberger@knoell.com</a>.
 </p>
 
 
 <h3>References</h3>
 
-<p>European Commission (2014) &quot;Assessing Potential for
-Movement of Active Substances and their Metabolites to
-Ground Water in the EU Report of the FOCUS Ground Water
-Work Group, EC Document Reference Sanco/13144/2010
+<p>European Commission (2014) &quot;Assessing Potential for 
+Movement of Active Substances and their Metabolites to 
+Ground Water in the EU Report of the FOCUS Ground Water 
+Work Group, EC Document Reference Sanco/13144/2010 
 version 3, 613 pp. <a href="http://focus.jrc.ec.europa.eu/gw/docs/NewDocs/focusGWReportOct2014.pdf">http://focus.jrc.ec.europa.eu/gw/docs/NewDocs/focusGWReportOct2014.pdf</a>
 See in particular the last sentence page 475.
 </p>
@@ -208,15 +208,19 @@ See in particular the last sentence page 475.
     package = &quot;macroutils&quot;, mustWork = TRUE ) )
 </code></pre>
 
-<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN&quot;
+<pre><code>## [1] &quot;C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN&quot;
 </code></pre>
 
 <pre><code class="r">res &lt;- macroInFocusGWConc( x = filenm ) 
 </code></pre>
 
 <pre><code>## WARNING: Not part of the official MACROInFOCUS program
-##   Provided only for test purpose. See help page for more information.
-##   Set &#39;quiet&#39; to TRUE to suppress these messages
+</code></pre>
+
+<pre><code>##   Provided only for test purpose. See help page for more information.
+</code></pre>
+
+<pre><code>##   Set &#39;quiet&#39; to TRUE to suppress these messages
 </code></pre>
 
 <pre><code class="r">res 
@@ -227,7 +231,7 @@ See in particular the last sentence page 475.
 ##   F_SOL_LAYER_MIC_80TH
 ## 1                    1
 ##                                                                                    file
-## 1 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
+## 1 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
 </code></pre>
 
 <pre><code class="r">attr( res, &quot;more&quot; ) 
@@ -297,26 +301,26 @@ See in particular the last sentence page 475.
 ## 19               1               0
 ## 20               1               0
 ##                                                                                     file
-## 1  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 2  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 3  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 4  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 5  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 6  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 7  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 8  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 9  C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 10 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 11 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 12 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 13 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 14 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 15 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 16 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 17 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 18 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 19 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
-## 20 C:/Users/*******/Documents/R/win-library/3.2/macroutils/bintest/MACRO001_20151005.BIN
+## 1  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 2  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 3  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 4  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 5  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 6  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 7  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 8  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 9  C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 10 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 11 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 12 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 13 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 14 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 15 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 16 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 17 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 18 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 19 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
+## 20 C:/Users/*******/Documents/R/win-library/3.3/macroutils/bintest/MACRO001_20151005.BIN
 </code></pre>
 
 <pre><code class="r">#   Clean-up
@@ -324,5 +328,5 @@ rm( filenm, res )
 </code></pre>
 
 
-<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.12.0 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>macroutils</em> version 1.14.0 <a href="00Index.html">Index</a>]</div>
 </body></html>
