@@ -1,10 +1,10 @@
 
 detach( package:macroutils ) 
 rm(list=ls(all=TRUE)) 
-
-
-
-setwd( "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/macro-sp/macroutils/pkg/macroutils/vignettes" ) 
+    
+setwd( sprintf( 
+    "%s/macro-se/macroutils/pkg/macroutils/vignettes", 
+    Sys.getenv("rPackagesDir") ) )
 
 Stangle( "macroutils_vignette.Rnw" ) 
 

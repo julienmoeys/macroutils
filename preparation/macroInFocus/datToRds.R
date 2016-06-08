@@ -5,9 +5,15 @@
 #   differences between macroInFocusGWConc() and MACROInFOCUS 
 #   are very small (when calculating processing results)
 
-setwd( wd <- "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/macro-sp/macroutils/preparation/macroInFocus" )
+setwd( wd <- sprintf( 
+    "%s/macro-se/macroutils/preparation/macroInFocus", 
+    Sys.getenv("rPackagesDir") 
+) ) 
 
-outDir <- "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/macro-sp/macroutils/pkg/macroutils/inst/bintest/macroInFocus"
+outDir <- sprintf( 
+    "%s/macro-se/macroutils/pkg/macroutils/inst/bintest/macroInFocus", 
+    Sys.getenv("rPackagesDir") 
+)   
 
 allDat <- list.files( wd, pattern = ".dat", ignore.case = TRUE )
 

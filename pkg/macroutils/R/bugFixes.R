@@ -138,9 +138,7 @@ macroBugFixCleanDb <- function(
  file, 
  paranoia = TRUE, 
  ...
-){  
-    # paranoia <- TRUE; file <- "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/perform/pkg/rmacro/inst/PROJECT_MACRO_5.rmacro.mdb"
-    
+){      
     testRODBC <- "RODBC" %in% rownames( installed.packages() )
     
     if( !testRODBC ){ 

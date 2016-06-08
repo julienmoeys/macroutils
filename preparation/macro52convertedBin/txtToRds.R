@@ -6,9 +6,15 @@
 #   between macroReadBin() and MACRO are very small (when 
 #   converting bin files)
 
-setwd( wd <- "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/macro-sp/macroutils/preparation/macro52convertedBin" )
+setwd( wd <- sprintf( 
+    "%s/macro-se/macroutils/preparation/macro52convertedBin", 
+    Sys.getenv("rPackagesDir") 
+) ) 
 
-outDir <- "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/macro-sp/macroutils/pkg/macroutils/inst/bintest/macro52convertedBin"
+outDir <- sprintf( 
+    "%s/macro-se/macroutils/pkg/macroutils/inst/bintest/macro52convertedBin", 
+    Sys.getenv("rPackagesDir") 
+)   
 
 allTxt <- list.files( wd, pattern = ".txt", ignore.case = TRUE )
 
