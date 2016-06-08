@@ -52,7 +52,7 @@
 #' 
 #'@importFrom tools package_dependencies
 #'@importFrom utils installed.packages
-#'
+#'@importFrom utils capture.output
 macroutilsInfo <- function( 
     file     = NULL, 
     verbose  = TRUE, 
@@ -73,7 +73,7 @@ macroutilsInfo <- function(
     }   
     
     cap2 <- function( ..., .file = con, .append = TRUE ){ 
-        capture.output( ..., file = .file, append = .append ) 
+        utils::capture.output( ..., file = .file, append = .append ) 
     }   
     
     cat2( "INFORMATION ON SYSTEM AND PACKAGE(S) VERSION(S)\n" ) 
