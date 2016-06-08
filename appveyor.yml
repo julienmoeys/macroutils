@@ -17,7 +17,7 @@ environment:
   matrix:
     - PACK_DIR: "macroutils"
 
-before_install:
+before_build:
   - cd /D "pkg/%PACK_DIR%"
 
 build_script:
