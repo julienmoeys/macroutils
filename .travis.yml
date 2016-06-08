@@ -6,12 +6,17 @@
 
 language: R
 
-cache: packages
+cache:
+  packages: yes
 
+sudo: false
+
+#   Subdirectories containing R packages to be compiled
 env:
   - PACK_DIR=macroutils
 
-script: cd ./pkg/$TEST_DIR && ./travis-tool.sh run_tests
+script: 
+  - ./travis-tool.sh install_github julienmoeys/macroutils/$PACK_DIR
 
 after_failure:
   - ./travis-tool.sh dump_logs
