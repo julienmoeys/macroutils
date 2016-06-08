@@ -11,8 +11,6 @@ cache:
 
 sudo: required
 
-warnings_are_errors: false
-
 apt_packages:
  - unixodbc-dev
  - r-cran-rodbc
