@@ -1,4 +1,4 @@
-Linux: [![Linux Build Status (Travis CI)](https://travis-ci.org/julienmoeys/macroutils.svg?branch=master)](https://travis-ci.org/julienmoeys/macroutils).  
+Linux: [![Linux Build Status (Travis CI)](https://travis-ci.org/julienmoeys/macroutils.svg?branch=master)](https://travis-ci.org/julienmoeys/macroutils). 
 Windows: [![Windows Build Status (AppVeyor)](https://ci.appveyor.com/api/projects/status/github/julienmoeys/macroutils?branch=master&svg=true)](https://ci.appveyor.com/project/julienmoeys/macroutils)
 
 macroutils
