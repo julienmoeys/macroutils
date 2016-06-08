@@ -18,6 +18,7 @@ environment:
     - PACK_DIR: "macroutils"
 
 before_build:
+  - cp travis-tool.sh pkg/%PACK_DIR%/travis-tool.sh
   - cd /D "pkg/%PACK_DIR%"
 
 build_script:
