@@ -16,7 +16,8 @@ env:
   - PACK_DIR=macroutils
 
 script: 
-  - ./travis-tool.sh install_github julienmoeys/macroutils/$PACK_DIR
+  - cd ./pkg/$PACK_DIR
+  - ./travis-tool.sh install_github julienmoeys/macroutils/pkg/$PACK_DIR
 
 after_failure:
   - ./travis-tool.sh dump_logs
