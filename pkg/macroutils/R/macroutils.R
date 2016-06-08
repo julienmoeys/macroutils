@@ -584,6 +584,7 @@ isValidTimeSeries <- function(
 ## #    The user's choice.
 ## #
 ## #
+#'@importFrom utils select.list
 .macroMenu <- function(
     title = NULL, 
     choices, 
@@ -601,7 +602,7 @@ isValidTimeSeries <- function(
     choicesNum <- 1:length(choices) 
     names( choicesNum ) <- choices 
     
-    mRes <- select.list( 
+    mRes <- utils::select.list( 
         title       = title,
         choices     = choices, 
         preselect   = preselect, 
@@ -1384,7 +1385,13 @@ macroPlot.data.frame <- function(
 }   
 
 
-
+#'importFrom grDevices gray
+#'importFrom graphics par
+#'importFrom graphics rect
+#'importFrom graphics axis.POSIXct
+#'importFrom graphics axTicks
+#'importFrom graphics abline
+#'importFrom graphics axis
 .paf <- function( 
  bg        = gray( .95 ), 
  col       = "white", 
@@ -1395,11 +1402,11 @@ macroPlot.data.frame <- function(
  ... 
 ){  
     #   Fetch plot boundaries
-    usr <- par( "usr" ) 
+    usr <- graphics::par( "usr" ) 
     
     
     #   Background color
-    rect( xleft = usr[1], ybottom = usr[3], xright = usr[2], 
+    graphics::rect( xleft = usr[1], ybottom = usr[3], xright = usr[2], 
         ytop = usr[4], col = bg, border = border, ... ) 
     
     
@@ -1409,7 +1416,7 @@ macroPlot.data.frame <- function(
     
     
     #   At-points for big and small ticks
-    xAt  <- axis.POSIXct( side = 1, x = usrPOSIXct, labels = FALSE, 
+    xAt  <- graphics::axis.POSIXct( side = 1, x = usrPOSIXct, labels = FALSE, 
         col = NA ) 
     if( length( xAt ) == 1 ){ 
         dxAt <- max( diff( c( usrPOSIXct[1], xAt, usrPOSIXct[2] ) ) )/2 
@@ -1418,7 +1425,7 @@ macroPlot.data.frame <- function(
     }   
     xAt2 <- c( xAt[1] - dxAt, xAt + dxAt ); rm( dxAt ) 
     
-    yAt  <- axTicks( side = 2 ) 
+    yAt  <- graphics::axTicks( side = 2 ) 
     
     if( length( yAt ) == 1 ){ 
         dyAt <- max( diff( c( usr[3], yAt, usr[4] ) ) )/2 
@@ -1429,18 +1436,18 @@ macroPlot.data.frame <- function(
     
     
     #   Get the "official" line width
-    lwd <- par( "lwd" ) 
+    lwd <- graphics::par( "lwd" ) 
     
     
     #   Plot the grid
-    abline( h = yAt,  col = col, lwd = lwd )
-    abline( h = yAt2, col = col, lwd = lwd/2 )
-    abline( v = xAt,  col = col, lwd = lwd )
-    abline( v = xAt2, col = col, lwd = lwd/2 )
+    graphics::abline( h = yAt,  col = col, lwd = lwd )
+    graphics::abline( h = yAt2, col = col, lwd = lwd/2 )
+    graphics::abline( v = xAt,  col = col, lwd = lwd )
+    graphics::abline( v = xAt2, col = col, lwd = lwd/2 )
     
     #   Special line for the Y0
     if( usr[3] <= 0 & usr[4] >= 0 ){ 
-        abline( h = 0,  col = col0, lwd = lwd ) 
+        graphics::abline( h = 0,  col = col0, lwd = lwd ) 
     }   
     
     if( axes ){ 
@@ -1448,10 +1455,10 @@ macroPlot.data.frame <- function(
         for( i in c(2,4) ){ 
             
             
-            axis( side = i, labels = ifelse( i == 2, TRUE, FALSE ), 
+            graphics::axis( side = i, labels = ifelse( i == 2, TRUE, FALSE ), 
                 lwd = 0, lwd.ticks = lwd, col.ticks = col.ticks ) 
             
-            axis( side = i, at = yAt2, 
+            graphics::axis( side = i, at = yAt2, 
                 labels = FALSE, tcl = -.25, lwd = 0, 
                 lwd.ticks = lwd/2, col.ticks = col.ticks )
         }   
@@ -1462,14 +1469,14 @@ macroPlot.data.frame <- function(
             
             #   X axis labels
             if( i == 1 ){ 
-                axis.POSIXct( side = i, x = usrPOSIXct, at = xAt, 
+               graphics::axis.POSIXct( side = i, x = usrPOSIXct, at = xAt, 
                     labels = TRUE, col = NA ) 
             }   
             
-            axis( side = i, at = xAt, labels = FALSE, lwd = 0, 
+            graphics::axis( side = i, at = xAt, labels = FALSE, lwd = 0, 
                 lwd.ticks = lwd, col.ticks = col.ticks ) 
             
-            axis( side = i, at = xAt2, labels = FALSE, tcl = -.25, 
+            graphics::axis( side = i, at = xAt2, labels = FALSE, tcl = -.25, 
                 lwd = 0, lwd.ticks = lwd/2, col.ticks = col.ticks )
         }   
     }   
@@ -1488,6 +1495,18 @@ macroPlot.data.frame <- function(
 #'
 #'@method macroPlot default
 #'@export 
+#'
+#'@importFrom utils flush.console
+#'@importFrom graphics locator
+#'@importFrom graphics abline
+#'@importFrom graphics par 
+#'@importFrom graphics layout 
+#'@importFrom graphics plot 
+#'@importFrom graphics rect 
+#'@importFrom graphics legend 
+#'@importFrom graphics lines  
+#'@importFrom grDevices hcl
+#'@importFrom grDevices gray 
 macroPlot.default <- function(
     x, 
     gui         = TRUE, 
@@ -1841,10 +1860,10 @@ macroPlot.default <- function(
             
             message( "Select date-time boundary 1 (lower or higher), on the plot area" ) 
             
-            flush.console() 
+            utils::flush.console() 
             
             ## Select date boundary 1:
-            l1 <- l1a <- locator( n = 1, type = "n" )$"x" 
+            l1 <- l1a <- graphics::locator( n = 1, type = "n" )$"x" 
             
             ## Convert it to a Date (was integer)
             l1 <- as.POSIXct( l1, origin = "1970-01-01 00:00:00", tz = "GMT" ) 
@@ -1857,10 +1876,10 @@ macroPlot.default <- function(
             
             message( "Select date-time boundary 2 (lower or higher), on the plot area" ) 
             
-            flush.console() 
+            utils::flush.console() 
             
             ## Select date boundary 1:
-            l2 <- locator( n = 1, type = "n" )$"x" 
+            l2 <- graphics::locator( n = 1, type = "n" )$"x" 
             
             ## Convert it to a Date (was integer)
             l2 <- as.POSIXct( l2, origin = "1970-01-01 00:00:00", tz = "GMT" ) 
@@ -1868,7 +1887,7 @@ macroPlot.default <- function(
             l2 <- as.POSIXct( l2, , tz = getMuPar( "tz" ) ) 
             
             ## Display a line at that date-time
-            abline( v = l2, col = "pink" ) 
+            graphics::abline( v = l2, col = "pink" ) 
             
             
             ## Convert that into ylim 
@@ -1979,7 +1998,7 @@ macroPlot.default <- function(
         # +---------------------------+ 
         # | col: line colors
         if( is.null( col ) ){ 
-            col0 <- hcl( 
+            col0 <- grDevices::hcl( 
                 h = seq( from = 15, to = 360+15, length.out = n+1 ), 
                 c = 100, 
                 l = 50 )[ -(n+1) ] 
@@ -1995,7 +2014,7 @@ macroPlot.default <- function(
         # | lwd: line(s) width(s)
         if( length( lwd ) == 1 ){ 
             lwd0 <- rep( lwd, n ) 
-            oldParLwd <- par( "lwd" = lwd )$"lwd" 
+            oldParLwd <- graphics::par( "lwd" = lwd )$"lwd" 
         }else{ 
             lwd0 <- lwd 
         }   
@@ -2055,7 +2074,7 @@ macroPlot.default <- function(
         # +---------------------------+ 
         
         #   Set axis label style
-        oldParLas <- par( "las" = las )$"las"
+        oldParLas <- graphics::par( "las" = las )$"las"
         
         ## If more than one variable, create sub-plots
         if( (n > 1) & (!subPlots) ){ 
@@ -2069,7 +2088,7 @@ macroPlot.default <- function(
                 nrow = mx, 
                 ncol = 1 )
             
-            layout( mat = mat, heights = c(1,2)[ 1:mx ] ) 
+            graphics::layout( mat = mat, heights = c(1,2)[ 1:mx ] ) 
             
             if( n > 1 ){ 
                 ylab2 <- "(see legend)" # expression( italic( "(see the legend)" ) ) 
@@ -2104,25 +2123,25 @@ macroPlot.default <- function(
             
             # oldParMar <- par( c("mar","bg") ) 
             if( dLegend ){ 
-                oldParMar <- par( "mar" = c(0,0,0,0) )$"mar" 
-                # par( "bg" = gray( .9 ) ) 
+                oldParMar <- graphics::par( "mar" = c(0,0,0,0) )$"mar" 
+                # par( "bg" = grDevices::gray( .9 ) ) 
                 
-                plot( x = 1, y = 1, xlab = "", ylab = "", bty = "n", 
+                graphics::plot( x = 1, y = 1, xlab = "", ylab = "", bty = "n", 
                     xaxt = "n", yaxt = "n", type = "n" ) 
                 
                 # Draw a gray background rectangle:
-                usr <- par( "usr" ) 
-                rect(
+                usr <- graphics::par( "usr" ) 
+                graphics::rect(
                     xleft   = usr[1], 
                     ybottom = usr[3], 
                     xright  = usr[2], 
                     ytop    = usr[4], 
                     col     = NA, 
-                    border  = gray( .5 ) 
+                    border  = grDevices::gray( .5 ) 
                 )   
                 
                 ## Add the general legend:
-                legend( 
+                graphics::legend( 
                     x       = "center", 
                     title   = "File(s) and Variable(s):", 
                     legend  = paste0( fileNames, ", ", ylab0 ), 
@@ -2132,14 +2151,14 @@ macroPlot.default <- function(
                     bty     = "n"
                 )   
                 
-                par( "mar" = oldParMar ) 
+                graphics::par( "mar" = oldParMar ) 
             }   
             
             # +---------------------------+ 
             # | Empty plot on which lines 
             # | will be plotted
             
-            plot( 
+            graphics::plot( 
                 x           = xlim0, 
                 y           = ylim0, 
                 xlab        = xlab, 
@@ -2175,7 +2194,7 @@ macroPlot.default <- function(
             }   
             
             # if( n != 1 ){ layout( mat = mat ) } 
-            layout( mat = mat ) 
+            graphics::layout( mat = mat ) 
         }   
         
         
@@ -2199,7 +2218,7 @@ macroPlot.default <- function(
                 plotVar <- subTbl.name[ varNb ] 
                 
                 if( subPlots ){ 
-                    plot( 
+                    graphics::plot( 
                         x           = x[[ subTbl ]][, "Date" ], 
                         y           = x[[ subTbl ]][, plotVar ], 
                         xlab        = xlab, 
@@ -2219,7 +2238,7 @@ macroPlot.default <- function(
                         ... 
                     )   
                 }else{ 
-                    lines( 
+                    graphics::lines( 
                         x    = x[[ subTbl ]][, "Date" ], 
                         y    = x[[ subTbl ]][, plotVar ], 
                         col  = col0[ plotCount ], 
@@ -2250,7 +2269,7 @@ macroPlot.default <- function(
     
     
     #   Reset par(lwd,las)
-    par( "lwd" = oldParLwd, "las" = oldParLas )
+    graphics::par( "lwd" = oldParLwd, "las" = oldParLas )
     
     
     return( invisible( x ) ) 
@@ -2312,6 +2331,7 @@ macroPlot.default <- function(
 #'@export
 #'
 #'
+#'@importFrom stats aggregate
 macroAggregateBin <- function(
     x, 
     columns = colnames(x), 
@@ -2346,7 +2366,7 @@ macroAggregateBin <- function(
     FUN2 <- FUN; rm( FUN ) 
     
     
-    x <- aggregate( 
+    x <- stats::aggregate( 
         x        = x[, -1, drop = FALSE ], 
         by       = list( "Date" = byIndex ), 
         FUN      = FUN2, 
@@ -2748,6 +2768,7 @@ macroConvertBin <- function(# Converts MACRO/SOIL binary files into CSV or TXT t
 #'@export
 #'
 #'
+#'importFrom utils View
 macroViewBin <- function(
     file, 
     ...
@@ -2777,7 +2798,7 @@ macroViewBin <- function(
     
     
     ## View the file     
-    View( x, title = file[1] )  
+    utils::View( x, title = file[1] )  
     
     return( invisible( x ) ) 
 }   
