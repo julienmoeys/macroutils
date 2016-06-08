@@ -132,6 +132,8 @@
 #'@export
 #'
 #'
+#'@importFrom utils sessionInfo
+#'@importFrom utils select.list
 macroBugFixCleanDb <- function(
  file, 
  paranoia = TRUE, 
@@ -177,7 +179,7 @@ macroBugFixCleanDb <- function(
     
     
     if( interactive() & paranoia ){ 
-        cp <- select.list( 
+        cp <- utils::select.list( 
             title       = "Did you made a backup-copy of your parameter database?",
             choices     = c( "Yes", "No" ), 
             preselect   = NULL, 
