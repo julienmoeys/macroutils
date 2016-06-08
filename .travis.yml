@@ -15,8 +15,10 @@ sudo: false
 env:
   - PACK_DIR=macroutils
 
+before_install:
+  - cd pkg/$PACK_DIR
+
 script: 
-  - cd ./pkg/$PACK_DIR
   - ./travis-tool.sh install_github julienmoeys/macroutils/pkg/$PACK_DIR
 
 after_failure:
