@@ -3,3 +3,6 @@
 /pkg/*.gz
 /pkg/*.pdf
 /pkg/*.zip
+*.pdf
+*.gz
+*.zip
