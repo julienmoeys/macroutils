@@ -1,10 +1,10 @@
 
 # +-------------------------------------------------------------+ 
-# | Title:      Utilities to read, write and plot bin files     | 
-# | Author:     Julien MOEYS -- SLU/CKB                         | 
+# | Package:    See 'Package' in file ../DESCRIPTION            | 
+# | Author:     Julien MOEYS                                    | 
 # | Language:   R                                               | 
-# | Contact:    Julien.Moeys@slu.se                             | 
-# | License:    AGPL3 (GNU AFFERO GENERAL PUBLIC LICENSE v 3)   | 
+# | Contact:    See 'Maintainer' in file ../DESCRIPTION         | 
+# | License:    See 'License' in file ../DESCRIPTION            | 
 # +-------------------------------------------------------------+ 
 
 

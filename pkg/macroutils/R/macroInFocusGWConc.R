@@ -1,4 +1,14 @@
 
+# +-------------------------------------------------------------+ 
+# | Package:    See 'Package' in file ../DESCRIPTION            | 
+# | Author:     Julien MOEYS                                    | 
+# | Language:   R                                               | 
+# | Contact:    See 'Maintainer' in file ../DESCRIPTION         | 
+# | License:    See 'License' in file ../DESCRIPTION            | 
+# +-------------------------------------------------------------+ 
+
+
+
 #' INTERNAL: Calculate the yearly and 80th percentile groundwater concentration from a MACROInFOCUS output bin file
 #'
 #' INTERNAL & EXPERIMENTAL: Calculate the yearly and 80th percentile 
@@ -26,9 +36,9 @@
 #'
 #'
 #'@author 
-#'  Julien Moeys \email{Julien.Moeys@@slu.se}, 
+#'  Julien Moeys \email{jules_m78-soiltexture@@yahooDOTfr}, 
 #'  contributions from Stefan Reichenberger 
-#'  \email{SReichenberger@@knoell.com}.
+#'  \email{SReichenberger@@knoellDOTcom}.
 #'
 #'
 #'@param x

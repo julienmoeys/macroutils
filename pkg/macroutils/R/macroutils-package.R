@@ -23,10 +23,10 @@ NULL
 #'@docType package
 #'
 #'@author 
-#'  Julien MOEYS <JulienDOTMoeys@@sluDOTse>, 
+#'  Julien MOEYS <jules_m78-soiltexture@@yahooDOTfr>, 
 #'  Kristian Persson <kristianDOTpersson@@sluDOTse> 
 #'
-#'  Maintainer: Julien MOEYS <JulienDOTMoeys@@sluDOTse>, 
+#'  Maintainer: Julien MOEYS <jules_m78-soiltexture@@yahooDOTfr>, 
 #'
 #'@keywords package
 NULL
