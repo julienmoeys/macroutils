@@ -45,4 +45,3 @@ Converts MACRO/SOIL binary files into CSV or TXT text files.
  and \code{\link[utils]{write.table}}. It is possible to choose 
  the field delimiter and the decimal mark.
 }
-

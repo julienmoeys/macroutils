@@ -100,4 +100,3 @@ The actual value of the parameters is stored in (and can be retrieved from)
 \seealso{
 \code{\link{getMuPar}}.
 }
-

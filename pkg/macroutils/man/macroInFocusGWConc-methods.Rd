@@ -3,8 +3,8 @@
 \name{macroInFocusGWConc}
 \alias{macroInFocusGWConc}
 \alias{macroInFocusGWConc.character}
-\alias{macroInFocusGWConc.data.frame}
 \alias{macroInFocusGWConc.list}
+\alias{macroInFocusGWConc.data.frame}
 \title{INTERNAL: Calculate the yearly and 80th percentile groundwater concentration from a MACROInFOCUS output bin file}
 \usage{
 macroInFocusGWConc(x, nbYrsWarmUp = 6L, years80th = 16:17,
@@ -146,11 +146,6 @@ attr( res, "more" )
 rm( filenm, res )  
 
 }
-\author{
-Julien Moeys \email{Julien.Moeys@slu.se}, 
- contributions from Stefan Reichenberger 
- \email{SReichenberger@knoell.com}.
-}
 \references{
 European Commission (2014) "Assessing Potential for 
  Movement of Active Substances and their Metabolites to 
@@ -159,5 +154,9 @@ European Commission (2014) "Assessing Potential for
  version 3, 613 pp. \url{http://focus.jrc.ec.europa.eu/gw/docs/NewDocs/focusGWReportOct2014.pdf}
  See in particular the last sentence page 475.
 }
+\author{
+Julien Moeys \email{jules_m78-soiltexture@yahooDOTfr}, 
+ contributions from Stefan Reichenberger 
+ \email{SReichenberger@knoellDOTcom}.
+}
 \keyword{internal}
-

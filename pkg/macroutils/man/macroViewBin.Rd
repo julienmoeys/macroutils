@@ -17,4 +17,3 @@ provided as well, if file is not in the working directory.}
 \description{
 Reads a MACRO/SOIL binary file and view it as a table.
 }
-

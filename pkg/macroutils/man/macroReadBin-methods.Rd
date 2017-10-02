@@ -91,4 +91,3 @@ muPar( reset = TRUE )
 \seealso{
 \code{\link[base]{readBin}}.
 }
-

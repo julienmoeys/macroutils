@@ -2,10 +2,10 @@
 % Please edit documentation in R/macroutils.R
 \name{macroWriteBin}
 \alias{macroWriteBin}
-\alias{macroWriteBin.data.frame}
-\alias{macroWriteBin.list}
 \alias{macroWriteBin.macroTimeSeries}
 \alias{macroWriteBin.macroTimeSeriesList}
+\alias{macroWriteBin.list}
+\alias{macroWriteBin.data.frame}
 \title{Write bin file for the SOIL and MACRO models.}
 \usage{
 macroWriteBin(x, ...)
@@ -26,12 +26,12 @@ thus must have column names. All columns but "Date" must be of type numerical
 converted into integers, representing minutes since 2 days before the 1st of
 Januray of year 0001 at 00:00. Missing values are not allowed.}
 
+\item{\dots}{Additional options passed to \code{\link[base]{writeBin}}}
+
 \item{file}{Single character string or connection to a binary file. If a
 character string, it should be the name of the binary file which the data are
 to be written from. The path of the file may be provided as well, if file is
 not in the working directory.}
-
-\item{\dots}{Additional options passed to \code{\link[base]{writeBin}}}
 }
 \description{
 Write bin file for the SOIL and MACRO models. Origial code by 
@@ -134,4 +134,3 @@ readBin( con = tmp2a[ test ], what = "double", size = 4, n = sum(test) )
 file.remove( filenm ) 
 file.remove( filenm2 ) 
 }
-

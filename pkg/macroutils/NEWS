@@ -1,6 +1,18 @@
 
     R package: macroutils
 
+CHANGES IN VERSION 1.15.0
+    
+    2017/10/02   Compile for R 3.3.2
+        
+        Implement a new function, macroInFocusGWConc2(). 
+        It is a variante of macroInFocusGWConc() that 
+        can account for pesticide application every 
+        1, 2, 3, ... year, and calculation of yearly, 
+        biennial, triennial, ... average-concentrations.
+        Does not replace the calculation performed 
+        by the official FOCUS-tools.
+    
 CHANGES IN VERSION 1.14.0
     
     2016/06/08  Compile for R 3.3.0 (test)

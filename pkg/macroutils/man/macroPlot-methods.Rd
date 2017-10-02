@@ -2,11 +2,11 @@
 % Please edit documentation in R/macroutils.R
 \name{macroPlot}
 \alias{macroPlot}
-\alias{macroPlot.data.frame}
-\alias{macroPlot.default}
+\alias{macroPlotBin}
 \alias{macroPlot.macroTimeSeries}
 \alias{macroPlot.macroTimeSeriesList}
-\alias{macroPlotBin}
+\alias{macroPlot.data.frame}
+\alias{macroPlot.default}
 \title{Plot time series from SOIL or MACRO simulation data (input or output).}
 \usage{
 macroPlot(x, ...)
@@ -35,6 +35,10 @@ in some numerical formats. Such \code{data.frame} will presumably be
 imported from \code{bin} files, with \code{\link{macroReadBin}}. If missing,
 a pop-up menu will ask you the binary files to be read and that contains the
 variables to be plotted.}
+
+\item{\dots}{Additional arguments passed to \code{\link[graphics]{plot}} and
+to \code{\link[graphics]{lines}} (when \code{subPlots} is \code{FALSE}).  See
+also \code{\link[graphics]{plot.default}}.}
 
 \item{gui}{Single logical. Set to \code{TRUE} if you want to choose only some
 of the columns in the table passed to \code{x}. Will be ignored if
@@ -91,10 +95,6 @@ distinct colors for each variables).}
 \item{las}{See \code{\link[graphics]{par}}.}
 
 \item{bty}{See \code{\link[graphics]{par}}.}
-
-\item{\dots}{Additional arguments passed to \code{\link[graphics]{plot}} and
-to \code{\link[graphics]{lines}} (when \code{subPlots} is \code{FALSE}).  See
-also \code{\link[graphics]{plot.default}}.}
 }
 \value{
 Invisibly returns 'x', or the content of the files selected.
@@ -145,4 +145,3 @@ names(metRain) <- c( "METFILE", "RAINFALL" )
 
 macroPlot( x = metRain, gui = FALSE, subPlots = TRUE ) 
 }
-

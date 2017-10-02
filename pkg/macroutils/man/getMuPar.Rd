@@ -19,4 +19,3 @@ Returns the value of the parameter \code{par}, without the list
 Get a single default parameters for the package. Wrapper around
  \code{\link{muPar}}.
 }
-

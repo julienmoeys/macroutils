@@ -35,4 +35,3 @@ Clean-up MACRO 5.2 parameter databases. Fixes 4 known bugs
  \code{\{R installation directory\}bin/i386/Rgui.exe}, 
  if it has been installed).
 }
-

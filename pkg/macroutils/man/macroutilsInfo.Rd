@@ -62,4 +62,3 @@ The base functions that were used internally to compile
  \code{MD5} file in each package directory (and 
  \code{\link[tools]{md5sum}} for generating these MD5 checksums).
 }
-

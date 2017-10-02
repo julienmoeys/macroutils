@@ -2,8 +2,8 @@
 % Please edit documentation in R/macroutils-package.R
 \docType{package}
 \name{macroutils-package}
-\alias{macroutils}
 \alias{macroutils-package}
+\alias{macroutils}
 \title{R utility functions for the MACRO (and SOIL) models.}
 \description{
 R utility functions for the MACRO (and SOIL) models. Reads, 
@@ -11,10 +11,9 @@ R utility functions for the MACRO (and SOIL) models. Reads,
  output data).
 }
 \author{
-Julien MOEYS <JulienDOTMoeys@sluDOTse>, 
+Julien MOEYS <jules_m78-soiltexture@yahooDOTfr>, 
  Kristian Persson <kristianDOTpersson@sluDOTse> 
 
- Maintainer: Julien MOEYS <JulienDOTMoeys@sluDOTse>,
+ Maintainer: Julien MOEYS <jules_m78-soiltexture@yahooDOTfr>,
 }
 \keyword{package}
-

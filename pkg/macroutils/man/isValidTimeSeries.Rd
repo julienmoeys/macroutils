@@ -62,4 +62,3 @@ tryCatch( isValidTimeSeries( x = timeseries2 ),
 
 #   See also option 'timeSeriesValid' in ?muPar
 }
-
