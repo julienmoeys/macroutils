@@ -2,7 +2,7 @@
 rm(list=ls(all=TRUE)) 
 pkgName     <- "macroutils"
 pkgDir      <- file.path( sprintf( 
-    "D:/Users/%s/Documents/_WORKS/_PROJECTS/r_packages/macro-se/", 
+    "F:/Users/%s/Documents/_r-packages", 
     Sys.info()[[ "user" ]] 
     ), pkgName, "pkg" ) 
 
@@ -18,7 +18,7 @@ source( file.path( pkgDir, "..", "packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = file.path( pkgDir ), 
-    pkgVersion  = "1.14.0", 
+    pkgVersion  = "1.15.0", 
     pkgDepends  = "utils", # Must be in "Depends" as choose.files not available on Unix
     pkgImports  = c( "tcltk", "tools", "graphics", "grDevices", "stats" ), 
     pkgSuggests = c( "RODBC" ), 
